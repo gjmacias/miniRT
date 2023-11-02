@@ -6,7 +6,7 @@ void	ft_bad_malloc(void)
 	exit (EXIT_FAILURE);
 }
 
-void	ft_map_size(t_info_map *data)
+void	ftsearch(t_info_map *data)
 {
 	char	*line;
 	int		fd;
@@ -18,16 +18,9 @@ void	ft_map_size(t_info_map *data)
 		write(2, "Error\nMap not read\n", 19);
 		exit (EXIT_FAILURE);
 	}
-	data->width = ft_strlen(line) - 1;
-	data->hight = 0;
 	while (line)
 	{
-		if ((int)ft_strlen(line) - 1 != data->width)
-		{
-			write(2, "Error\nMap not valid\n", 20);
-			exit (EXIT_FAILURE);
-		}
-		data->hight++;
+		search_from(line);
 		free(line);
 		line = get_next_line(fd);
 	}

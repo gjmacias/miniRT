@@ -1,5 +1,6 @@
 #ifndef MINIRT_DEFS_H
 # define MINIRT_DEFS_H
+# define ESC	53
 
 typedef struct s_vector
 {
