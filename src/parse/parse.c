@@ -14,7 +14,7 @@ void	fill_expected_line(char *line, char *s)
 			s[i] = line [i++];
 		}
 		if (line[i] != '\0' && is_space(line[i]))
-			s[i] = line [i++];
+			s[i] = ' ';
 	}
 }
 
