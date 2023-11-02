@@ -1,12 +1,60 @@
 #include <minirt.h>
 
-void	ft_bad_malloc(void)
+void	fill_expected_line(char *line, char *s)
 {
-	write(2, "Error\nMap not malloc\n", 21);
+	int	i;
+
+	i = 0;
+	while (line && line[i] != '\0')
+	{
+		while (is_space(line[i]))
+			i++;
+		while (!(is_space(line[i])) && line[i] != '\0')
+		{
+			s[i] = line [i++];
+		}
+		if (line[i] != '\0' && is_space(line[i]))
+			s[i] = line [i++];
+	}
+}
+
+char	*correct_spaces(char *line)
+{
+	char	*s;
+	int		i;
+	int		len;
+
+	i = 0;
+	while (line && line[i] != '\0')
+	{
+		while (is_space(line[i]))
+			i++;
+		while (!(is_space(line[i])) && line[i] != '\0')
+		{
+			i++;
+			len++;
+		}
+		if (line[i] != '\0' && is_space(line[i]))
+		{
+			len++;
+			i++;
+		}
+	}
+	s = ft_calloc(sizeof(char), len + 1);
+	fill_expected_line(line, s);
+	return (s);
+}
+void	search_from(char* line)
+{
+	char	**arguments;
+	char	*expected_line;
+
+	expected_line = correct_spaces(line);
+	arguments = ft_split(expected_line);
 	exit (EXIT_FAILURE);
 }
 
-void	ftsearch(t_info_map *data)
+void	read_map(t_info_map *data)
 {
 	char	*line;
 	int		fd;
@@ -25,32 +73,5 @@ void	ftsearch(t_info_map *data)
 		line = get_next_line(fd);
 	}
 	line = NULL;
-	close(fd);
-}
-
-void	ft_malloc_map(t_info_map *data)
-{
-	char	*line;
-	int		fd;
-	int		i;
-
-	fd = open(data->txt, O_RDONLY);
-	i = 0;
-	data->map = (char **)malloc(sizeof (char *) * (data->hight + 1));
-	if (!data->map)
-		ft_bad_malloc();
-	while (i < data->hight)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			ft_bad_malloc();
-		data->map[i] = ft_strdup(line);
-		if (!data->map[i])
-			ft_bad_malloc();
-		data->map[i][data->width] = '\0';
-		i++;
-		free(line);
-	}
-	data->map[i] = NULL;
 	close(fd);
 }
