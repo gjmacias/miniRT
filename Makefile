@@ -42,7 +42,11 @@ INCS	=	-I./includes/
 
 LIB_PATH	= 	./Libft
 LIB			=	$(LIB_PATH)/libft.a
-LDFLAGS		= 	-L$(LIB_PATH) -lft 
+LDFLAGS		= 	-L$(LIB_PATH) -lft
+
+MLX_PATH	=	./mlx
+MLX			=	mlx/libmlx.a
+MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
 
 ###############################################################################
 #									COLORS								  #
@@ -63,7 +67,7 @@ LIGHT_GREEN = \033[1;92m
 #									RULES									  #
 ###############################################################################
 
-all: make_dir make_lib $(NAME)
+all: make_dir make_mlx make_lib $(NAME)
 	@echo "$(NAME) ready to use:"
 
 make_dir:
@@ -80,11 +84,16 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 
 #						--------	MAKE LIBRARIES	--------							  #
 
+make_mlx:
+	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
+	@make -C mlx
+	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
+
+
 make_lib:
-	@echo "$(GREEN)Checking Readline: $(DEF_COLOR)"
-	@make -C ./readline/ --no-print-directory &> /dev/null
+	@echo "$(GREEN)Checking Libft: $(DEF_COLOR)"
 	@$(MAKE) -s -C $(LIB_PATH)
-	@echo "$(BLUE)Done checking Readline and Libft! $(DEF_COLOR)"
+	@echo "$(BLUE)Done Libft! $(DEF_COLOR)"
 
 clean_lib:
 	@$(MAKE) clean -s -C $(LIB_PATH) 
@@ -102,6 +111,7 @@ $(NAME): $(OBJ)
 
 clean:	clean_lib
 	@echo "Removing ON $(NAME): objects and dependencies..."
+	@make clean -C mlx
 	@rm -rf $(OBJ_DIR) $(DPS_DIR)
 	@echo "Done!" && echo ""
 
