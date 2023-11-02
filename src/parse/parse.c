@@ -50,7 +50,7 @@ void	search_from(char* line)
 	char	*expected_line;
 
 	expected_line = correct_spaces(line);
-	arguments = ft_split(expected_line);
+	arguments = ft_split(expected_line, ' ');
 	exit (EXIT_FAILURE);
 }
 
