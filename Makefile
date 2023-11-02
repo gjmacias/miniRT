@@ -1,4 +1,3 @@
-# Target and dependency definitions
 NAME	=	miniRT
 CC		=	gcc
 CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
@@ -7,7 +6,7 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 #									SRC								  #
 ###############################################################################
 
-SRC		=	
+SRC		=	miniRT.c
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
 
@@ -52,16 +51,14 @@ LIGHT_GREEN = \033[1;92m
 #									RULES									  #
 ###############################################################################
 
-all: make_dir $(NAME)
+all: make_dir make_lib $(NAME)
 	@echo "$(NAME) ready to use:"
 
-# Rule to create the directories
 make_dir:
 #	@echo "Creating directories: $(OBJ_DIR) and $(DPS_DIR)"
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
 #	@echo "Done!" && echo ""
 
-# Rule to compile source files to object files
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@echo "Compiling $< to $@"
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
@@ -69,29 +66,43 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 #	@echo "Done!" && echo ""
 
 
-# Rule to build the executable
+#						--------	MAKE LIBRARIES	--------							  #
+
+make_lib:
+	@echo "$(GREEN)Checking Readline: $(DEF_COLOR)"
+	@make -C ./readline/ --no-print-directory &> /dev/null
+	@$(MAKE) -s -C $(LIB_PATH)
+	@echo "$(BLUE)Done checking Readline and Libft! $(DEF_COLOR)"
+
+clean_lib:
+	@$(MAKE) clean -s -C $(LIB_PATH) 
+
+fclean_lib:
+	@$(MAKE) fclean -s -C $(LIB_PATH)
+
+
+#					--------	RULES PROGRAM	--------							  #
+
 $(NAME): $(OBJ)
 	@echo "Compiling $(NAME)"
 	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB)
 	@echo "Created $(NAME) executable" && echo ""
 
-# Rule to clean objects and dependencies
-clean:
+clean:	clean_lib
 	@echo "Removing ON $(NAME): objects and dependencies..."
 	@rm -rf $(OBJ_DIR) $(DPS_DIR)
 	@echo "Done!" && echo ""
 
-# Rule to remove the executable
-fclean: clean
+fclean: fclean_lib	clean
 	@echo "Removing execute $(NAME)..."
 	@rm -f $(NAME)
 	@echo "Done!" && echo ""
 
-# Rule to clean and build
 re: fclean all
 
-# Include dependencies
--include $(DEPS)
+###############################################################################
+#									OTHERS									  #
+###############################################################################
 
-# Phony targets
+-include $(DEPS)
 .PHONY: all make_dir clean fclean re
