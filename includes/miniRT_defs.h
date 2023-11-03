@@ -1,6 +1,7 @@
 #ifndef MINIRT_DEFS_H
 # define MINIRT_DEFS_H
 # define ESC	53
+# include "libft_defs.h"
 
 typedef struct s_vector
 {
@@ -70,10 +71,10 @@ typedef struct s_data
 	t_info		info;
 	t_light		ambient_light;
 	t_camera	camera;
-	t_light		*lights;
-	t_plane		*planes;
-	t_sphere	*spheres;
-	t_cylinder	*cylinders;
+	t_list		*lights;
+	t_list		*planes;
+	t_list		*spheres;
+	t_list		*cylinders;
 }				t_data;
 
 #endif
