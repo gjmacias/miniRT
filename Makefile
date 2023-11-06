@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/06 17:05:31 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/11/06 17:11:58 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 ###############################################################################
 
 SRC			=	miniRT.c \
-				inits/mlx_init.c
+				inits/mlx_init.c \
+				hooks/exit_hooks.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
@@ -75,6 +76,7 @@ all: make_dir make_mlx make_lib $(NAME)
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
 	@mkdir -p $(OBJ_DIR)/inits
+	@mkdir -p $(OBJ_DIR)/hooks
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@echo "Compiling $< to $@"
