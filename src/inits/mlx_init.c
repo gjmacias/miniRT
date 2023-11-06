@@ -1,4 +1,3 @@
-
 #include "mlx.h"
 #include "miniRT_defs.h"
 
