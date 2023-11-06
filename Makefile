@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/06 16:24:21 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/11/06 17:05:31 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 #									SRC								  #
 ###############################################################################
 
-SRC		=	miniRT.c \
-			mlx_init.c
+SRC			=	miniRT.c \
+				inits/mlx_init.c
+
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
 
@@ -73,6 +74,7 @@ all: make_dir make_mlx make_lib $(NAME)
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
+	@mkdir -p $(OBJ_DIR)/inits
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@echo "Compiling $< to $@"
@@ -85,7 +87,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 
 make_mlx:
 	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
-	@make -C mlx
+	@make -C mlx 2> /dev/null
 	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
 
 make_lib:
@@ -102,9 +104,9 @@ fclean_lib:
 
 #					--------	RULES PROGRAM	--------							  #
 
-$(NAME): $(OBJ)
+$(NAME): $(LIB) $(MLX) $(OBJ)
 	@echo "Compiling $(NAME)"
-	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB)
+	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(MLX) $(MLX_FLAGS)
 	@echo "Created $(NAME) executable" && echo ""
 
 clean:	clean_lib
@@ -114,6 +116,7 @@ clean:	clean_lib
 	@echo "Done!" && echo ""
 
 fclean: fclean_lib	clean
+	@rm -rf $(MLX)
 	@echo "Removing execute $(NAME)..."
 	@rm -f $(NAME)
 	@echo "Done!" && echo ""
