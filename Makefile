@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/02 15:26:30 by gmacias-         ###   ########.fr        #
+#    Updated: 2023/11/06 16:24:21 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 #									SRC								  #
 ###############################################################################
 
-SRC		=	miniRT.c
+SRC		=	miniRT.c \
+			mlx_init.c
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
 
@@ -34,7 +35,7 @@ DPS_DIR	=	dps/
 #									LIBRARIES								  #
 ###############################################################################
 
-INCS	=	-I./includes/
+INCS	=	-I ./includes/ -I ./libft/include/ -I ./mlx/
 
 ###############################################################################
 #									LIBRARIES								  #
@@ -71,9 +72,7 @@ all: make_dir make_mlx make_lib $(NAME)
 	@echo "$(NAME) ready to use:"
 
 make_dir:
-#	@echo "Creating directories: $(OBJ_DIR) and $(DPS_DIR)"
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
-#	@echo "Done!" && echo ""
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@echo "Compiling $< to $@"
@@ -88,7 +87,6 @@ make_mlx:
 	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
 	@make -C mlx
 	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
-
 
 make_lib:
 	@echo "$(GREEN)Checking Libft: $(DEF_COLOR)"
