@@ -1,7 +1,32 @@
 #ifndef MINIRT_DEFS_H
 # define MINIRT_DEFS_H
+
 # define ESC	53
+# define WIDTH	1920
+# define HEIGHT	1080
+
+# define BLACK 	0x00000000
+# define RED	0x00FF0000
+# define GREEN 	0x0000FF00
+# define BLUE 	0x000000FF
+# define WHITE 0x00FFFFFF
+
 # include "libft_defs.h"
+
+typedef struct s_mlx_data
+{
+	void	*img;
+	char	*addr;
+	int		bpps;
+	int		l_len;
+	int		endian;
+}			t_mlx_data;
+
+typedef struct t_vars
+{
+	void	*mlx;
+	void	*win;
+}			t_vars;
 
 typedef struct s_vector
 {
