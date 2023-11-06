@@ -1,6 +1,6 @@
 int is_space(int c)
 {
-    if ((c >= 9 && c <= 13) || c == ' ')
+    if ((c >= '\t' && c <= '\r') || c == ' ')
         return (1);
     return (0);
 }
