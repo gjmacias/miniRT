@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:33:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/06 16:54:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:10:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int  main(int words, char **arguments)
 	{
 		start_mlx(&vars, &data);
 		//mlx_key_hook(vars.win, key_hook, &vars);
-		//mlx_hook(vars.win, 17, 0, finish_execution, &vars);
-		//mlx_loop(vars.mlx);
+		mlx_hook(vars.win, 17, 0, finish_execution, &vars);
+		mlx_loop(vars.mlx);
 	}
 	else
 		write(2, "Error: Bad arguments\n", 22);
