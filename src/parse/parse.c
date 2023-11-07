@@ -12,6 +12,10 @@ void print(char **arg)
 		while (arg[i])
 		{
 			printf("%s", arg[i++]);
+			if(arg[i])
+				printf("\t\t");
+			else
+				printf("\n");
 		}
 		
 	}
@@ -74,7 +78,6 @@ void	search_from(char* line, t_data *p)
 	arguments = ft_split(expected_line, ' ');
 	print(arguments);
 	(void)p;
-	exit (EXIT_SUCCESS);
 }
 
 void	parse_txt(t_data *p)
@@ -97,4 +100,5 @@ void	parse_txt(t_data *p)
 	}
 	line = NULL;
 	close(fd);
+	exit (EXIT_SUCCESS);
 }

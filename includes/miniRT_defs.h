@@ -30,23 +30,23 @@ typedef struct s_vars
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }		t_vector;
 
 typedef struct s_color
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
 }		t_color;
 
 typedef struct s_material
 {
-	t_color	color;
-	int		specular;
+	t_color		color;
+	double		specular;
 }			t_material;
 
 typedef struct s_camera
@@ -60,7 +60,7 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_vector	center;
-	int			brightness;
+	double		brightness;
 	t_color		color;
 }				t_light;
 
@@ -75,7 +75,7 @@ typedef struct s_sphere
 {
 	t_vector	center;
 	t_vector	n_vector;
-	int			diameter;
+	double		diameter;
 	t_material	material;
 }				t_sphere;
 
@@ -83,19 +83,19 @@ typedef struct s_cylinder
 {
 	t_vector	center;
 	t_vector	n_vector;
-	int			diameter;
-	int			height;
+	double		diameter;
+	double		height;
 	t_material	material;
 }				t_cylinder;
 
 typedef struct s_info
 {
-	int	ambient_light;
-	int	camera;
-	int	lights;
-	int	planes;
-	int	spheres;
-	int	cylinders;
+	size_t	ambient_light;
+	size_t	camera;
+	size_t	lights;
+	size_t	planes;
+	size_t	spheres;
+	size_t	cylinders;
 }		t_info;
 
 typedef struct s_data

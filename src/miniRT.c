@@ -33,6 +33,6 @@ int  main(int words, char **arguments)
 		mlx_loop(vars.mlx);
 	}
 	else
-		write(2, "Error: Please, Pass only 1 extension<.rt>\n", 43);
+		write(2, "Error : Usage : \"./miniRT file.rt\"\n", 36);
 	return (0);
 }
