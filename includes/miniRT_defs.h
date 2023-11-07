@@ -9,7 +9,7 @@
 # define RED	0x00FF0000
 # define GREEN 	0x0000FF00
 # define BLUE 	0x000000FF
-# define WHITE 0x00FFFFFF
+# define WHITE	0x00FFFFFF
 
 # include "libft_defs.h"
 
@@ -43,6 +43,12 @@ typedef struct s_color
 	int	a;
 }		t_color;
 
+typedef struct s_material
+{
+	t_color	color;
+	int		specular;
+}			t_material;
+
 typedef struct s_camera
 {
 	t_vector	center;
@@ -62,7 +68,7 @@ typedef struct s_plane
 {
 	t_vector	center;
 	t_vector	n_vector;
-	t_color		color;
+	t_material	material;
 }				t_plane;
 
 typedef struct s_sphere
@@ -70,7 +76,7 @@ typedef struct s_sphere
 	t_vector	center;
 	t_vector	n_vector;
 	int			diameter;
-	t_color		color;
+	t_material	material;
 }				t_sphere;
 
 typedef struct s_cylinder
@@ -79,12 +85,13 @@ typedef struct s_cylinder
 	t_vector	n_vector;
 	int			diameter;
 	int			height;
-	t_color		color;
+	t_material	material;
 }				t_cylinder;
 
 typedef struct s_info
 {
 	int	ambient_light;
+	int	camera;
 	int	lights;
 	int	planes;
 	int	spheres;
@@ -93,6 +100,7 @@ typedef struct s_info
 
 typedef struct s_data
 {
+	char		*txt;
 	t_info		info;
 	t_light		ambient_light;
 	t_camera	camera;

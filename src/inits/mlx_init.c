@@ -1,7 +1,7 @@
 #include "mlx.h"
 #include "miniRT_defs.h"
 
-void	start_mlx(t_vars *vars, t_mlx_data *d)
+void	init_mlx(t_vars *vars, t_mlx_data *d)
 {
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGHT, "miniRT");

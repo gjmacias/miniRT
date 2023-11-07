@@ -22,7 +22,8 @@ SRC			=	miniRT.c \
 				checkers/checkers.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
-				inits/mlx_init.c \
+				inits/mlx_init.c inits/init_parameters.c \
+				parse/parse.c \
 				utils/is_space.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -82,6 +83,7 @@ make_dir:
 	@mkdir -p $(OBJ_DIR)/exit
 	@mkdir -p $(OBJ_DIR)/hooks
 	@mkdir -p $(OBJ_DIR)/inits
+	@mkdir -p $(OBJ_DIR)/parse
 	@mkdir -p $(OBJ_DIR)/utils
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir

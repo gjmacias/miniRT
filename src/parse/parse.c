@@ -1,4 +1,21 @@
-#include <minirt.h>
+#include "libft.h"
+#include "miniRT.h"
+#include "miniRT_defs.h"
+
+void print(char **arg)
+{
+	int i = 0;
+
+	if(arg)
+	{
+		while (arg[i])
+		{
+			printf("%s", arg[i++]);
+		}
+		
+	}
+}
+
 
 void	fill_expected_line(char *line, char *s)
 {
@@ -11,7 +28,8 @@ void	fill_expected_line(char *line, char *s)
 			i++;
 		while (!(is_space(line[i])) && line[i] != '\0')
 		{
-			s[i] = line [i++];
+			s[i] = line[i];
+			i++;
 		}
 		if (line[i] != '\0' && is_space(line[i]))
 			s[i] = ' ';
@@ -25,6 +43,7 @@ char	*correct_spaces(char *line)
 	int		len;
 
 	i = 0;
+	len = 0;
 	while (line && line[i] != '\0')
 	{
 		while (is_space(line[i]))
@@ -44,22 +63,24 @@ char	*correct_spaces(char *line)
 	fill_expected_line(line, s);
 	return (s);
 }
-void	search_from(char* line)
+
+void	search_from(char* line, t_data *p)
 {
 	char	**arguments;
 	char	*expected_line;
 
 	expected_line = correct_spaces(line);
 	arguments = ft_split(expected_line, ' ');
-	exit (EXIT_FAILURE);
+	print(arguments);
+	exit (EXIT_SUCCESS);
 }
 
-void	read_map(t_info_map *data)
+void	parse_txt(t_data *p)
 {
 	char	*line;
 	int		fd;
 
-	fd = open(data->txt, O_RDONLY);
+	fd = open(p->txt, O_RDONLY);
 	line = get_next_line(fd);
 	if (!line)
 	{
@@ -68,7 +89,7 @@ void	read_map(t_info_map *data)
 	}
 	while (line)
 	{
-		search_from(line);
+		search_from(line, p);
 		free(line);
 		line = get_next_line(fd);
 	}
