@@ -14,9 +14,7 @@
 #include "miniRT.h"
 #include "miniRT_defs.h"
 
-
-
-int  main(int words, char **arguments)
+int	main(int words, char **arguments)
 {
 	t_vars		vars;
 	t_mlx_data	data;
@@ -26,7 +24,7 @@ int  main(int words, char **arguments)
 	{
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
-		init_parameters(&parameters);
+		parse_txt(&parameters);
 		init_mlx(&vars, &data);
 		mlx_key_hook(vars.win, key_hook, &vars);
 		mlx_hook(vars.win, 17, 0, finish_execution, &vars);

@@ -12,6 +12,7 @@
 # define WHITE	0x00FFFFFF
 
 # include "libft_defs.h"
+# include <stddef.h>
 
 typedef struct s_mlx_data
 {
@@ -101,6 +102,7 @@ typedef struct s_info
 typedef struct s_data
 {
 	char		*txt;
+	size_t		line;
 	t_info		info;
 	t_light		ambient_light;
 	t_camera	camera;

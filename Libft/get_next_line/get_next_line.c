@@ -3,107 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 16:19:28 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/05/15 15:51:32 by ffornes-         ###   ########.fr       */
+/*   Created: 2022/02/24 18:29:29 by gmacias-          #+#    #+#             */
+/*   Updated: 2023/05/18 16:58:40 by gmacias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "get_next_line.h"
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-static char	*read_to_buff(int fd, char *buffer, char *line)
+char	*ft_free_strjoin(char *save, char *tmp)
 {
-	int		i;
-	char	*aux;
+	char	*new;
 
-	i = BUFFER_SIZE;
-	while (i > 0)
-	{
-		i = (int)read(fd, buffer, BUFFER_SIZE);
-		if (i > 0)
-		{
-			aux = line;
-			buffer[i] = '\0';
-			line = ft_strjoin(line, buffer);
-			free(aux);
-			if (ft_strchr(buffer, '\n'))
-				break ;
-		}
-	}
-	free(buffer);
-	return (line);
+	new = ft_strjoin(save, tmp);
+	free(save);
+	return (new);
 }
 
-static char	*get_line(char *str)
+char	*the_rest(char *save)
+{
+	int		i;
+	int		n;
+	char	*new_save;
+
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+		i++;
+	if (save[i] == '\0')
+	{
+		free(save);
+		return (NULL);
+	}
+	new_save = ft_calloc(sizeof(char), (ft_strlen(save) - i + 1));
+	i++;
+	n = 0;
+	while (save[i] != '\0')
+		new_save[n++] = save[i++];
+	free(save);
+	return (new_save);
+}
+
+char	*make_line_from(char *save)
 {
 	int		i;
 	char	*line;
 
-	if (!str)
-		return (NULL);
 	i = 0;
-	while (str[i] != '\n' && str[i] != '\0')
-		i++;
-	line = malloc(sizeof(char) * (i + 2));
-	if (!line)
+	if (save[i] == '\0')
 		return (NULL);
-	ft_memcpy(line, str, i + 1);
-	if (str[i] == '\n')
-		line[i + 1] = '\0';
+	while (save[i] != '\0' && save[i] != '\n')
+		i++;
+	line = ft_calloc(sizeof(char), (i + 2));
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+	{
+		line[i] = save[i];
+		i++;
+	}
+	if (save[i] == '\n')
+		line[i] = '\n';
 	return (line);
 }
 
-static char	*save_remains(char *str)
+char	*read_until_enter(int fd, char *save)
 {
-	char	*aux;
-	size_t	i;
-	size_t	j;
+	int		n_of_chars;
+	char	*tmp;
 
-	i = 0;
-	j = 0;
-	if (!str)
-		return (NULL);
-	while (str[i] != '\n' && str[i] != '\0')
-		i++;
-	if (str[i] != '\0')
-		i++;
-	aux = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!aux)
-		return (NULL);
-	while (str[i + j])
+	if (!save)
+		save = ft_calloc(1, 1);
+	tmp = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	n_of_chars = 1;
+	while (n_of_chars > 0)
 	{
-		aux[j] = str[i + j];
-		j++;
+		n_of_chars = read(fd, tmp, BUFFER_SIZE);
+		if (n_of_chars == -1)
+		{
+			free(tmp);
+			free(save);
+			return (NULL);
+		}
+		tmp[n_of_chars] = '\0';
+		save = ft_free_strjoin(save, tmp);
+		if (ft_strchr(save, '\n'))
+			break ;
 	}
-	aux[j] = '\0';
-	free(str);
-	return (aux);
+	free(tmp);
+	return (save);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
 	char		*line;
-	static char	*aux;
+	static char	*save;
 
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
+	save = read_until_enter(fd, save);
+	if (save == NULL)
 		return (NULL);
-	aux = read_to_buff(fd, buffer, aux);
-	line = get_line(aux);
-	aux = save_remains(aux);
-	if (!line || !*line)
-	{
-		if (line)
-			free(line);
-		free(aux);
-		return (NULL);
-	}
+	line = make_line_from(save);
+	save = the_rest(save);
 	return (line);
 }

@@ -23,8 +23,10 @@ SRC			=	miniRT.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/mlx_init.c inits/init_parameters.c \
-				parse/parse.c \
-				utils/is_space.c
+				parse/parse_txt.c parse/parse_type.c parse/parse_type2.c\
+				parse/parse_inputs.c parse/parse_inputs2.c \
+				utils/is_space.c utils/ft_str_to.c \
+				tests/print.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
@@ -47,9 +49,9 @@ INCS	=	-I ./includes/ -I ./libft/include/ -I ./mlx/
 #									LIBRARIES								  #
 ###############################################################################
 
-LIB_PATH	= 	./Libft
+LIB_PATH	=	./Libft
 LIB			=	$(LIB_PATH)/libft.a
-LIB_FLAGS	= 	-L$(LIB_PATH) -lft
+LIB_FLAGS	=	-L$(LIB_PATH) -lft
 
 MLX_PATH	=	./mlx
 MLX			=	mlx/libmlx.a
@@ -59,16 +61,16 @@ MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
 #									COLORS								  #
 ###############################################################################
 
-DEF_COLOR = \033[0;39m
-GRAY = \033[0;90m
-RED = \033[0;91m
-GREEN = \033[0;92m
-YELLOW = \033[0;93m
-BLUE = \033[0;94m
-MAGENTA = \033[0;95m
-CYAN = \033[0;96m
-WHITE = \033[0;97m
-LIGHT_GREEN = \033[1;92m
+DEF_COLOR	= \033[0;39m
+GRAY		= \033[0;90m
+RED			= \033[0;91m
+GREEN		= \033[0;92m
+YELLOW		= \033[0;93m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
+LIGHT_GREEN	= \033[1;92m
 
 ###############################################################################
 #									RULES									  #
@@ -85,6 +87,7 @@ make_dir:
 	@mkdir -p $(OBJ_DIR)/inits
 	@mkdir -p $(OBJ_DIR)/parse
 	@mkdir -p $(OBJ_DIR)/utils
+	@mkdir -p $(OBJ_DIR)/tests
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@echo "$(GRAY)Compiling $< to $@ $(DEF_COLOR)"

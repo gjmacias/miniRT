@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "miniRT_defs.h"
 
 // CHECKERS
@@ -30,10 +31,27 @@ int		finish_execution(void);
 
 //  INITS
 void	init_mlx(t_vars *vars, t_mlx_data *data);
-void    init_parameters(t_data *parameters);
+void	init_parameters_info(t_data *p);
 
 //  PARSE
 void	parse_txt(t_data *p);
+void	parse_type(char **arguments, t_data *p);
+void	p_plane(char **arguments, t_data *p);
+void	p_sphere(char **arguments, t_data *p);
+void	p_clinder(char **arguments, t_data *p);
+
+void	input_brightness(char *arg, t_data *p);
+void	input_possition(char *arg, t_data *p);
+void	input_vector(char *arg, t_data *p);
+void	input_diameter(char *arg, t_data *p);
+void	input_fov(char *arg, t_data *p);
+void	input_height(char *arg, t_data *p);
+void	input_color(char *arg, t_data *p);
 
 //  UTILS
 int		is_space(int c);
+double	ft_strtod(char *str);
+int		ft_strtouc(char *str);
+
+//  TEST
+void	printpp(char **arg);

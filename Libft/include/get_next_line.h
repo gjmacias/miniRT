@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 16:21:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/05/15 14:51:26 by ffornes-         ###   ########.fr       */
+/*   Created: 2022/02/24 18:29:46 by gmacias-          #+#    #+#             */
+/*   Updated: 2023/05/18 15:42:12 by gmacias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 1000
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
-char	*get_next_line(int fd);
+char				*get_next_line(int fd);
 
 #endif
