@@ -21,6 +21,7 @@ int  main(int words, char **arguments)
 
 	if (words == 2)
 	{
+		checker_main(arguments);
 		start_mlx(&vars, &data);
 		mlx_key_hook(vars.win, key_hook, &vars);
 		mlx_hook(vars.win, 17, 0, finish_execution, &vars);
@@ -29,5 +30,4 @@ int  main(int words, char **arguments)
 	else
 		write(2, "Error: Bad arguments\n", 22);
 	return (0);
-	(void) arguments;
 }

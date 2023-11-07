@@ -17,8 +17,18 @@
 #include <string.h>
 #include "miniRT_defs.h"
 
-void	start_mlx(t_vars *vars, t_mlx_data *data);
+// CHECKERS
+void	checker_main(char **arguments);
+
+// EXIT
+int		ft_exit(t_data *data);
 
 // HOOKS
 int		key_hook(int keycode, t_vars *vars);
 int		finish_execution(void);
+
+//  INITS
+void	start_mlx(t_vars *vars, t_mlx_data *data);
+
+//  UTILS
+int		is_space(int c);

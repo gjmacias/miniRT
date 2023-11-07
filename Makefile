@@ -19,8 +19,11 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 ###############################################################################
 
 SRC			=	miniRT.c \
+				checkers/checkers.c \
+				exit/exit.c \
+				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/mlx_init.c \
-				hooks/key_hooks.c hooks/exit_hooks.c
+				utils/is_space.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
@@ -45,7 +48,7 @@ INCS	=	-I ./includes/ -I ./libft/include/ -I ./mlx/
 
 LIB_PATH	= 	./Libft
 LIB			=	$(LIB_PATH)/libft.a
-LDFLAGS		= 	-L$(LIB_PATH) -lft
+LIB_FLAGS	= 	-L$(LIB_PATH) -lft
 
 MLX_PATH	=	./mlx
 MLX			=	mlx/libmlx.a
@@ -71,15 +74,18 @@ LIGHT_GREEN = \033[1;92m
 ###############################################################################
 
 all: make_dir make_mlx make_lib $(NAME)
-	@echo "$(NAME) ready to use:"
+	@echo "$(CYAN)$(NAME) ready to use:$(DEF_COLOR)"
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
-	@mkdir -p $(OBJ_DIR)/inits
+	@mkdir -p $(OBJ_DIR)/checkers
+	@mkdir -p $(OBJ_DIR)/exit
 	@mkdir -p $(OBJ_DIR)/hooks
+	@mkdir -p $(OBJ_DIR)/inits
+	@mkdir -p $(OBJ_DIR)/utils
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
-	@echo "Compiling $< to $@"
+	@echo "$(GRAY)Compiling $< to $@ $(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@mv $(basename $@).d $(DPS_DIR)
 #	@echo "Done!" && echo ""
@@ -97,31 +103,31 @@ make_lib:
 	@$(MAKE) -s -C $(LIB_PATH)
 	@echo "$(BLUE)Done Libft! $(DEF_COLOR)"
 
-clean_lib:
-	@$(MAKE) clean -s -C $(LIB_PATH) 
+clean_libs:
+	@$(MAKE) clean -s -C $(LIB_PATH)
+	@make clean -C mlx
 
-fclean_lib:
+fclean_libs:
 	@$(MAKE) fclean -s -C $(LIB_PATH)
+	@rm -rf $(MLX)
 
 
 #					--------	RULES PROGRAM	--------							  #
 
 $(NAME): $(LIB) $(MLX) $(OBJ)
-	@echo "Compiling $(NAME)"
-	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(MLX) $(MLX_FLAGS)
-	@echo "Created $(NAME) executable" && echo ""
+	@echo "$(GREEN)Compiling $(NAME)$(DEF_COLOR)"
+	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(LIB_FLAGS) $(MLX) $(MLX_FLAGS)
+	@echo "$(BLUE)Created $(NAME) executable $(DEF_COLOR)" && echo ""
 
-clean:	clean_lib
-	@echo "Removing ON $(NAME): objects and dependencies..."
-	@make clean -C mlx
+clean:	clean_libs
+	@echo "$(RED)Removing ON $(NAME), $(LIB_PATH) and $(MLX_PATH): objects and dependencies... $(DEF_COLOR)"
 	@rm -rf $(OBJ_DIR) $(DPS_DIR)
-	@echo "Done!" && echo ""
+	@echo "$(BLUE)Done!$(DEF_COLOR)" && echo ""
 
-fclean: fclean_lib	clean
-	@rm -rf $(MLX)
-	@echo "Removing execute $(NAME)..."
+fclean: fclean_libs	clean
+	@echo "$(RED)Removing execute $(NAME)... $(DEF_COLOR)"
 	@rm -f $(NAME)
-	@echo "Done!" && echo ""
+	@echo "$(BLUE)Done!$(DEF_COLOR)" && echo ""
 
 re: fclean all
 

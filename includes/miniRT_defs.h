@@ -22,7 +22,7 @@ typedef struct s_mlx_data
 	int		endian;
 }			t_mlx_data;
 
-typedef struct t_vars
+typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
