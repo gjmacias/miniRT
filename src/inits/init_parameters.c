@@ -3,6 +3,7 @@
 
 void	init_parameters_info(t_data *p)
 {
+	p->line = 0;
 	p->info.ambient_light = 0;
 	p->info.camera = 0;
 	p->info.cylinders = 0;

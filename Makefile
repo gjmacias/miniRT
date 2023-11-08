@@ -19,11 +19,11 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 ###############################################################################
 
 SRC			=	miniRT.c \
-				checkers/checkers.c \
+				checkers/checker_dot.c checkers/checker_parse.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/mlx_init.c inits/init_parameters.c \
-				parse/parse_txt.c parse/parse_type.c parse/parse_type2.c\
+				parse/parse_txt.c parse/parse_type.c parse/parse_type2.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				utils/is_space.c utils/ft_str_to.c \
 				tests/print.c

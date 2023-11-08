@@ -53,9 +53,8 @@ typedef struct s_material
 typedef struct s_camera
 {
 	t_vector	center;
-	t_vector	view_point;
 	t_vector	n_vector;
-	int			fov;
+	double		fov;
 }				t_camera;
 
 typedef struct s_light
@@ -64,6 +63,12 @@ typedef struct s_light
 	double		brightness;
 	t_color		color;
 }				t_light;
+
+typedef struct s_ambiental
+{
+	double		brightness;
+	t_color		color;
+}				t_ambiental;
 
 typedef struct s_plane
 {
@@ -75,7 +80,6 @@ typedef struct s_plane
 typedef struct s_sphere
 {
 	t_vector	center;
-	t_vector	n_vector;
 	double		diameter;
 	t_material	material;
 }				t_sphere;
@@ -104,7 +108,7 @@ typedef struct s_data
 	char		*txt;
 	size_t		line;
 	t_info		info;
-	t_light		ambient_light;
+	t_ambiental	ambient_light;
 	t_camera	camera;
 	t_list		*lights;
 	t_list		*planes;

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
-#include "miniRT_defs.h"
 
 void	check_format_dotrt(char *txt)
 {
@@ -11,9 +10,4 @@ void	check_format_dotrt(char *txt)
 		write(2, "Error: Bad extension: Needs to end with <.rt>\n", 47);
 		exit (EXIT_FAILURE);
 	}
-}
-
-void	checker_main(char **arguments)
-{
-	check_format_dotrt(arguments[1]);
 }

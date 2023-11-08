@@ -1,15 +1,15 @@
 #include<stdio.h>
 
-void printpp(char **arg)
+void printpp(char **arguments)
 {
 	int i = 0;
 
-	if(arg)
+	if(arguments)
 	{
-		while (arg[i])
+		while (arguments[i])
 		{
-			printf("%s", arg[i++]);
-			if (arg[i])
+			printf("%s", arguments[i++]);
+			if (arguments[i])
 				printf("\t\t");
 			else
 				printf("(null)\n");

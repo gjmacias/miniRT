@@ -75,7 +75,7 @@ void	parse_txt(t_data *p)
 	char	*line;
 	int		fd;
 
-	p->line = 0;
+	init_parameters_info(p);
 	fd = open(p->txt, O_RDONLY);
 	line = get_next_line(fd);
 	if (!line)

@@ -20,7 +20,10 @@
 
 // CHECKERS
 void	check_format_dotrt(char *txt);
-void	checker_main(char **arguments);
+int		checker_double(char *s, char c);
+int		checker_array_double(char *s);
+int		checker_uchar(char *s);
+
 
 // EXIT
 int		ft_exit(t_data *data);
@@ -40,13 +43,15 @@ void	p_plane(char **arguments, t_data *p);
 void	p_sphere(char **arguments, t_data *p);
 void	p_clinder(char **arguments, t_data *p);
 
-void	input_brightness(char *arg, t_data *p);
-void	input_possition(char *arg, t_data *p);
-void	input_vector(char *arg, t_data *p);
-void	input_diameter(char *arg, t_data *p);
-void	input_fov(char *arg, t_data *p);
-void	input_height(char *arg, t_data *p);
-void	input_color(char *arg, t_data *p);
+void	input_brightness(char *s, t_data *p, double *bright);
+void	input_possition(char *s, t_data *p, t_vector *center);
+void	input_vector(char *s, t_data *p, t_vector *vector);
+void	input_diameter(char *s, t_data *p, double *diameter);
+void	input_fov(char *s, t_data *p, double *fov);
+void	input_height(char *s, t_data *p, double *height);
+void	input_color(char *s, t_data *p, t_color *color);
+void	input_array_uchar(char *s, t_color *color);
+void	input_array_double(char *s, t_vector *vector);
 
 //  UTILS
 int		is_space(int c);
@@ -54,4 +59,4 @@ double	ft_strtod(char *str);
 int		ft_strtouc(char *str);
 
 //  TEST
-void	printpp(char **arg);
+void	printpp(char **s);
