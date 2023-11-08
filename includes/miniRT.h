@@ -63,4 +63,7 @@ void	arraytouchar(char *s, t_color *color);
 void	arraytodouble(char *s, t_vector *vector);
 
 //  TEST
+void	printaux();
 void	printpp(char **s);
+void	print_data(t_data *d);
+

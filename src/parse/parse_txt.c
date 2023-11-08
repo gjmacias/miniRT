@@ -92,5 +92,6 @@ void	parse_txt(t_data *p)
 	}
 	line = NULL;
 	close(fd);
+	print_data(p);
 	exit (EXIT_SUCCESS);
 }

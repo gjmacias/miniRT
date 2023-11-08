@@ -40,8 +40,8 @@ void	p_plane(char **arguments, t_data *p)
 		write_error3("Error in line: < ", ft_itoa(p->line),
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
-	new_list->next = p->lights;
-	p->lights = new_list;
+	new_list->next = p->planes;
+	p->planes = new_list;
 }
 
 void	p_sphere(char **arguments, t_data *p)
@@ -61,8 +61,8 @@ void	p_sphere(char **arguments, t_data *p)
 		write_error3("Error in line: < ", ft_itoa(p->line),
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
-	new_list->next = p->lights;
-	p->lights = new_list;
+	new_list->next = p->spheres;
+	p->spheres = new_list;
 }
 
 void	p_cylinder(char **arguments, t_data *p)
@@ -84,6 +84,6 @@ void	p_cylinder(char **arguments, t_data *p)
 		write_error3("Error in line: < ", ft_itoa(p->line),
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
-	new_list->next = p->lights;
-	p->lights = new_list;
+	new_list->next = p->cylinders;
+	p->cylinders = new_list;
 }

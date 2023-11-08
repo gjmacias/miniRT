@@ -19,7 +19,7 @@ void	input_brightness(char *s, t_data *p, double *bright)
 
 void	input_possition(char *s, t_data *p, t_vector *center)
 {
-	if (!s || checker_uchar(s))
+	if (!s || checker_array_double(s))
 	{
 		write(2, "Error in line: < ", 18);
 		write(2, ft_itoa(p->line), ft_strlen(ft_itoa(p->line)));

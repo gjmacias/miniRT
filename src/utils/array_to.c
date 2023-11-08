@@ -1,6 +1,6 @@
 #include "libft.h"
 #include "miniRT.h"
-#include "miniRT_defs.h"
+#include <stdio.h>
 
 void	arraytouchar(char *s, t_color *color)
 {
@@ -27,21 +27,22 @@ void	arraytouchar(char *s, t_color *color)
 
 void	arraytodouble(char *s, t_vector *vector)
 {
-	int	x[5];
+	int		x[2];
+	double	y[3];
 
 	x[0] = 0;
-	x[4] = 1;
-	x[1] = checker_double(s, ',');
+	x[1] = 0;
+	y[0] = ft_strtod(s);
 	while (s[x[0]] != '\0')
 	{
 		if (s[x[0]] == ',')
 		{
-			x[4] += 1;
-			x[x[4]] = checker_double(&s[x[0] + 1], ',');
+			x[1] += 1;
+			y[x[1]] = ft_strtod(&s[x[0] + 1]);
 		}
 		x[0] += 1;
 	}
-	vector->x = x[1];
-	vector->y = x[2];
-	vector->z = x[3];
+	vector->x = y[0];
+	vector->y = y[1];
+	vector->z = y[2];
 }

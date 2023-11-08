@@ -3,13 +3,13 @@
 
 double	ft_strtod(char *str)
 {
-	size_t	n;
-	size_t	i;
-	double	result;
+	long int	n;
+	size_t		i;
+	double		result;
 
 	n = ft_atoi(str);
 	i = 0;
-	while (str && str[i] != '.')
+	while (str[i] && str[i] != '.')
 		i++;
 	if (str[i] == '.')
 		i++;
