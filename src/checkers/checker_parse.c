@@ -12,18 +12,18 @@ int	checker_double(char *s, char c)
 		i++;
 	if (ft_isdigit(s[i]))
 	{
-    	while (ft_isdigit(s[i]) || s[i] == '.')
-    	{
-    		if (s[i] == '.' && !(ft_isdigit(s[i + 1])))
-    			return (1);
-    		else if (s[i] == '.')
-    			dot++;
-    		if (dot > 1)
-    			return (1);
-    		i++;
-    	}
-    	if (s[i] == '\0' || s[i] == c)
-		    return (0);
+		while (ft_isdigit(s[i]) || s[i] == '.')
+		{
+			if (s[i] == '.' && !(ft_isdigit(s[i + 1])))
+				return (1);
+			else if (s[i] == '.')
+				dot++;
+			if (dot > 1)
+				return (1);
+			i++;
+		}
+		if (s[i] == '\0' || s[i] == c)
+			return (0);
 	}
 	return (1);
 }
@@ -31,11 +31,11 @@ int	checker_double(char *s, char c)
 int	checker_array_double(char *s)
 {
 	int	x[5];
-	int comma;
+	int	comma;
 
 	x[0] = 0;
 	x[4] = 1;
-	x[1] = checker_double(s , ',');
+	x[1] = checker_double(s, ',');
 	x[2] = 1;
 	x[3] = 1;
 	comma = 0;

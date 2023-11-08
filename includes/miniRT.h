@@ -24,9 +24,12 @@ int		checker_double(char *s, char c);
 int		checker_array_double(char *s);
 int		checker_uchar(char *s);
 
-
 // EXIT
 int		ft_exit(t_data *data);
+
+// ERROR
+void	write_error(char *s1);
+void	write_error3(char *s1, char *s2, char *s3);
 
 // HOOKS
 int		key_hook(int keycode, t_vars *vars);
@@ -39,9 +42,10 @@ void	init_parameters_info(t_data *p);
 //  PARSE
 void	parse_txt(t_data *p);
 void	parse_type(char **arguments, t_data *p);
+void	p_ligths(char **arguments, t_data *p);
 void	p_plane(char **arguments, t_data *p);
 void	p_sphere(char **arguments, t_data *p);
-void	p_clinder(char **arguments, t_data *p);
+void	p_cylinder(char **arguments, t_data *p);
 
 void	input_brightness(char *s, t_data *p, double *bright);
 void	input_possition(char *s, t_data *p, t_vector *center);
@@ -50,13 +54,13 @@ void	input_diameter(char *s, t_data *p, double *diameter);
 void	input_fov(char *s, t_data *p, double *fov);
 void	input_height(char *s, t_data *p, double *height);
 void	input_color(char *s, t_data *p, t_color *color);
-void	input_array_uchar(char *s, t_color *color);
-void	input_array_double(char *s, t_vector *vector);
 
 //  UTILS
 int		is_space(int c);
 double	ft_strtod(char *str);
 int		ft_strtouc(char *str);
+void	arraytouchar(char *s, t_color *color);
+void	arraytodouble(char *s, t_vector *vector);
 
 //  TEST
 void	printpp(char **s);

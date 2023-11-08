@@ -24,7 +24,7 @@ int	ft_strtouc(char *str)
 	size_t	n;
 
 	n = ft_atoi(str);
-	if (n > 255 || n < 0 || str[0] ==',' || str[0] =='\0')
+	if (n > 255 || n < 0 || str[0] == ',' || str[0] == '\0')
 		return (-1);
 	return ((int)n);
 }

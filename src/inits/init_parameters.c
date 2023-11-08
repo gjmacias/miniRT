@@ -10,4 +10,8 @@ void	init_parameters_info(t_data *p)
 	p->info.lights = 0;
 	p->info.planes = 0;
 	p->info.spheres = 0;
+	p->lights = NULL;
+	p->planes = NULL;
+	p->spheres = NULL;
+	p->cylinders = NULL;
 }

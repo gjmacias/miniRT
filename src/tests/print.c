@@ -1,10 +1,16 @@
-#include<stdio.h>
+#include <stdio.h>
 
-void printpp(char **arguments)
+void	printaux()
 {
-	int i = 0;
+	printf("paso por aqui\n");
+}
 
-	if(arguments)
+void	printpp(char **arguments)
+{
+	int	i;
+
+	i = 0;
+	if (arguments)
 	{
 		while (arguments[i])
 		{

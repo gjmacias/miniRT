@@ -29,7 +29,7 @@ void	input_possition(char *s, t_data *p, t_vector *center)
 			write(2, " > Need parameter: possition\n", 30);
 		exit(EXIT_FAILURE);
 	}
-	input_array_double(s, center);
+	arraytodouble(s, center);
 }
 
 void	input_vector(char *s, t_data *p, t_vector *vector)
@@ -44,7 +44,7 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 			write(2, " > Need parameter: Vector\n", 27);
 		exit(EXIT_FAILURE);
 	}
-	input_array_double(s, vector);
+	arraytodouble(s, vector);
 }
 
 void	input_diameter(char *s, t_data *p, double *diameter)

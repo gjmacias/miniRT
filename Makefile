@@ -20,12 +20,13 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 
 SRC			=	miniRT.c \
 				checkers/checker_dot.c checkers/checker_parse.c \
+				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/mlx_init.c inits/init_parameters.c \
-				parse/parse_txt.c parse/parse_type.c parse/parse_type2.c \
+				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
-				utils/is_space.c utils/ft_str_to.c \
+				utils/is_space.c utils/ft_str_to.c utils/array_to.c \
 				tests/print.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -82,6 +83,7 @@ all: make_dir make_mlx make_lib $(NAME)
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
 	@mkdir -p $(OBJ_DIR)/checkers
+	@mkdir -p $(OBJ_DIR)/error
 	@mkdir -p $(OBJ_DIR)/exit
 	@mkdir -p $(OBJ_DIR)/hooks
 	@mkdir -p $(OBJ_DIR)/inits
