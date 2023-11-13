@@ -18,33 +18,21 @@ void	p_ambient_ligth(char **arguments, t_data *p)
 {
 	p->info.ambient_light += 1;
 	if (p->info.ambient_light > 1)
-	{
-		write(2, "Error: ambient ligth < ", 24);
-		write(2, arguments[0], ft_strlen(arguments[0]));
-		write(2, " > is DUPLICATED\n", 18);
-		exit(EXIT_FAILURE);
-	}
+		write_error3("Error: ambient light < ", arguments[0],
+			" > is DUPLICATED\n");
 	input_brightness(arguments[1], p, &(p->ambient_light.brightness));
 	input_color(arguments[2], p, &(p->ambient_light.color));
 	if (arguments[3])
-	{
-		write(2, "Error in line: < ", 18);
-		write(2, ft_itoa(p->line), ft_strlen(ft_itoa(p->line)));
-		write(2, " > too many arguments\n", 23);
-		exit(EXIT_FAILURE);
-	}
+		write_error3("Error in line: < ", ft_itoa(p->line),
+			" > too many arguments\n");
 }
 
 void	p_camera(char **arguments, t_data *p)
 {
 	p->info.camera += 1;
 	if (p->info.camera > 1)
-	{
-		write(2, "Error: camera < ", 17);
-		write(2, arguments[0], ft_strlen(arguments[0]));
-		write(2, " > is DUPLICATED\n", 18);
-		exit(EXIT_FAILURE);
-	}
+		write_error3("Error: camera < ", arguments[0],
+			" > is DUPLICATED\n");
 	input_possition(arguments[1], p, &(p->camera.center));
 	input_vector(arguments[2], p, &(p->camera.n_vector));
 	input_fov(arguments[3], p, &(p->camera.fov));

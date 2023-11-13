@@ -102,8 +102,9 @@ void	parse_txt(t_data *p)
 		free(line);
 		line = get_next_line(fd);
 	}
-	line = NULL;
+	if (p->info.ambient_light != 1 || p->info.camera != 1)
+		write_error3("Error: < C or A >: ", "Need minium: ",
+			"1 camera AND 1 ambient light\n");
 	close(fd);
 	print_data(p);
-	exit (EXIT_SUCCESS);
 }
