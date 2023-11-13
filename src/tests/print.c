@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/13 13:01:50 by gmacias-          #+#    #+#             */
+/*   Updated: 2023/11/13 13:01:50 by gmacias-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 # include "libft_defs.h"
 # include "miniRT_defs.h"
 
-void	printaux()
+void	printaux(void)
 {
 	printf("paso por aqui\n");
 }

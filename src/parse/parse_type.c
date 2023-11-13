@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_type.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/13 13:01:30 by gmacias-          #+#    #+#             */
+/*   Updated: 2023/11/13 13:01:30 by gmacias-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 #include "miniRT_defs.h"
 #include "libft.h"
@@ -38,7 +50,7 @@ void	p_camera(char **arguments, t_data *p)
 	input_fov(arguments[3], p, &(p->camera.fov));
 	if (arguments[4])
 		write_error3("Error in line: < ", ft_itoa(p->line),
-		" > too many arguments\n");
+			" > too many arguments\n");
 }
 
 void	parse_type_error(char **arguments, t_data *p)

@@ -10,13 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include "miniRT_defs.h"
+#ifndef MINIRT_H
+# define MINIRT_H
+
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <math.h>
+# include "miniRT_defs.h"
 
 // CHECKERS
 void	check_format_dotrt(char *txt);
@@ -63,7 +66,8 @@ void	arraytouchar(char *s, t_color *color);
 void	arraytodouble(char *s, t_vector *vector);
 
 //  TEST
-void	printaux();
+void	printaux(void);
 void	printpp(char **s);
 void	print_data(t_data *d);
 
+#endif
