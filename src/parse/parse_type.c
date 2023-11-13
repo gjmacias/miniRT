@@ -37,12 +37,8 @@ void	p_camera(char **arguments, t_data *p)
 	input_vector(arguments[2], p, &(p->camera.n_vector));
 	input_fov(arguments[3], p, &(p->camera.fov));
 	if (arguments[4])
-	{
-		write(2, "Error in line: < ", 18);
-		write(2, ft_itoa(p->line), ft_strlen(ft_itoa(p->line)));
-		write(2, " > too many arguments\n", 23);
-		exit(EXIT_FAILURE);
-	}
+		write_error3("Error in line: < ", ft_itoa(p->line),
+		" > too many arguments\n");
 }
 
 void	parse_type_error(char **arguments, t_data *p)
@@ -57,7 +53,6 @@ void	parse_type_error(char **arguments, t_data *p)
 
 void	parse_type(char **arguments, t_data *p)
 {
-	printpp(arguments);
 	if (ft_strlen(arguments[0]) == 1)
 	{
 		if (ft_strncmp("A", arguments[0], 2) == 0)

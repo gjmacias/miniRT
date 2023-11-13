@@ -35,12 +35,12 @@ void	print_data(t_data *d)
 	printf("lineas: %li\n", d->line);
 	printf("\n");
 	printf("INFO : \n");
-	printf("lineas: %li\n", d->info.ambient_light);
-	printf("lineas: %li\n", d->info.camera);
-	printf("lineas: %li\n", d->info.lights);
-	printf("lineas: %li\n", d->info.planes);
-	printf("lineas: %li\n", d->info.spheres);
-	printf("lineas: %li\n", d->info.cylinders);
+	printf("ambient	: %li\n", d->info.ambient_light);
+	printf("camara	: %li\n", d->info.camera);
+	printf("lights	: %li\n", d->info.lights);
+	printf("planes	: %li\n", d->info.planes);
+	printf("spheres	: %li\n", d->info.spheres);
+	printf("cylinder: %li\n", d->info.cylinders);
 	printf("\n");
 	printf("Ambiental : \n");
 	printf("brightness: %f\n", d->ambient_light.brightness);
@@ -61,7 +61,7 @@ void	print_data(t_data *d)
 	printf("\n");
 	printf("_____________LIST________________ : \n");
 	iter[0] = (t_list *)d->lights;
-	while(iter[0])
+	while (iter[0])
 	{
 		printf("Lights : \n");
 		t_light *aux = (t_light *)iter[0]->content;
@@ -77,7 +77,7 @@ void	print_data(t_data *d)
 	}
 	printf("\n");
 	iter[1] = (t_list *)d->planes;
-	while(iter[1])
+	while (iter[1])
 	{
 		printf("Planes : \n");
 		t_plane *aux1 = (t_plane *)iter[1]->content;
@@ -111,7 +111,7 @@ void	print_data(t_data *d)
 	}
 	printf("\n");
 	iter[3] = (t_list *)d->cylinders;
-	while(iter[3])
+	while (iter[3])
 	{
 		printf("Cylinders : \n");
 		t_cylinder *aux3 = (t_cylinder *)iter[3]->content;
