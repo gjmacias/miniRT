@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-# include "libft_defs.h"
-# include "miniRT_defs.h"
+#include "libft_defs.h"
+#include "miniRT_defs.h"
 
 void	printaux(void)
 {
@@ -41,7 +41,11 @@ void	printpp(char **arguments)
 
 void	print_data(t_data *d)
 {
-	t_list	*iter[4];
+	t_list		*iter[4];
+	t_light		*aux;
+	t_plane		*aux1;
+	t_sphere	*aux2;
+	t_cylinder	*aux3;
 
 	printf("Leido del archivo: %s\n", d->txt);
 	printf("lineas: %li\n", d->line);
@@ -76,7 +80,7 @@ void	print_data(t_data *d)
 	while (iter[0])
 	{
 		printf("Lights : \n");
-		t_light *aux = (t_light *)iter[0]->content;
+		aux = (t_light *)iter[0]->content;
 		printf("center x: %f,", aux->center.x);
 		printf("center y: %f,", aux->center.y);
 		printf("center z: %f\n", aux->center.z);
@@ -92,7 +96,7 @@ void	print_data(t_data *d)
 	while (iter[1])
 	{
 		printf("Planes : \n");
-		t_plane *aux1 = (t_plane *)iter[1]->content;
+		aux1 = (t_plane *)iter[1]->content;
 		printf("center x: %f,", aux1->center.x);
 		printf("center y: %f,", aux1->center.y);
 		printf("center z: %f\n", aux1->center.z);
@@ -107,10 +111,10 @@ void	print_data(t_data *d)
 	}
 	printf("\n");
 	iter[2] = (t_list *)d->spheres;
-	while(iter[2])
+	while (iter[2])
 	{
 		printf("Spheres : \n");
-		t_sphere *aux2 = (t_sphere *)iter[2]->content;
+		aux2 = (t_sphere *)iter[2]->content;
 		printf("center x: %f,", aux2->center.x);
 		printf("center y: %f,", aux2->center.y);
 		printf("center z: %f\n", aux2->center.z);
@@ -126,7 +130,7 @@ void	print_data(t_data *d)
 	while (iter[3])
 	{
 		printf("Cylinders : \n");
-		t_cylinder *aux3 = (t_cylinder *)iter[3]->content;
+		aux3 = (t_cylinder *)iter[3]->content;
 		printf("center x: %f,", aux3->center.x);
 		printf("center y: %f,", aux3->center.y);
 		printf("center z: %f\n", aux3->center.z);

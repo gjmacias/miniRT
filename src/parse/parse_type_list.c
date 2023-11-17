@@ -28,7 +28,7 @@ void	p_ligths(char **arguments, t_data *p)
 	input_brightness(arguments[2], p, &(new_content->brightness));
 	input_color(arguments[3], p, &(new_content->color));
 	if (arguments[4])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
 	new_list->next = p->lights;
@@ -49,7 +49,7 @@ void	p_plane(char **arguments, t_data *p)
 	input_vector(arguments[2], p, &(new_content->n_vector));
 	input_color(arguments[3], p, &(new_content->material.color));
 	if (arguments[4])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
 	new_list->next = p->planes;
@@ -70,7 +70,7 @@ void	p_sphere(char **arguments, t_data *p)
 	input_diameter(arguments[2], p, &(new_content->diameter));
 	input_color(arguments[3], p, &(new_content->material.color));
 	if (arguments[4])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
 	new_list->next = p->spheres;
@@ -93,7 +93,7 @@ void	p_cylinder(char **arguments, t_data *p)
 	input_height(arguments[4], p, &(new_content->height));
 	input_color(arguments[5], p, &(new_content->material.color));
 	if (arguments[6])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 	new_list->content = (void *)new_content;
 	new_list->next = p->cylinders;

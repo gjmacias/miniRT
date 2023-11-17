@@ -23,7 +23,7 @@ void	p_ambient_ligth(char **arguments, t_data *p)
 	input_brightness(arguments[1], p, &(p->ambient_light.brightness));
 	input_color(arguments[2], p, &(p->ambient_light.color));
 	if (arguments[3])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 }
 
@@ -37,17 +37,21 @@ void	p_camera(char **arguments, t_data *p)
 	input_vector(arguments[2], p, &(p->camera.n_vector));
 	input_fov(arguments[3], p, &(p->camera.fov));
 	if (arguments[4])
-		write_error3("Error in line: < ", ft_itoa(p->line),
+		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
 }
 
 void	parse_type_error(char **arguments, t_data *p)
 {
+	char	*line_num;
+
+	line_num = ft_itoa(p->line);
 	write(2, "Error: < ", 10);
 	write(2, arguments[0], ft_strlen(arguments[0]));
 	write(2, " > in line: < ", 15);
-	write(2, ft_itoa(p->line), ft_strlen(ft_itoa(p->line)));
+	write(2, line_num, ft_strlen(line_num));
 	write(2, " > is a invalid input\n", 23);
+	free(line_num);
 	exit(EXIT_FAILURE);
 }
 

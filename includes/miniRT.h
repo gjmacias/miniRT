@@ -32,6 +32,7 @@ int		ft_exit(t_data *data);
 
 // ERROR
 void	write_error(char *s1);
+void	write_error3int(char *s1, int i, char *s3);
 void	write_error3(char *s1, char *s2, char *s3);
 
 // HOOKS
