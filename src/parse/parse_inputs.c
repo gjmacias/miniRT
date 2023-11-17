@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:00 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:01:00 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:10:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	input_brightness(char *s, t_data *p, double *bright)
 	free(line_num);
 }
 
-void	input_possition(char *s, t_data *p, t_vector *center)
+void	input_position(char *s, t_data *p, t_vector *center)
 {
 	char	*line_num;
 
@@ -43,9 +43,9 @@ void	input_possition(char *s, t_data *p, t_vector *center)
 		write(2, "Error in line: < ", 18);
 		write(2, line_num, ft_strlen(line_num));
 		if (s)
-			write(2, " > Bad parameter: Vector possition\n", 36);
+			write(2, " > Bad parameter: Vector position\n", 36);
 		else
-			write(2, " > Need parameter: possition\n", 30);
+			write(2, " > Need parameter: position\n", 30);
 		exit(EXIT_FAILURE);
 	}
 	arraytodouble(s, center);

@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/06 17:15:53 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:10:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_format_dotrt(char *txt);
 int		checker_double(char *s, char c);
 int		checker_array_double(char *s);
 int		checker_uchar(char *s);
-int	checker_fov(char *s, char c);
+int		checker_fov(char *s, char c);
 
 // EXIT
 int		ft_exit(t_data *data);
@@ -53,7 +53,7 @@ void	p_sphere(char **arguments, t_data *p);
 void	p_cylinder(char **arguments, t_data *p);
 
 void	input_brightness(char *s, t_data *p, double *bright);
-void	input_possition(char *s, t_data *p, t_vector *center);
+void	input_position(char *s, t_data *p, t_vector *center);
 void	input_vector(char *s, t_data *p, t_vector *vector);
 void	input_diameter(char *s, t_data *p, double *diameter);
 void	input_fov(char *s, t_data *p, double *fov);
