@@ -26,6 +26,7 @@ void	check_format_dotrt(char *txt);
 int		checker_double(char *s, char c);
 int		checker_array_double(char *s);
 int		checker_uchar(char *s);
+int	checker_fov(char *s, char c);
 
 // EXIT
 int		ft_exit(t_data *data);

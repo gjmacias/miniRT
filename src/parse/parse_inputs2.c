@@ -29,6 +29,11 @@ void	input_fov(char *s, t_data *p, double *fov)
 			write(2, " > Need parameter: FOV\n", 24);
 		exit(EXIT_FAILURE);
 	}
+	if (checker_fov(s, '\0'))
+	{
+		write_error3("Error in line: < ", line_num, " > Bad parameter: FOV\n");
+		exit(EXIT_FAILURE);
+	}
 	(*fov) = ft_strtod(s);
 	free(line_num);
 }
