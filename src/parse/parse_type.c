@@ -61,6 +61,8 @@ void	parse_type(char **arguments, t_data *p)
 			p_camera(arguments, p);
 		else if (ft_strncmp("L", arguments[0], 2) == 0)
 			p_ligths(arguments, p);
+		else
+			parse_type_error(arguments, p);
 	}
 	else if (ft_strlen(arguments[0]) == 2)
 	{
@@ -70,6 +72,8 @@ void	parse_type(char **arguments, t_data *p)
 			p_sphere(arguments, p);
 		else if (ft_strncmp("cy", arguments[0], 3) == 0)
 			p_cylinder(arguments, p);
+		else
+			parse_type_error(arguments, p);
 	}
 	else
 		parse_type_error(arguments, p);
