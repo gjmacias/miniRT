@@ -44,12 +44,6 @@ DPS_DIR	=	dps/
 #									LIBRARIES								  #
 ###############################################################################
 
-INCS	=	-I ./includes/ -I ./libft/include/ -I ./mlx/
-
-###############################################################################
-#									LIBRARIES								  #
-###############################################################################
-
 LIB_PATH	=	./Libft
 LIB			=	$(LIB_PATH)/libft.a
 LIB_FLAGS	=	-L$(LIB_PATH) -lft
@@ -57,12 +51,18 @@ LIB_FLAGS	=	-L$(LIB_PATH) -lft
 ifeq ($(OS), Linux)
 	MLX_PATH	= ./mlx-linux
 	MLX			= $(MLX_PATH)/libmlx.a
-	MLX_FLAGS	= -L$(MLX_PATH) -lmlx_linux -lXext -lX11 -lz -lm
+	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx_linux -lXext -lX11 -lz -lm
 else
 	MLX_PATH	= ./mlx
 	MLX			= $(MLX_PATH)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
 endif
+
+###############################################################################
+#									INLUDES									  #
+###############################################################################
+
+INCS	=	-I ./includes/ -I ./libft/include/ -I $(MLX_PATH)/
 
 ###############################################################################
 #									COLORS								  #
