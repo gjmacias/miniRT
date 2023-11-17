@@ -54,9 +54,15 @@ LIB_PATH	=	./Libft
 LIB			=	$(LIB_PATH)/libft.a
 LIB_FLAGS	=	-L$(LIB_PATH) -lft
 
-MLX_PATH	=	./mlx
-MLX			=	mlx/libmlx.a
-MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
+ifeq ($(OS), Linux)
+	MLX_PATH	= ./mlx-linux
+	MLX			= $(MLX_PATH)/libmlx.a
+	MLX_FLAGS	= -L$(MLX_PATH) -lmlx_linux -lXext -lX11 -lz -lm
+else
+	MLX_PATH	= ./mlx
+	MLX			= $(MLX_PATH)/libmlx.a
+	MLX_FLAGS	= -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
+endif
 
 ###############################################################################
 #									COLORS								  #
@@ -112,11 +118,11 @@ make_lib:
 
 clean_libs:
 	@$(MAKE) clean -s -C $(LIB_PATH)
-	@make clean -C mlx
+	@if [ -d "$(MLX_PATH)" ]; then make clean -C $(MLX_PATH) > /dev/null; fi
 
 fclean_libs:
 	@$(MAKE) fclean -s -C $(LIB_PATH)
-	@rm -rf $(MLX)
+	@if [ -d "$(MLX_PATH)" ]; then rm -rf $(MLX) > /dev/null; fi
 
 
 #					--------	RULES PROGRAM	--------							  #
