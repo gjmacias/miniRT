@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:00 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 17:10:06 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:54:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 		exit(EXIT_FAILURE);
 	}
 	arraytodouble(s, vector);
+	if (checker_normal(vector))
+	{
+		write(2, " > Wrong values: Normal\n", 24);
+		exit(EXIT_FAILURE);	
+	}
 	free(line_num);
 }
 
