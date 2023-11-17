@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 17:10:19 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:34:38 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		checker_double(char *s, char c);
 int		checker_array_double(char *s);
 int		checker_uchar(char *s);
 int		checker_fov(char *s, char c);
+int		checker_normal(t_vector *vector);
 
 // EXIT
 int		ft_exit(t_data *data);

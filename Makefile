@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/06 17:15:38 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/11/17 17:32:44 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 
 SRC			=	miniRT.c \
 				checkers/checker_dot.c checkers/checker_parse.c \
+				checkers/checker_normal.c \
 				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
