@@ -21,12 +21,12 @@ void	input_brightness(char *s, t_data *p, double *bright)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_double(s, '\0'))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Double brightness\n", 37);
+			ft_putstr_fd(" > Bad parameter: Double brightness\n", 2);
 		else
-			write(2, " > Need parameter: brightness\n", 31);
+			ft_putstr_fd(" > Need parameter: brightness\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	(*bright) = ft_strtod(s);
@@ -40,12 +40,12 @@ void	input_position(char *s, t_data *p, t_vector *center)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_array_double(s))
 	{
-		write(2, "Error in line: < ", 18);
+		ft_putstr_fd("Error in line: < ", 2);
 		write(2, line_num, ft_strlen(line_num));
 		if (s)
-			write(2, " > Bad parameter: Vector position\n", 36);
+			ft_putstr_fd(" > Bad parameter: Vector position\n", 2);
 		else
-			write(2, " > Need parameter: position\n", 30);
+			ft_putstr_fd(" > Need parameter: position\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	arraytodouble(s, center);
@@ -59,18 +59,18 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_array_double(s))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Vector\n", 26);
+			ft_putstr_fd(" > Bad parameter: Vector\n", 2);
 		else
-			write(2, " > Need parameter: Vector\n", 27);
+			ft_putstr_fd(" > Need parameter: Vector\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	arraytodouble(s, vector);
 	if (checker_normal(vector))
 	{
-		write(2, " > Wrong values: Normal\n", 24);
+		ft_putstr_fd(" > Wrong values: Normal\n", 2);
 		exit(EXIT_FAILURE);	
 	}
 	free(line_num);
@@ -83,12 +83,12 @@ void	input_diameter(char *s, t_data *p, double *diameter)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_double(s, '\0'))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Double diameter\n", 35);
+			ft_putstr_fd(" > Bad parameter: Double diameter\n", 2);
 		else
-			write(2, " > Need parameter: diameter\n", 29);
+			ft_putstr_fd(" > Need parameter: diameter\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	(*diameter) = ft_strtod(s);
