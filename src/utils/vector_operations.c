@@ -6,10 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:59:16 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/11/21 13:19:31 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:17:26 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "libft.h"
 #include "miniRT_defs.h"
 
@@ -41,4 +42,12 @@ t_vector	v_product(t_vector *v1, double n)
 	result.y = v1->y * n;
 	result.z = v1->z * n;
 	return (result);
+}
+
+double	vector_length(t_vector *vector)
+{
+	double	len;
+
+	len = sqrt(pow(vector->x, 2) + pow(vector->y, 2) + pow(vector->z, 2));
+	return (len);
 }

@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_normal.c                                   :+:      :+:    :+:   */
+/*   vector_normalize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 17:31:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/11/21 12:14:20 by ffornes-         ###   ########.fr       */
+/*   Created: 2023/11/21 14:52:45 by ffornes-          #+#    #+#             */
+/*   Updated: 2023/11/21 16:16:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_defs.h"
 #include <math.h>
+#include "libft.h"
+#include "miniRT.h"
+#include "miniRT_defs.h"
 
-int	checker_normal(t_vector *vector)
+t_vector	*normalize_v(t_vector *vector)
 {
-	double	n;
+	t_vector	*output;
+	double		len;
 
-	n = sqrt(pow(vector->x, 2) + pow(vector->y, 2) + pow(vector->z, 2));
-	if (n != 1)
-		return (1);
-	return (0);
+	output = ft_calloc(sizeof(t_vector), 1);
+	if (!output)
+		return (NULL);
+	len = vector_length(vector);
+	output->x = vector->x / len;
+	output->y = vector->y / len;
+	output->z = vector->z / len;
+	return (output);
 }

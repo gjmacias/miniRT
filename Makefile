@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/21 13:24:52 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/11/21 15:21:17 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ OS		:= $(shell uname)
 
 SRC			=	miniRT.c \
 				checkers/checker_dot.c checkers/checker_parse.c \
-				checkers/checker_normal.c \
 				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
@@ -30,6 +29,7 @@ SRC			=	miniRT.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				utils/is_space.c utils/ft_str_to.c utils/array_to.c \
 				utils/new_vector.c utils/vector_operations.c \
+				utils/vector_normalize.c \
 				tests/print_vector.c tests/print.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
