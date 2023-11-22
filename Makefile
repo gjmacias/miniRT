@@ -28,6 +28,8 @@ SRC			=	miniRT.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				utils/is_space.c utils/ft_str_to.c utils/array_to.c \
+				utils/new_vector.c utils/vector_operations.c \
+				utils/vector_normalize.c \
 				tests/print.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
