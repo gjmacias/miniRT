@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/11/21 15:21:17 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/11/06 17:15:38 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,7 @@ SRC			=	miniRT.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				utils/is_space.c utils/ft_str_to.c utils/array_to.c \
-				utils/new_vector.c utils/vector_operations.c \
-				utils/vector_normalize.c \
-				tests/print_vector.c tests/print.c
+				tests/print.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
