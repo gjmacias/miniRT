@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:01:30 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:09:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	p_camera(char **arguments, t_data *p)
 	if (p->info.camera > 1)
 		write_error3("Error: camera < ", arguments[0],
 			" > is DUPLICATED\n");
-	input_possition(arguments[1], p, &(p->camera.center));
+	input_position(arguments[1], p, &(p->camera.center));
 	input_vector(arguments[2], p, &(p->camera.n_vector));
 	input_fov(arguments[3], p, &(p->camera.fov));
 	if (arguments[4])
@@ -46,11 +46,11 @@ void	parse_type_error(char **arguments, t_data *p)
 	char	*line_num;
 
 	line_num = ft_itoa(p->line);
-	write(2, "Error: < ", 10);
-	write(2, arguments[0], ft_strlen(arguments[0]));
-	write(2, " > in line: < ", 15);
-	write(2, line_num, ft_strlen(line_num));
-	write(2, " > is a invalid input\n", 23);
+	ft_putstr_fd("Error: < ", 2);
+	ft_putstr_fd(arguments[0], 2);
+	ft_putstr_fd(" > in line: < ", 2);
+	ft_putstr_fd(line_num, 2);
+	ft_putstr_fd(" > is a invalid input\n", 2);
 	free(line_num);
 	exit(EXIT_FAILURE);
 }
