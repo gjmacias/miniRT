@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/21 14:59:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:14:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,16 @@ t_vector	*new_vector(double x, double y, double z);
 t_vector	v_addition(t_vector *v1, t_vector *v2);
 t_vector	v_subtract(t_vector *v1, t_vector *v2);
 t_vector	v_product(t_vector *v1, double n);
+double		scalar_product(t_vector v1, t_vector v2);
 double		vector_length(t_vector *vector);
 t_vector	*normalize_v(t_vector *vector);
-void		print_vector(t_vector vector);
+
+int			rayhit_plane(t_vector *ray0, t_vector *ray_dir, t_plane *plane);
 
 //  TEST
 void		printaux(void);
 void		printpp(char **s);
 void		print_data(t_data *d);
+void		print_vector(t_vector vector);
 
 #endif
