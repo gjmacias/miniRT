@@ -20,8 +20,12 @@ int	main(int words, char **arguments)
 	t_mlx_data	data;
 	t_data		parameters;
 
-	if (words == 2)
+	if (words == 2 || words == 4)
 	{
+		if (words == 2)
+			init_canvas(&parameters, arguments[2], arguments[3]);
+		else
+			init_canvas(&parameters, "1920", "1080");
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
@@ -31,6 +35,6 @@ int	main(int words, char **arguments)
 		mlx_loop(vars.mlx);
 	}
 	else
-		write(2, "Error : Usage : \"./miniRT file.rt\"\n", 36);
+		write(2, "Error : Bad arguments. { Usage : \"./miniRT file.rt\" }\n", 55);
 	return (0);
 }

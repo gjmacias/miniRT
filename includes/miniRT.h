@@ -26,7 +26,7 @@ void	check_format_dotrt(char *txt);
 int		checker_double(char *s, char c);
 int		checker_array_double(char *s);
 int		checker_uchar(char *s);
-int	checker_fov(char *s, char c);
+int		checker_fov(char *s, char c);
 
 // EXIT
 int		ft_exit(t_data *data);
@@ -43,6 +43,7 @@ int		finish_execution(void);
 //  INITS
 void	init_mlx(t_vars *vars, t_mlx_data *data);
 void	init_parameters_info(t_data *p);
+void	init_canvas(t_data *p, char *str_width, char *str_height);
 
 //  PARSE
 void	parse_txt(t_data *p);

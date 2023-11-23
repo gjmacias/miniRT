@@ -14,8 +14,6 @@
 # define MINIRT_DEFS_H
 
 # define ESC	53
-# define WIDTH	1920
-# define HEIGHT	1080
 
 # define BLACK 	0x00000000
 # define RED	0x00FF0000
@@ -119,6 +117,8 @@ typedef struct s_data
 {
 	char		*txt;
 	size_t		line;
+	int			width;
+	int			height;
 	t_info		info;
 	t_ambiental	ambient_light;
 	t_camera	camera;
@@ -127,5 +127,10 @@ typedef struct s_data
 	t_list		*spheres;
 	t_list		*cylinders;
 }				t_data;
+
+typedef struct s_pos_camera
+{
+	float	m[3][3];
+}	t_pos_camera;
 
 #endif
