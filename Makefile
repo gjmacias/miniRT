@@ -13,6 +13,7 @@
 NAME	=	miniRT
 CC		=	gcc
 CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
+OS		:= $(shell uname)
 
 ###############################################################################
 #									SRC								  #
@@ -51,7 +52,7 @@ LIB_FLAGS	=	-L$(LIB_PATH) -lft
 ifeq ($(OS), Linux)
 	MLX_PATH	= ./mlx-linux
 	MLX			= $(MLX_PATH)/libmlx.a
-	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx_linux -lXext -lX11 -lz -lm
+	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx -lXext -lX11 -lz -lm
 else
 	MLX_PATH	= ./mlx
 	MLX			= $(MLX_PATH)/libmlx.a
@@ -62,7 +63,7 @@ endif
 #									INLUDES									  #
 ###############################################################################
 
-INCS	=	-I ./includes/ -I ./libft/include/ -I $(MLX_PATH)/
+INCS	=	-I ./includes/ -I ./Libft/include/ -I $(MLX_PATH)/
 
 ###############################################################################
 #									COLORS								  #
@@ -108,7 +109,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 
 make_mlx:
 	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
-	@make -C mlx 2> /dev/null
+	@make -C $(MLX_PATH) 2> /dev/null
 	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
 
 make_lib:
