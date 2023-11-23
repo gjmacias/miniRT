@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/22 17:14:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:00:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ void		arraytouchar(char *s, t_color *color);
 void		arraytodouble(char *s, t_vector *vector);
 
 t_vector	*new_vector(double x, double y, double z);
-t_vector	v_addition(t_vector *v1, t_vector *v2);
-t_vector	v_subtract(t_vector *v1, t_vector *v2);
-t_vector	v_product(t_vector *v1, double n);
+t_vector	v_addition(t_vector v1, t_vector v2);
+t_vector	v_subtract(t_vector v1, t_vector v2);
+t_vector	v_product(t_vector v1, double n);
 double		scalar_product(t_vector v1, t_vector v2);
-double		vector_length(t_vector *vector);
-t_vector	*normalize_v(t_vector *vector);
+double		vector_length(t_vector vector);
+t_vector	*normalize_v(t_vector vector);
 
-int			rayhit_plane(t_vector *ray0, t_vector *ray_dir, t_plane *plane);
+double		rayhit_plane(t_vector ray0, t_vector ray_dir, t_plane *plane);
 
 //  TEST
 void		printaux(void);

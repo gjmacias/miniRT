@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:52:45 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/11/21 16:16:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:00:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "miniRT.h"
 #include "miniRT_defs.h"
 
-t_vector	*normalize_v(t_vector *vector)
+t_vector	*normalize_v(t_vector vector)
 {
 	t_vector	*output;
 	double		len;
@@ -24,8 +24,8 @@ t_vector	*normalize_v(t_vector *vector)
 	if (!output)
 		return (NULL);
 	len = vector_length(vector);
-	output->x = vector->x / len;
-	output->y = vector->y / len;
-	output->z = vector->z / len;
+	output->x = vector.x / len;
+	output->y = vector.y / len;
+	output->z = vector.z / len;
 	return (output);
 }
