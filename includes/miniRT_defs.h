@@ -128,9 +128,9 @@ typedef struct s_data
 	t_list		*cylinders;
 }				t_data;
 
-typedef struct s_pos_camera
+typedef struct s_3Matrix
 {
 	float	m[3][3];
-}	t_pos_camera;
+}	t_3Matrix;
 
 #endif
