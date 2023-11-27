@@ -21,12 +21,12 @@ void	input_fov(char *s, t_data *p, double *fov)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_double(s, '\0'))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Double FOV\n", 30);
+			ft_putstr_fd(" > Bad parameter: Double FOV\n", 2);
 		else
-			write(2, " > Need parameter: FOV\n", 24);
+			ft_putstr_fd(" > Need parameter: FOV\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (checker_fov(s, '\0'))
@@ -45,12 +45,12 @@ void	input_height(char *s, t_data *p, double *height)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_double(s, '\0'))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Double height\n", 33);
+			ft_putstr_fd(" > Bad parameter: Double height\n", 2);
 		else
-			write(2, " > Need parameter: height\n", 27);
+			ft_putstr_fd(" > Need parameter: height\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	(*height) = ft_strtod(s);
@@ -64,12 +64,12 @@ void	input_color(char *s, t_data *p, t_color *color)
 	line_num = ft_itoa(p->line);
 	if (!s || checker_uchar(s))
 	{
-		write(2, "Error in line: < ", 18);
-		write(2, line_num, ft_strlen(line_num));
+		ft_putstr_fd("Error in line: < ", 2);
+		ft_putstr_fd(line_num, 2);
 		if (s)
-			write(2, " > Bad parameter: Vector color\n", 32);
+			ft_putstr_fd(" > Bad parameter: Vector color\n", 2);
 		else
-			write(2, " > Need parameter: color\n", 26);
+			ft_putstr_fd(" > Need parameter: color\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	arraytouchar(s, color);

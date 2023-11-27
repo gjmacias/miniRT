@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:01:40 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/11/17 17:17:14 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	p_ligths(char **arguments, t_data *p)
 	if (new_content == NULL || new_list == NULL)
 		write_error("Fatal error: Malloc failed. Free memory");
 	p->info.lights += 1;
-	input_possition(arguments[1], p, &(new_content->center));
+	input_position(arguments[1], p, &(new_content->center));
 	input_brightness(arguments[2], p, &(new_content->brightness));
 	input_color(arguments[3], p, &(new_content->color));
 	if (arguments[4])
@@ -45,7 +45,7 @@ void	p_plane(char **arguments, t_data *p)
 	if (new_content == NULL || new_list == NULL)
 		write_error("Fatal error: Malloc failed. Free memory");
 	p->info.planes += 1;
-	input_possition(arguments[1], p, &(new_content->center));
+	input_position(arguments[1], p, &(new_content->center));
 	input_vector(arguments[2], p, &(new_content->n_vector));
 	input_color(arguments[3], p, &(new_content->material.color));
 	if (arguments[4])
@@ -66,7 +66,7 @@ void	p_sphere(char **arguments, t_data *p)
 	if (new_content == NULL || new_list == NULL)
 		write_error("Fatal error: Malloc failed. Free memory");
 	p->info.spheres += 1;
-	input_possition(arguments[1], p, &(new_content->center));
+	input_position(arguments[1], p, &(new_content->center));
 	input_diameter(arguments[2], p, &(new_content->diameter));
 	input_color(arguments[3], p, &(new_content->material.color));
 	if (arguments[4])
@@ -87,7 +87,7 @@ void	p_cylinder(char **arguments, t_data *p)
 	if (new_content == NULL || new_list == NULL)
 		write_error("Fatal error: Malloc failed. Free memory");
 	p->info.cylinders += 1;
-	input_possition(arguments[1], p, &(new_content->center));
+	input_position(arguments[1], p, &(new_content->center));
 	input_vector(arguments[2], p, &(new_content->n_vector));
 	input_diameter(arguments[3], p, &(new_content->diameter));
 	input_height(arguments[4], p, &(new_content->height));

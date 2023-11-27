@@ -92,7 +92,7 @@ void	parse_txt(t_data *p)
 	line = get_next_line(fd);
 	if (!line)
 	{
-		write(2, "Error: Map not read\n", 21);
+		ft_putstr_fd("Error: Map not read\n", 2);
 		exit (EXIT_FAILURE);
 	}
 	while (line)
