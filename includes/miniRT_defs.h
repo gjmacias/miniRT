@@ -21,8 +21,16 @@
 # define BLUE 	0x000000FF
 # define WHITE	0x00FFFFFF
 
+#define EPSILON 1e-6
+
 # include "libft_defs.h"
 # include <stddef.h>
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}			t_vars;
 
 typedef struct s_mlx_data
 {
@@ -31,13 +39,8 @@ typedef struct s_mlx_data
 	int		bpps;
 	int		l_len;
 	int		endian;
+	t_vars	vars;
 }			t_mlx_data;
-
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}			t_vars;
 
 typedef struct s_vector
 {
@@ -130,9 +133,9 @@ typedef struct s_data
 	t_list		*cylinders;
 }				t_data;
 
-typedef struct s_3Matrix
+typedef struct s_4Matrix
 {
-	float	m[3][3];
-}	t_3Matrix;
+	float	m[4][4];
+}	t_4Matrix;
 
 #endif

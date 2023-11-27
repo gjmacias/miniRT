@@ -15,17 +15,14 @@
 #include "miniRT.h"
 #include "miniRT_defs.h"
 
-t_vector	*normalize_v(t_vector vector)
+t_vector	normalize_v(t_vector vector)
 {
-	t_vector	*output;
+	t_vector	output;
 	double		len;
 
-	output = ft_calloc(sizeof(t_vector), 1);
-	if (!output)
-		return (NULL);
-	len = vector_length(vector);
-	output->x = vector.x / len;
-	output->y = vector.y / len;
-	output->z = vector.z / len;
+	len = v_magnitude(vector);
+	output.x = vector.x / len;
+	output.y = vector.y / len;
+	output.z = vector.z / len;
 	return (output);
 }

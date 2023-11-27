@@ -1,6 +1,6 @@
 #include "miniRT_defs.h"
 
-void	my_mlx_pixel_put(t_mlx_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color)
 {
 	char	*dst;
 

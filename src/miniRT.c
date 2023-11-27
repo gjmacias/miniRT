@@ -16,7 +16,6 @@
 
 int	main(int words, char **arguments)
 {
-	t_vars		vars;
 	t_mlx_data	data;
 	t_data		parameters;
 
@@ -29,10 +28,10 @@ int	main(int words, char **arguments)
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
-		init_mlx(&vars, &data);
-		mlx_key_hook(vars.win, key_hook, &vars);
-		mlx_hook(vars.win, 17, 0, finish_execution, &vars);
-		mlx_loop(vars.mlx);
+		init_mlx(&data, &parameters);
+		mlx_key_hook(vars.win, key_hook, &(data.vars));
+		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
+		mlx_loop(data.vars.mlx);
 	}
 	else
 		write(2, "Error : Bad arguments. { Usage : \"./miniRT file.rt\" }\n", 55);

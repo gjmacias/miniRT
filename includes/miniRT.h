@@ -72,7 +72,7 @@ t_vector	v_addition(t_vector v1, t_vector v2);
 t_vector	v_subtract(t_vector v1, t_vector v2);
 t_vector	v_product(t_vector v1, double n);
 double		scalar_product(t_vector v1, t_vector v2);
-double		vector_length(t_vector vector);
+double		v_magnitude(t_vector vector);
 t_vector	*normalize_v(t_vector vector);
 
 double		rayhit_plane(t_vector ray0, t_vector ray_dir, t_plane *plane);
