@@ -12,6 +12,7 @@
 
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include <limits.h>
 
 void	init_parameters_info(t_data *p)
 {
@@ -26,6 +27,8 @@ void	init_parameters_info(t_data *p)
 	p->planes = NULL;
 	p->spheres = NULL;
 	p->cylinders = NULL;
+	p->render_MIN = 1;
+	p->render_MAX = INT_MAX;
 }
 
 void	init_canvas(t_data *p, char *str_width, char *str_height)

@@ -119,6 +119,8 @@ typedef struct s_data
 	size_t		line;
 	int			width;
 	int			height;
+	int			render_MIN;
+	int			render_MAX;
 	t_info		info;
 	t_ambiental	ambient_light;
 	t_camera	camera;

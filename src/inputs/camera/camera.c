@@ -2,22 +2,27 @@
 
 t_3Matrix	pos_camera(t_data *d)
 {
-	t_Vector		cross;
-	float			angle;
+	t_vector	cross;
+	t_vector	init;
+	float		angle;
 	t_3Matrix	matrix;
 
-	angle = angle_btwn_vectors(camera()->initial_dir, camera()->dir);
-	cross = cross_product(camera()->initial_dir, camera()->dir);
-	matrix = create_rot_matrix(cross, angle);
+	init.x = 1;
+	init.y = 0;
+	init.z = 0;
+	angle = angle_vectors(init, d->camera.n_vector);
+	cross = cross_product(init, d->camera.n_vector);
+	init = cross;
+	matrix = create_matrix(init, angle);
 	return (matrix);
 }
 
 void	render_camera(t_data *d)
 {
-	t_Color		color;
+	t_color		color;
 	int			x;
 	int			y;
-	t_Vector	normal;
+	t_vector	normal;
 	t_3Matrix	camera;
 
 	camera = pos_camera(d);
@@ -28,7 +33,7 @@ void	render_camera(t_data *d)
 		while (++x <= (d->width / 2))
 		{
 			normal = mult_mtrx_vector(&camera, canvas_to_viewport(x, y));
-			color = trace_ray(normal, T_MIN, T_MAX); // crear  funcion
+			color = trace_ray(normal, d->render_MIN, d->render_MAX); // crear  funcion
 			put_pixel(x, y, color); // revisar axis, my_mlx, my plx pixe put
 		}
 		x = ((d->width / 2) * -1);
