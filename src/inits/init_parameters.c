@@ -12,6 +12,7 @@
 
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include "libft.h"
 #include <limits.h>
 
 void	init_parameters_info(t_data *p)

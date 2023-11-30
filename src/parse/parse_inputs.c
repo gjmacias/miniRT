@@ -71,7 +71,7 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 	if (v_magnitude(*vector) != 1)
 	{
 		ft_putstr_fd(" > Wrong values: Normal\n", 2);
-		exit(EXIT_FAILURE);	
+		exit(EXIT_FAILURE);
 	}
 	free(line_num);
 }

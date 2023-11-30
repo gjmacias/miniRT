@@ -29,11 +29,11 @@ int	main(int words, char **arguments)
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
 		init_mlx(&data, &parameters);
-		mlx_key_hook(vars.win, key_hook, &(data.vars));
+		mlx_key_hook(data.vars.win, key_hook, &(data.vars));
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
 		mlx_loop(data.vars.mlx);
 	}
 	else
-		write(2, "Error : Bad arguments. { Usage : \"./miniRT file.rt\" }\n", 55);
+		write_error("Error: Bad arguments. { Usage: \"./miniRT file.rt\" }\n");
 	return (0);
 }

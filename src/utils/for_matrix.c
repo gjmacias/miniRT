@@ -28,7 +28,9 @@ void	create_pos_matrix(t_4Matrix *matrix, t_camera *c)
 
 void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 {
-	t_vector right, up, forward;
+	t_vector	right;
+	t_vector	up;
+	t_vector	forward;
 
 	forward = c->n_vector;
 	right = cross_product((t_vector){0, 1, 0}, forward);
@@ -44,4 +46,16 @@ void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 	matrix->m[0][2] = forward.x;
 	matrix->m[1][2] = forward.y;
 	matrix->m[2][2] = forward.z;
+}
+
+t_vector	normalize_v(t_vector vector)
+{
+	t_vector	output;
+	double		len;
+
+	len = v_magnitude(vector);
+	output.x = vector.x / len;
+	output.y = vector.y / len;
+	output.z = vector.z / len;
+	return (output);
 }

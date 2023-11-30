@@ -24,14 +24,15 @@ SRC			=	miniRT.c \
 				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
-				inits/mlx_init.c inits/init_parameters.c \
+				inits/init_mlx.c inits/init_parameters.c \
+				inputs/camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
-				utils/is_space.c utils/ft_str_to.c utils/array_to.c \
-				utils/new_vector.c utils/vector_operations.c \
-				utils/vector_normalize.c \
-				utils/intersections.c \
-				tests/print.c
+				utils/array_to.c utils/for_matrix.c utils/for_vectors.c \
+				utils/ft_str_to.c utils/intersections.c utils/is_space.c\
+				utils/my_mlx.c utils/new_vector.c \
+				utils/vector_operations.c \
+				tests/print.c tests/print_matrix.c tests/print_vector.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
@@ -69,7 +70,7 @@ endif
 INCS	=	-I ./includes/ -I ./Libft/include/ -I $(MLX_PATH)/
 
 ###############################################################################
-#									COLORS								  #
+#									COLORS									  #
 ###############################################################################
 
 DEF_COLOR	= \033[0;39m
@@ -92,20 +93,12 @@ all: make_dir make_mlx make_lib $(NAME)
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
-	@mkdir -p $(OBJ_DIR)/checkers
-	@mkdir -p $(OBJ_DIR)/error
-	@mkdir -p $(OBJ_DIR)/exit
-	@mkdir -p $(OBJ_DIR)/hooks
-	@mkdir -p $(OBJ_DIR)/inits
-	@mkdir -p $(OBJ_DIR)/parse
-	@mkdir -p $(OBJ_DIR)/utils
-	@mkdir -p $(OBJ_DIR)/tests
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
+	@mkdir -p $(dir $@)
 	@echo "$(GRAY)Compiling $< to $@ $(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@mv $(basename $@).d $(DPS_DIR)
-#	@echo "Done!" && echo ""
 
 
 #						--------	MAKE LIBRARIES	--------							  #

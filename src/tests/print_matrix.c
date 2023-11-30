@@ -1,4 +1,3 @@
-
 #include "miniRT_defs.h"
 #include <stdio.h>
 

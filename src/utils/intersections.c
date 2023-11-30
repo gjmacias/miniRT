@@ -20,7 +20,7 @@ double	rayhit_plane(t_vector ray0, t_vector ray_dir, t_plane *plane)
 	double	t;
 
 	denom = scalar_product(ray_dir, plane->n_vector);
-	if (denom > 0.0000001f)
+	if (denom > EPSILON)
 	{
 		t = scalar_product(v_subtract(plane->center, ray0), ray_dir) / denom;
 		if (t >= 0)
@@ -29,7 +29,7 @@ double	rayhit_plane(t_vector ray0, t_vector ray_dir, t_plane *plane)
 	return (0);
 }
 
-double	rayhit_sphere(t_vector *ray0, t_vector *ray_dir, t_sphere *sphere)
+/*double	rayhit_sphere(t_vector *ray0, t_vector *ray_dir, t_sphere *sphere)
 {
 	
-}
+}*/
