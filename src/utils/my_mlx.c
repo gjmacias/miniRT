@@ -1,11 +1,11 @@
 #include "miniRT_defs.h"
-#include <stdio.h>
 
 int rgba_to_hex(t_color color)
 {
 	int	hex_color;
 
-	hex_color = ((int)color.a << 24) | ((int)color.r << 16) | ((int)color.g << 8) | (int)color.b;
+	hex_color = ((int)color.a << 24) | ((int)color.r << 16)
+		| ((int)color.g << 8) | (int)color.b;
 	return (hex_color);
 }
 

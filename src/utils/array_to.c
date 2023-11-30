@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "miniRT.h"
-#include <stdio.h>
 
 void	arraytouchar(char *s, t_color *color)
 {
