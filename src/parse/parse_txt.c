@@ -106,5 +106,4 @@ void	parse_txt(t_data *p)
 		write_error3("Error: < C or A >: ", "Need minium: ",
 			"1 camera AND 1 ambient light\n");
 	close(fd);
-	print_data(p);
 }

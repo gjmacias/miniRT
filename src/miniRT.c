@@ -21,7 +21,7 @@ int	main(int words, char **arguments)
 
 	if (words == 2 || words == 4)
 	{
-		if (words == 2)
+		if (words == 4)
 			init_canvas(&parameters, arguments[2], arguments[3]);
 		else
 			init_canvas(&parameters, "1920", "1080");
@@ -31,6 +31,7 @@ int	main(int words, char **arguments)
 		init_mlx(&data, &parameters);
 		mlx_key_hook(data.vars.win, key_hook, &(data.vars));
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
+		render_camera(&parameters, &data);
 		mlx_loop(data.vars.mlx);
 	}
 	else

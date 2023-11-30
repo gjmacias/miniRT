@@ -31,3 +31,15 @@ t_vector	cross_product(t_vector a, t_vector b)
 	}
 	return (result);
 }
+
+t_vector	normalize_v(t_vector vector)
+{
+	t_vector	output;
+	double		len;
+
+	len = v_magnitude(vector);
+	output.x = vector.x / len;
+	output.y = vector.y / len;
+	output.z = vector.z / len;
+	return (output);
+}

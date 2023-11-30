@@ -15,22 +15,21 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 {
 	int			x;
 	int			y;
-	//t_vector	normal;
-	//t_color	color;
+	t_vector	normal;
+	t_color		color;
 	t_4Matrix	camera;
 
 	camera = pos_camera(&(d->camera));
-	x = ((d->width / 2) * -1);
-	y = (d->height / 2);
-	while (--y >= (d->height / 2) * -1)
+	y = -1;
+	while (++y < d->height)
 	{
-		while (++x <= (d->width / 2))
+		x = -1;
+		while (++x < d->width)
 		{
-			//normal = mult_mtrx_vector(&camera, canvas_to_viewport(x, y)); 
-			//color = trace_ray(normal, d->render_MIN, d->render_MAX);
-			my_mlx_pixel_put(mlx, x, y, (t_color){255, 255, 255, 255});
+			normal = matrix_vector(&camera, d, (t_vector){(float)x, (float)y, 1.0});
+			color = trace_ray(normal, d->render_MIN, d->render_MAX);
+			my_mlx_pixel_put(mlx, x, y, color);
 		}
-		x = ((d->width / 2) * -1);
 	}
 	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 }

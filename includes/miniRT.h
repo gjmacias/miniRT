@@ -41,7 +41,7 @@ int			key_hook(int keycode, t_vars *vars);
 int			finish_execution(void);
 
 //  INITS
-void	init_mlx(t_mlx_data *d, t_data *p);
+void		init_mlx(t_mlx_data *d, t_data *p);
 void		init_parameters_info(t_data *p);
 
 //  INPUTS
@@ -66,13 +66,17 @@ void		input_fov(char *s, t_data *p, double *fov);
 void		input_height(char *s, t_data *p, double *height);
 void		input_color(char *s, t_data *p, t_color *color);
 
-//  UTILS
+//	RAY TRACING
+t_color		trace_ray(t_vector ray, int min, int max);
+
+//	UTILS
 void		arraytouchar(char *s, t_color *color);
 void		arraytodouble(char *s, t_vector *vector);
 
 void		init_matrix(t_4Matrix *matrix);
 void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
 void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);
+t_vector 	matrix_vector(t_4Matrix *m, t_data *d, t_vector v);
 
 float		angle_vectors(t_vector a, t_vector b);
 t_vector	cross_product(t_vector a, t_vector b);
@@ -103,5 +107,6 @@ void		printaux(void);
 void		printpp(char **s);
 void		print_data(t_data *d);
 void		print_vector(t_vector vector);
+void		print_color(t_color color);
 
 #endif

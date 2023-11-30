@@ -20,7 +20,7 @@ void	arraytouchar(char *s, t_color *color)
 
 	x[0] = 0;
 	x[5] = 1;
-	x[4] = 255;
+	x[4] = 0;
 	x[1] = ft_strtouc(s);
 	while (s[x[0]] != '\0')
 	{

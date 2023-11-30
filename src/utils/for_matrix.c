@@ -48,14 +48,14 @@ void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 	matrix->m[2][2] = forward.z;
 }
 
-t_vector	normalize_v(t_vector vector)
+t_vector 	matrix_vector(t_4Matrix *m, t_data *d, t_vector v)
 {
-	t_vector	output;
-	double		len;
+	t_vector	res;
 
-	len = v_magnitude(vector);
-	output.x = vector.x / len;
-	output.y = vector.y / len;
-	output.z = vector.z / len;
-	return (output);
+	v.x = (float)(d->width / 2) - v.x;
+	v.y = (float)(d->height / 2) - v.y;
+	res.x = m->m[0][0] * v.x + m->m[0][1] * v.y + m->m[0][2] * v.z;
+	res.y = m->m[1][0] * v.x + m->m[1][1] * v.y + m->m[1][2] * v.z;
+	res.z = m->m[2][0] * v.x + m->m[2][1] * v.y + m->m[2][2] * v.z;
+	return (res);
 }

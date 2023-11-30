@@ -28,6 +28,7 @@ SRC			=	miniRT.c \
 				inputs/camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
+				ray_tracing/trace_ray_cam.c \
 				utils/array_to.c utils/for_matrix.c utils/for_vectors.c \
 				utils/ft_str_to.c utils/intersections.c utils/is_space.c\
 				utils/my_mlx.c utils/new_vector.c \

@@ -17,3 +17,8 @@ void	print_vector(t_vector vector)
 {
 	printf("[ X %.2f ][ Y %.2f ][ Z %.2f ]\n", vector.x, vector.y, vector.z);
 }
+
+void	print_color(t_color color)
+{
+	printf("[ R %d ][ G %d ][ B %d ][ A %d ]\n", color.r, color.g, color.b, color.a);
+}
