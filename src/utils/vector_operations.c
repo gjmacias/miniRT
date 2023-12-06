@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:59:16 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/11/23 15:59:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:49:26 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_vector	v_product(t_vector v1, double n)
 	return (result);
 }
 
-double	scalar_product(t_vector v1, t_vector v2)
+double	dot(t_vector v1, t_vector v2)
 {
 	double	n;
 
