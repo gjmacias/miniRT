@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/11 14:33:18 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:38:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double	rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane)
 	double	t;
 
 	denom = dot(ray_dir, plane->n_vector);
-	if (denom > 0.0000001f)
+	if (denom > EPSILON)
 	{
 		t = dot(v_subtract(plane->center, ray0), ray_dir) / denom;
 		if (t >= 0)

@@ -48,14 +48,14 @@ double	dot(t_vector v1, t_vector v2)
 {
 	double	n;
 
-	n = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	n = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 	return (n);
 }
 
-double	vector_length(t_vector vector)
+double	v_magnitude(t_vector v)
 {
 	double	len;
 
-	len = sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 	return (len);
 }

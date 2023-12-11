@@ -16,21 +16,25 @@
 
 int	main(int words, char **arguments)
 {
-	t_vars		vars;
 	t_mlx_data	data;
 	t_data		parameters;
 
-	if (words == 2)
+	if (words == 2 || words == 4)
 	{
+		if (words == 4)
+			init_canvas(&parameters, arguments[2], arguments[3]);
+		else
+			init_canvas(&parameters, "1920", "1080");
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
-		init_mlx(&vars, &data);
-		mlx_key_hook(vars.win, key_hook, &vars);
-		mlx_hook(vars.win, 17, 0, finish_execution, &vars);
-		mlx_loop(vars.mlx);
+		init_mlx(&data, &parameters);
+		mlx_key_hook(data.vars.win, key_hook, &(data.vars));
+		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
+		render_camera(&parameters, &data);
+		mlx_loop(data.vars.mlx);
 	}
 	else
-		write(2, "Error : Usage : \"./miniRT file.rt\"\n", 36);
+		write_error("Error: Bad arguments. { Usage: \"./miniRT file.rt\" }\n");
 	return (0);
 }

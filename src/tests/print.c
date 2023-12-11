@@ -13,13 +13,13 @@
 #include <stdio.h>
 #include "libft_defs.h"
 #include "miniRT_defs.h"
-# define cRED "\033[0;31m"
-# define cGREEN "\033[0;32m"
-# define cYELLOW "\033[0;33m"
-# define cBLUE "\033[0;34m"
-# define cPURPLE "\033[0;35m"
-# define cCYAN "\033[0;36m"
-# define cWHITE "\033[0;37m"
+#define CRED "\033[0;31m"
+#define CGREEN "\033[0;32m"
+#define CYELLOW "\033[0;33m"
+#define CBLUE "\033[0;34m"
+#define CPURPLE "\033[0;35m"
+#define CCYAN "\033[0;36m"
+#define CWHITE "\033[0;37m"
 
 void	printaux(void)
 {
@@ -62,7 +62,7 @@ void	print_data(t_data *d)
 	printf("\tSpheres:\t%li\n", d->info.spheres);
 	printf("\tCylinders:\t%li\n", d->info.cylinders);
 	printf("\n");
-	printf(cRED"Camera\n"cWHITE);
+	printf(CRED"Camera\n"CWHITE);
 	printf("\tFOV:\t\t%.2f\n", d->camera.fov);
 	printf("\tPosition:\t[ X %.2f ]\t", d->camera.center.x);
 	printf("[ Y %.2f ]\t", d->camera.center.y);
@@ -71,7 +71,7 @@ void	print_data(t_data *d)
 	printf("[ Y %.2f ]\t", d->camera.n_vector.y);
 	printf("[ Z %.2f ]\n", d->camera.n_vector.z);
 	printf("\n");
-	printf(cCYAN"Ambiental\n"cWHITE);
+	printf(CCYAN"Ambiental\n"CWHITE);
 	printf("\tBrightness:\t%.2f\n", d->ambient_light.brightness);
 	printf("\tColor:\t\t[ R %d ]", d->ambient_light.color.r);
 	printf("[ G %d ]", d->ambient_light.color.g);
@@ -84,7 +84,7 @@ void	print_data(t_data *d)
 	iter[0] = (t_list *)d->lights;
 	while (iter[0])
 	{
-		printf(cYELLOW"Lights\n"cWHITE);
+		printf(CYELLOW"Lights\n"CWHITE);
 		aux = (t_light *)iter[0]->content;
 		printf("\tBrightness:\t%.2f\n", aux->brightness);
 		printf("\tPosition:\t[ X %.2f ]\t", aux->center.x);
@@ -100,7 +100,7 @@ void	print_data(t_data *d)
 	iter[1] = (t_list *)d->planes;
 	while (iter[1])
 	{
-		printf(cGREEN"Planes\n"cWHITE);
+		printf(CGREEN"Planes\n"CWHITE);
 		aux1 = (t_plane *)iter[1]->content;
 		printf("\tPosition:\t[ X %.2f ]\t", aux1->center.x);
 		printf("[ Y %.2f ]\t", aux1->center.y);
@@ -118,7 +118,7 @@ void	print_data(t_data *d)
 	iter[2] = (t_list *)d->spheres;
 	while (iter[2])
 	{
-		printf(cBLUE"Spheres\n"cWHITE);
+		printf(CBLUE"Spheres\n"CWHITE);
 		aux2 = (t_sphere *)iter[2]->content;
 		printf("\tDiameter:\t%.2f\n", aux2->diameter);
 		printf("\tPosition:\t[ X %.2f ]\t", aux2->center.x);
@@ -135,7 +135,7 @@ void	print_data(t_data *d)
 	iter[3] = (t_list *)d->cylinders;
 	while (iter[3])
 	{
-		printf(cPURPLE"Cylinders\n"cWHITE);
+		printf(CPURPLE"Cylinders\n"CWHITE);
 		aux3 = (t_cylinder *)iter[3]->content;
 		printf("\tDiameter:\t%.2f\n", aux3->diameter);
 		printf("\tHeight:\t\t%.2f\n", aux3->height);

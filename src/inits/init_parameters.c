@@ -12,6 +12,8 @@
 
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include "libft.h"
+#include <limits.h>
 
 void	init_parameters_info(t_data *p)
 {
@@ -26,4 +28,23 @@ void	init_parameters_info(t_data *p)
 	p->planes = NULL;
 	p->spheres = NULL;
 	p->cylinders = NULL;
+	p->render_MIN = 1;
+	p->render_MAX = INT_MAX;
+}
+
+void	init_canvas(t_data *p, char *str_width, char *str_height)
+{
+	int	width;
+	int	height;
+
+	width = ft_atoi(str_width);
+	height = ft_atoi(str_height);
+	if (width <= 0 || width > 3840)
+		p->width = 1920;
+	else
+		p->width = width;
+	if (height <= 0 || height > 3840)
+		p->height = 1080;
+	else
+		p->height = height;
 }
