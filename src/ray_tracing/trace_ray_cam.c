@@ -25,6 +25,18 @@ t_color	trace_ray(t_vector ray, t_data *d)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
+	aux = d->planes;
+	while (aux)
+	{
+		t = rayhit_pl(d->camera.center, ray, (t_plane *)aux->content);
+		if (t)
+		{
+			color.r = ((t_plane *)aux->content)->material.color.r;
+			color.g = ((t_plane *)aux->content)->material.color.g;
+			color.b = ((t_plane *)aux->content)->material.color.b;
+		}
+		aux = aux->next;
+	}
 	aux = d->spheres;
 	while (aux)
 	{
