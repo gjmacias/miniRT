@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/06 16:02:28 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:06:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ double	rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane)
 double	rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp)
 {
 	double	coefs[3];
-	double	r;
 	double	discriminant;
+	double	v;
 
-
-	r = sp->diameter / 2;
+	v = v_subtract(ray0, c);
 	coef[0] = dot(ray_dir, ray_dir);
-	coef[1] = 2 * dot(ray_dir, v_subtract(ray0, sp->center));
-	coef[2] = dot(v_subtract(ray0, c), v_subtract(ray0, c)) - pow(r, 2);
+	coef[1] = 2.0 * dot(ray_dir, v_subtract(ray0, sp->center));
+	coef[2] = dot(v, v) - sp->r_sq;
 	discriminant = pow(coef[1], 2) - 4 * coef[0] * coef[2];
 	if (discriminant > 0)
 		printf("Found 2 intersections with sphere\n");
@@ -55,5 +54,5 @@ double	rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp)
 
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-		
+	
 }

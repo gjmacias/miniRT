@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 17:17:14 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:04:40 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	p_sphere(char **arguments, t_data *p)
 	input_position(arguments[1], p, &(new_content->center));
 	input_diameter(arguments[2], p, &(new_content->diameter));
 	input_color(arguments[3], p, &(new_content->material.color));
+	new_content->r = new_content->diameter * 0.5;
+	new_content->r_sq = pow(new_content->r, 2);
 	if (arguments[4])
 		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
@@ -92,6 +94,8 @@ void	p_cylinder(char **arguments, t_data *p)
 	input_diameter(arguments[3], p, &(new_content->diameter));
 	input_height(arguments[4], p, &(new_content->height));
 	input_color(arguments[5], p, &(new_content->material.color));
+	new_content->r = new_content->diameter * 0.5;
+	new_content->r_sq = pow(new_content->r, 2);
 	if (arguments[6])
 		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");

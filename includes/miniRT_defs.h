@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 12:53:04 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:04:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_sphere
 {
 	t_vector	center;
 	double		diameter;
+	double		r;
+	double		r_sq;
 	t_material	material;
 }				t_sphere;
 
@@ -101,6 +103,8 @@ typedef struct s_cylinder
 	t_vector	center;
 	t_vector	n_vector;
 	double		diameter;
+	double		r;
+	double		r_sq;
 	double		height;
 	t_material	material;
 }				t_cylinder;
