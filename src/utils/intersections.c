@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/11 12:06:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:33:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,18 @@ double	rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp)
 		return ((-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]));
 }
 
+/*
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-	
+	A = ray0;
+	b = ray_dir;
+
+	P(t) =	A + tb;
+			p0 + vt;
+
+	((ray0->x + ray_dir->x * t) * (ray0->x + ray_dir->x * t)) + ((ray0->z + ray_dir->z * t) * (ray0->z + ray_dir->z * t)) = cy->r_sq;
+	pow(ray0->x, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + pow(ray0->z, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
+	pow(ray0->x, 2) + pow(ray0->z, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
+
 }
+*/
