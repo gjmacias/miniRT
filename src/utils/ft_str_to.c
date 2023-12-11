@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <math.h>
+#include <stdio.h>
 
 double	ft_strtod(char *str)
 {

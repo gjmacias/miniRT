@@ -19,19 +19,16 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 	t_vector	normal;
 	t_color		color;
 	t_4Matrix	camera;
-	int			size;
 
-	size = d->height;
-	if (d->width < size)
-		size = d->width;
 	camera = pos_camera(&(d->camera));
+	print_matrix(&camera);
 	y = -1;
 	while (++y < d->height)
 	{
 		x = -1;
 		while (++x < d->width)
 		{
-			normal = matrix_vector(&camera, d, (t_vector){(float)x, (float)y, (float)size});
+			normal = matrix_FOV(&camera, d, v_FOV(x, y, d));
 			color = trace_ray(normal, d);
 			my_mlx_pixel_put(mlx, x, y, color);
 		}
