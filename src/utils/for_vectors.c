@@ -9,7 +9,7 @@ float	angle_vectors(t_vector a, t_vector b)
 
 	magnitude1 = v_magnitude(a);
 	magnitude2 = v_magnitude(b);
-	scalar = scalar_product(a, b);
+	scalar = dot(a, b);
 	radians = (acos(scalar / (magnitude1 * magnitude2)));
 	return (radians);
 }

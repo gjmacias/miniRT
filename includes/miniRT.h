@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/11 14:40:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:49:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		input_height(char *s, t_data *p, double *height);
 void		input_color(char *s, t_data *p, t_color *color);
 
 //	RAY TRACING
-t_color		trace_ray(t_vector ray, int min, int max);
+t_color		trace_ray(t_vector ray, t_data *d);
 
 //	UTILS
 void		arraytouchar(char *s, t_color *color);
@@ -100,7 +100,6 @@ t_vector	v_product(t_vector v1, double n);
 double		v_magnitude(t_vector vector);
 
 double		dot(t_vector v1, t_vector v2);
-t_vector	*normalize_v(t_vector vector);
 
 double		rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane);
 double		rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp);

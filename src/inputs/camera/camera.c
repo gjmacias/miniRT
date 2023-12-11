@@ -20,6 +20,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 	t_4Matrix	camera;
 
 	camera = pos_camera(&(d->camera));
+	printf("Height: %d Width: %d\n", d->height, d->width);
 	y = -1;
 	while (++y < d->height)
 	{
@@ -27,7 +28,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 		while (++x < d->width)
 		{
 			normal = matrix_vector(&camera, d, (t_vector){(float)x, (float)y, 1.0});
-			color = trace_ray(normal, d->render_MIN, d->render_MAX);
+			color = trace_ray(normal, d);
 			my_mlx_pixel_put(mlx, x, y, color);
 		}
 	}
