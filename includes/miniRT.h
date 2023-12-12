@@ -93,6 +93,8 @@ int			is_space(int c);
 void		my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color);
 
 t_vector	*new_vector(double x, double y, double z);
+t_vector 	change_n_vec(t_vector n_vec, char *s);
+
 
 t_vector	normalize_v(t_vector vector);
 t_vector	v_FOV(int x, int y, t_data *d);

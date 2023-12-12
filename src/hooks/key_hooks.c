@@ -70,6 +70,30 @@ int	key_hook_test(int keycode, t_hook *hook)
 		hook->parameters->camera.center.y = hook->parameters->camera.center.y - 5;
 		ft_frame(hook);
 	}
+	else if (keycode == UP_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_n_vec(hook->parameters->camera.n_vector, "UP");
+		ft_frame(hook);
+	}
+	else if (keycode == DOWN_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_n_vec(hook->parameters->camera.n_vector, "DOWN");
+		ft_frame(hook);
+	}
+	else if (keycode == LEFT_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_n_vec(hook->parameters->camera.n_vector, "LEFT");
+		ft_frame(hook);
+	}
+	else if (keycode == RIGHT_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_n_vec(hook->parameters->camera.n_vector, "RIGHT");
+		ft_frame(hook);
+	}
 	else if (keycode == PLUS_K && hook->parameters->camera.fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera.fov = hook->parameters->camera.fov + 5.0;
