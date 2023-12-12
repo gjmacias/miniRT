@@ -28,41 +28,41 @@ t_vector	*new_vector(double x, double y, double z)
 	return (out);
 }
 
-double	change_angle(double x, double y, double a)
+t_vector	change_angle(t_vector vec, double angle, char axis) 
 {
-	double res;
-	double rad;
-	double rad_plus;
+    double rad = angle * (M_PI / 180);
+    double cosA = cos(rad);
+    double sinA = sin(rad);
+    t_vector result;
 
-	rad_plus = a * (M_PI / 180);
-	rad = atan(y / x);
-	rad = rad + rad_plus;
-	res = 1 * cos(rad);
-	return (res);
+    if (axis == 'x')
+	{
+        result.x = vec.x;
+        result.y = vec.y * cosA - vec.z * sinA;
+        result.z = vec.y * sinA + vec.z * cosA;
+    } 
+	else if (axis == 'y')
+	{
+        result.x = vec.x * cosA + vec.z * sinA;
+        result.y = vec.y;
+        result.z = -vec.x * sinA + vec.z * cosA;
+    }
+	else
+		return (vec);
+    return (result);
 }
 
 t_vector change_n_vec(t_vector n_vec, char *s)
 {
 	if(ft_strncmp(s, "UP", 3) == 0)
-	{
-		n_vec.z = change_angle(n_vec.z, n_vec.y, 5.0);
-		n_vec.y = sqrt(1 - pow(n_vec.z, 2));
-	}
+		n_vec = change_angle(n_vec, -5.0, 'x');
 	else if(ft_strncmp(s, "DOWN", 5) == 0)
-	{
-		n_vec.z = change_angle(n_vec.z, n_vec.y, -5.0);
-		n_vec.y = sqrt(1 - pow(n_vec.z, 2));
-	}
+		n_vec = change_angle(n_vec, 5.0, 'x');
 	else if(ft_strncmp(s, "LEFT", 5) == 0)
-	{
-		n_vec.z = change_angle(n_vec.z, n_vec.x, 5.0);
-		n_vec.x = sqrt(1 - pow(n_vec.z, 2));
-	}
+		n_vec = change_angle(n_vec, 5.0, 'y');
 	else if(ft_strncmp(s, "RIGHT", 6) == 0)
-	{
-		n_vec.z = change_angle(n_vec.z, n_vec.x, -5.0);
-		n_vec.x = sqrt(1 - pow(n_vec.z, 2));
-	}
+		n_vec = change_angle(n_vec, -5.0, 'y');
+	n_vec = normalize_v(n_vec);
 	print_vector(n_vec);
 	return (n_vec);
 }
