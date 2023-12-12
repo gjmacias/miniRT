@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/11 15:35:50 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:30:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "miniRT_defs.h"
 #include <math.h>
 
+// Must have ray_dir normalized before getting here
 double	rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane)
 {
 	double	denom;
@@ -26,7 +27,7 @@ double	rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane)
 		if (t >= 0)
 			return (t);
 	}
-	return (0);
+	return (-1);
 }
 
 double	rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp)
@@ -35,7 +36,6 @@ double	rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp)
 	double		discriminant;
 	t_vector	v;
 
-//	ray_dir = normalize_v(ray_dir);
 	v = v_subtract(ray0, sp->center);
 	coef[0] = dot(ray_dir, ray_dir);
 	coef[1] = 2.0 * dot(ray_dir, v_subtract(ray0, sp->center));
@@ -66,6 +66,5 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	((ray0->x + ray_dir->x * t) * (ray0->x + ray_dir->x * t)) + ((ray0->z + ray_dir->z * t) * (ray0->z + ray_dir->z * t)) = cy->r_sq;
 	pow(ray0->x, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + pow(ray0->z, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
 	pow(ray0->x, 2) + pow(ray0->z, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
-
 }
 */

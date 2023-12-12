@@ -1,5 +1,38 @@
 #include "miniRT.h"
 
+static t_intersection	find_itsct(t_vector ray, t_data *d)
+{
+	t_intersection	itsc;
+	t_list			*aux;
+	double			t;
+
+	itsc.dist = -1;
+	itsc.mat = new_material(new_color(0, 0, 0, 0), 0);
+	aux = d->planes;
+	while (aux)
+	{
+		t = rayhit_pl(d->camera.center, ray, (t_plane *)aux->content);
+		if (t >= 0 && ((itsc.dist >= 0 && t < itsc.dist) || itsc.dist < 0))
+		{
+			itsc.dist = t;
+			itsc.mat = ((t_plane *)aux->content)->material;
+		}
+		aux = aux->next;
+	}
+	aux = d->spheres;
+	while (aux)
+	{
+		t = rayhit_sp(d->camera.center, ray, (t_sphere *)aux->content);
+		if (t >= 0 && ((itsc.dist >= 0 && t < itsc.dist) || itsc.dist < 0))
+		{
+			itsc.dist = t;
+			itsc.mat = ((t_sphere *)aux->content)->material;
+		}
+		aux = aux->next;
+	}
+	return (itsc);
+}
+
 t_color	trace_ray(t_vector ray, t_data *d)
 {
 	/*t_Intersection	itsct;
@@ -19,44 +52,15 @@ t_color	trace_ray(t_vector ray, t_data *d)
 
 //	min = max;
 	t_color	color;
-	double	t;
-	t_list	*aux;
+	t_intersection	itsct;
 	
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
-	aux = d->planes;
-	while (aux)
-	{
-		t = rayhit_pl(d->camera.center, ray, (t_plane *)aux->content);
-		if (t)
-		{
-			color.r = ((t_plane *)aux->content)->material.color.r;
-			color.g = ((t_plane *)aux->content)->material.color.g;
-			color.b = ((t_plane *)aux->content)->material.color.b;
-		}
-		aux = aux->next;
-	}
-	aux = d->spheres;
-	while (aux)
-	{
-		t = rayhit_sp(d->camera.center, ray, (t_sphere *)aux->content);
-		if (t > -1)
-		{
-			color.r = ((t_sphere *)aux->content)->material.color.r;
-			color.g = ((t_sphere *)aux->content)->material.color.g;
-			color.b = ((t_sphere *)aux->content)->material.color.b;
-		}
-		aux = aux->next;
-	}
-	color.a = 0;
-
+	color = new_color(0, 0, 0, 0);
+	itsct = find_itsct(ray, d);
+	if (itsct.dist >= 0)
+		color = itsct.mat.color;
 //	color.r = (int)(ray.x + ray.z) % 255;
 //	color.g = (int)(ray.x - ray.z) % 255;
 //	color.b = (int)(ray.x) % 255;
-	/*(void)ray;
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;*/
+//	(void)ray;
 	return (color);
 }
