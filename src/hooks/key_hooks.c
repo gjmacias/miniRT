@@ -18,7 +18,7 @@
 int	ft_frame(t_hook *hook)
 {
 	mlx_clear_window(hook->data->vars.mlx, hook->data->vars.win);
-	render_camera(hook->parameters, hook->data);
+	render_camera(hook->parameters, hook->data, 0, hook->parameters->height);
 	return (0);
 }
 
@@ -104,5 +104,6 @@ int	key_hook_test(int keycode, t_hook *hook)
 		hook->parameters->camera.fov = hook->parameters->camera.fov - 5.0;
 		ft_frame(hook);
 	}
+	printf("keycode: %i\n", keycode);
 	return (0);
 }

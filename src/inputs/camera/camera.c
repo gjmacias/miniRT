@@ -1,6 +1,7 @@
 #include "miniRT.h"
 #include "mlx.h"
 #include <limits.h>
+#include <sys/wait.h>
 
 t_4Matrix	pos_camera(t_camera *c)
 {
@@ -12,7 +13,7 @@ t_4Matrix	pos_camera(t_camera *c)
 	return (matrix);
 }
 
-void	render_camera(t_data *d, t_mlx_data *mlx)
+void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 {
 	int			x;
 	int			y;
@@ -23,8 +24,8 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 	camera = pos_camera(&(d->camera));
 	printf("FOV: %.2f\n", d->camera.fov);
 	print_matrix(&camera);
-	y = -1;
-	while (++y < d->height)
+	y = start - 1;
+	while (++y < end)
 	{
 		x = -1;
 		while (++x < d->width)
@@ -37,3 +38,32 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 		mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 	}
 }
+
+/*void	process_camera(t_data *d, t_mlx_data *mlx, int num)
+{
+    pid_t	pid;
+	int		i, start, end;
+
+	i = -1;
+	while (++i < num)
+	{
+        pid = fork();
+        if (pid == 0)
+        {
+            start = i * (d->height / num);
+            end = (i + 1) * (d->height / num);
+			if (end >= d->height)
+				end = d->height;
+            render_camera(d, mlx, start, end);
+            break;
+        }
+        else if (pid < 0)
+        {
+            fprintf(stderr, "Error al crear el proceso hijo\n");
+            exit(1);
+        }
+    }
+    i = -1;
+	while (++i < num)
+        wait(NULL);
+}*/

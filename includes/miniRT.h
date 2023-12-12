@@ -20,6 +20,7 @@
 # include <string.h>
 # include <math.h>
 # include "miniRT_defs.h"
+# include "miniRT_keys_linux.h"
 
 // CHECKERS
 void		check_format_dotrt(char *txt);
@@ -48,7 +49,8 @@ void		init_parameters_info(t_data *p);
 //  INPUTS
 t_4Matrix	pos_camera(t_camera *c);
 
-void		render_camera(t_data *d, t_mlx_data *mlx);
+void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
+void		process_camera(t_data *d, t_mlx_data *mlx, int num);
 void		init_canvas(t_data *p, char *str_width, char *str_height);
 
 //  PARSE
