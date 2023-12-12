@@ -21,6 +21,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 	t_4Matrix	camera;
 
 	camera = pos_camera(&(d->camera));
+	printf("FOV: %.2f\n", d->camera.fov);
 	print_matrix(&camera);
 	y = -1;
 	while (++y < d->height)
