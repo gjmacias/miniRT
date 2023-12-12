@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/12 11:30:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:36:46 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "miniRT_defs.h"
 #include <math.h>
 
-// Must have ray_dir normalized before getting here
 double	rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane)
 {
 	double	denom;
