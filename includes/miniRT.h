@@ -38,6 +38,7 @@ void		write_error3(char *s1, char *s2, char *s3);
 
 // HOOKS
 int			key_hook(int keycode, t_vars *vars);
+int			key_hook_test(int keycode, t_hook *hook);
 int			finish_execution(void);
 
 //  INITS

@@ -29,6 +29,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 		while (++x < d->width)
 		{
 			normal = matrix_FOV(&camera, d, v_FOV(x, y, d));
+			normal = normalize_v(normal);
 			color = trace_ray(normal, d);
 			my_mlx_pixel_put(mlx, x, y, color);
 		}
