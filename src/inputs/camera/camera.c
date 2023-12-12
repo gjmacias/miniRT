@@ -33,6 +33,6 @@ void	render_camera(t_data *d, t_mlx_data *mlx)
 			color = trace_ray(normal, d);
 			my_mlx_pixel_put(mlx, x, y, color);
 		}
+		mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 	}
-	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 }

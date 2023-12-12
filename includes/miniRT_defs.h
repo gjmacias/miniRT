@@ -24,6 +24,8 @@
 # define RIGHT_K	124
 # define PLUS_K		69
 # define MINUS_K	78
+# define SPACE_K	49
+# define SHIFT_K	257
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
