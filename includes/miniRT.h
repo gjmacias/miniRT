@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/11 14:49:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:26:09 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ double		dot(t_vector v1, t_vector v2);
 double		rayhit_pl(t_vector ray0, t_vector ray_dir, t_plane *plane);
 double		rayhit_sp(t_vector ray0, t_vector ray_dir, t_sphere *sp);
 double		rayhit_cy(t_vector ray0, t_vector ray_dir, t_cylinder *cy);
+
+t_color		new_color(int r, int g, int b, int a);
+t_material	new_material(t_color color, double specular);
 
 //  TEST
 void		print_matrix(t_4Matrix *m);

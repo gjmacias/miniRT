@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/11 12:04:17 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:26:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,11 @@ typedef struct s_4Matrix
 {
 	float	m[4][4];
 }	t_4Matrix;
+
+typedef struct s_intersection
+{
+	t_material	mat;
+	double		dist;
+}	t_intersection;
 
 #endif
