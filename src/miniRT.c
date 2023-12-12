@@ -18,6 +18,7 @@ int	main(int words, char **arguments)
 {
 	t_mlx_data	data;
 	t_data		parameters;
+	t_hook		hook;
 
 	if (words == 2 || words == 4)
 	{
@@ -29,7 +30,10 @@ int	main(int words, char **arguments)
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
 		init_mlx(&data, &parameters);
-		mlx_key_hook(data.vars.win, key_hook, &(data.vars));
+		hook.data = &data;
+		hook.parameters = &parameters;	
+		//mlx_key_hook(data.vars.win, key_hook, &(data.vars));
+		mlx_key_hook(data.vars.win, key_hook_test, &hook);
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
 		render_camera(&parameters, &data);
 		mlx_loop(data.vars.mlx);

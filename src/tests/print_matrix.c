@@ -7,6 +7,7 @@ void	print_matrix(t_4Matrix *m)
 	int	j;
 
 	i = -1;
+	printf("MATRIX:\n");
 	while (++i != 4)
 	{
 		j = -1;

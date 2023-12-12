@@ -13,13 +13,25 @@
 #ifndef MINIRT_DEFS_H
 # define MINIRT_DEFS_H
 
-# define ESC	53
+# define ESC		53
+# define A			0
+# define S			1
+# define D			2
+# define W			13
+# define UP_K		126
+# define DOWN_K		125
+# define LEFT_K		123
+# define RIGHT_K	124
+# define PLUS_K		69
+# define MINUS_K	78
+# define SPACE_K	49
+# define SHIFT_K	257
 
-# define BLACK 	0x00000000
-# define RED	0x00FF0000
-# define GREEN 	0x0000FF00
-# define BLUE 	0x000000FF
-# define WHITE	0x00FFFFFF
+# define BLACK 		0x00000000
+# define RED		0x00FF0000
+# define GREEN 		0x0000FF00
+# define BLUE 		0x000000FF
+# define WHITE		0x00FFFFFF
 
 #define EPSILON 1e-6
 
@@ -141,6 +153,12 @@ typedef struct s_4Matrix
 {
 	float	m[4][4];
 }	t_4Matrix;
+
+typedef struct s_hook
+{
+	t_mlx_data	*data;
+	t_data		*parameters;
+}			t_hook;
 
 typedef struct s_intersection
 {

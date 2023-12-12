@@ -38,6 +38,7 @@ void		write_error3(char *s1, char *s2, char *s3);
 
 // HOOKS
 int			key_hook(int keycode, t_vars *vars);
+int			key_hook_test(int keycode, t_hook *hook);
 int			finish_execution(void);
 
 //  INITS
@@ -76,7 +77,8 @@ void		arraytodouble(char *s, t_vector *vector);
 void		init_matrix(t_4Matrix *matrix);
 void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
 void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);
-t_vector 	matrix_vector(t_4Matrix *m, t_data *d, t_vector v);
+void		create_FOV_matrix(t_4Matrix *matrix, double fov);
+t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector v);
 
 float		angle_vectors(t_vector a, t_vector b);
 t_vector	cross_product(t_vector a, t_vector b);
@@ -93,6 +95,7 @@ void		my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color);
 t_vector	*new_vector(double x, double y, double z);
 
 t_vector	normalize_v(t_vector vector);
+t_vector	v_FOV(int x, int y, t_data *d);
 
 t_vector	v_addition(t_vector v1, t_vector v2);
 t_vector	v_subtract(t_vector v1, t_vector v2);
