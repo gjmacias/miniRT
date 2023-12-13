@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:41:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:43:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@
 # define S			1
 # define D			2
 # define W			13
-# define X			0
-# define Y			1
+
 # define UP_K		126
 # define DOWN_K		125
 # define LEFT_K		123
 # define RIGHT_K	124
+
 # define PLUS_K		69
 # define MINUS_K	78
+
 # define SPACE_K	49
 # define SHIFT_K	257
+
+# define X			0
+# define Y			1
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
@@ -35,7 +39,7 @@
 # define BLUE 		0x000000FF
 # define WHITE		0x00FFFFFF
 
-#define EPSILON 1e-6
+# define EPSILON 	1e-6
 
 # include "libft_defs.h"
 # include <stddef.h>
