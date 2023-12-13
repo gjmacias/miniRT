@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/12 11:26:44 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:41:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define S			1
 # define D			2
 # define W			13
+# define X			0
+# define Y			1
 # define UP_K		126
 # define DOWN_K		125
 # define LEFT_K		123
@@ -38,29 +40,12 @@
 # include "libft_defs.h"
 # include <stddef.h>
 
-typedef struct s_vars
+typedef struct s_4Matrix
 {
-	void	*mlx;
-	void	*win;
-}			t_vars;
+	float	m[4][4];
+}	t_4Matrix;
 
-typedef struct s_mlx_data
-{
-	void	*img;
-	char	*addr;
-	int		bpps;
-	int		l_len;
-	int		endian;
-	t_vars	vars;
-}			t_mlx_data;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-	double	z;
-}		t_vector;
-
+//	1 1 1 1								= 4 bytes
 typedef struct s_color
 {
 	unsigned char	r;
@@ -69,59 +54,62 @@ typedef struct s_color
 	unsigned char	a;
 }		t_color;
 
+//	4 8									= 12 bytes
 typedef struct s_material
 {
 	t_color		color;
 	double		specular;
 }			t_material;
 
-typedef struct s_camera
-{
-	t_vector	center;
-	t_vector	n_vector;
-	double		fov;
-}				t_camera;
-
-typedef struct s_light
-{
-	t_vector	center;
-	double		brightness;
-	t_color		color;
-}				t_light;
-
+//	4 8									= 12 bytes
 typedef struct s_ambiental
 {
-	double		brightness;
 	t_color		color;
+	double		brightness;
 }				t_ambiental;
 
-typedef struct s_plane
+//	8 8									= 16 bytes
+typedef struct s_vars
 {
-	t_vector	center;
-	t_vector	n_vector;
-	t_material	material;
-}				t_plane;
+	void	*mlx;
+	void	*win;
+}			t_vars;
 
-typedef struct s_sphere
+//	8 12								= 20 bytes
+typedef struct s_intersection
 {
-	t_vector	center;
-	double		diameter;
-	double		r;
-	double		r_sq;
-	t_material	material;
-}				t_sphere;
+	double		dist;
+	t_material	mat;
+}	t_intersection;
 
-typedef struct s_cylinder
+//	8 8 8 8								= 32 bytes
+typedef struct s_vector
 {
-	t_vector	center;
-	t_vector	n_vector;
-	double		diameter;
-	double		r;
-	double		r_sq;
-	double		height;
-	t_material	material;
-}				t_cylinder;
+	double	x;
+	double	y;
+	double	z;
+}		t_vector;
 
+//	4 8 32								= 44 bytes
+typedef struct s_light
+{
+	t_color		color;
+	double		brightness;
+	t_vector	center;
+}				t_light;
+
+//	4 4 4 8 8 16						= 44 bytes
+typedef struct s_mlx_data
+{
+	int		bpps;
+	int		l_len;
+	int		endian;
+	void	*img;
+	char	*addr;
+	t_vars	vars;
+}			t_mlx_data;
+
+//	8 8 8 8 8 8							= 48 bytes
 typedef struct s_info
 {
 	size_t	ambient_light;
@@ -132,38 +120,66 @@ typedef struct s_info
 	size_t	cylinders;
 }		t_info;
 
+//	8 8 8 12 32							= 68 bytes
+typedef struct s_sphere
+{
+	double		diameter;
+	double		r;
+	double		r_sq;
+	t_material	material;
+	t_vector	center;
+}				t_sphere;
+
+//	8 32 32								= 72 bytes
+typedef struct s_camera
+{
+	double		fov;
+	t_vector	center;
+	t_vector	n_vector;
+}				t_camera;
+
+//	12 32 32							= 76 bytes
+typedef struct s_plane
+{
+	t_material	material;
+	t_vector	center;
+	t_vector	n_vector;
+}				t_plane;
+
+//	8 8 8 8 12 32 32 					= 108 bytes
+typedef struct s_cylinder
+{
+	double		diameter;
+	double		r;
+	double		r_sq;
+	double		height;
+	t_material	material;
+	t_vector	center;
+	t_vector	n_vector;
+}				t_cylinder;
+
+//	1 4 4 4 4 8 12 16 16 16 16 48 72	= 221 bytes
 typedef struct s_data
 {
 	char		*txt;
-	size_t		line;
 	int			width;
 	int			height;
 	int			render_MIN;
 	int			render_MAX;
-	t_info		info;
+	size_t		line;
 	t_ambiental	ambient_light;
-	t_camera	camera;
 	t_list		*lights;
 	t_list		*planes;
 	t_list		*spheres;
 	t_list		*cylinders;
+	t_info		info;
+	t_camera	camera;
 }				t_data;
 
-typedef struct s_4Matrix
-{
-	float	m[4][4];
-}	t_4Matrix;
-
+//	44 221								= 265 bytes
 typedef struct s_hook
 {
 	t_mlx_data	*data;
 	t_data		*parameters;
 }			t_hook;
-
-typedef struct s_intersection
-{
-	t_material	mat;
-	double		dist;
-}	t_intersection;
-
 #endif

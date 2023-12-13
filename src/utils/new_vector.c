@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:05:00 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/11/21 13:13:55 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:22:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,15 @@ t_vector	*new_vector(double x, double y, double z)
 	out->x = x;
 	out->y = y;
 	out->z = z;
+	return (out);
+}
+
+t_vector	tmp_vector(double x, double y, double z)
+{
+	t_vector	out;
+
+	out.x = x;
+	out.y = y;
+	out.z = z;
 	return (out);
 }

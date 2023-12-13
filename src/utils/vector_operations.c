@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:59:16 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/06 15:49:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:17:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,48 @@
 #include "libft.h"
 #include "miniRT_defs.h"
 
-t_vector	v_addition(t_vector v1, t_vector v2)
+t_vector	v_addition(t_vector *v1, t_vector *v2)
 {
 	t_vector	result;
 
-	result.x = v1.x + v2.x;
-	result.y = v1.y + v2.y;
-	result.z = v1.z + v2.z;
+	result.x = v1->x + v2->x;
+	result.y = v1->y + v2->y;
+	result.z = v1->z + v2->z;
 	return (result);
 }
 
-t_vector	v_subtract(t_vector v1, t_vector v2)
+t_vector	v_subtract(t_vector *v1, t_vector *v2)
 {
 	t_vector	result;
 
-	result.x = v1.x - v2.x;
-	result.y = v1.y - v2.y;
-	result.z = v1.z - v2.z;
+	result.x = v1->x - v2->x;
+	result.y = v1->y - v2->y;
+	result.z = v1->z - v2->z;
 	return (result);
 }
 
-t_vector	v_product(t_vector v1, double n)
+t_vector	v_product(t_vector *v1, double *n)
 {
 	t_vector	result;
 
-	result.x = v1.x * n;
-	result.y = v1.y * n;
-	result.z = v1.z * n;
+	result.x = v1->x * *n;
+	result.y = v1->y * *n;
+	result.z = v1->z * *n;
 	return (result);
 }
 
-double	dot(t_vector v1, t_vector v2)
+double	dot(t_vector *v1, t_vector *v2)
 {
 	double	n;
 
-	n = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+	n = (v1->x * v2->x) + (v1->y * v2->y) + (v1->z * v2->z);
 	return (n);
 }
 
-double	v_magnitude(t_vector v)
+double	v_magnitude(t_vector *v)
 {
 	double	len;
 
-	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+	len = sqrt(pow(v->x, 2) + pow(v->y, 2) + pow(v->z, 2));
 	return (len);
 }

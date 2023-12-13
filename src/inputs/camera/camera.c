@@ -14,25 +14,28 @@ t_4Matrix	pos_camera(t_camera *c)
 
 void	render_camera(t_data *d, t_mlx_data *mlx)
 {
-	int			x;
-	int			y;
+	int			pos[2];
 	t_vector	normal;
+	t_vector	v_fov;
 	t_color		color;
 	t_4Matrix	camera;
 
 	camera = pos_camera(&(d->camera));
+// DEBUG Prints
 	printf("FOV: %.2f\n", d->camera.fov);
 	print_matrix(&camera);
-	y = -1;
-	while (++y < d->height)
+// ENDDEBUG
+	pos[Y] = -1;
+	while (++pos[Y] < d->height)
 	{
-		x = -1;
-		while (++x < d->width)
+		pos[X] = -1;
+		while (++pos[X] < d->width)
 		{
-			normal = matrix_FOV(&camera, d, v_FOV(x, y, d));
-			normal = normalize_v(normal);
-			color = trace_ray(normal, d);
-			my_mlx_pixel_put(mlx, x, y, color);
+			v_fov = v_FOV(pos[X], pos[Y], d);
+			normal = matrix_FOV(&camera, d, &v_fov);
+			normalize_v(&normal);
+			color = trace_ray(&normal, d);
+			my_mlx_pixel_put(mlx, pos[X], pos[Y], color);
 		}
 		mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 	}

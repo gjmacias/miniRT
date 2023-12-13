@@ -31,10 +31,12 @@ void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 	t_vector	right;
 	t_vector	up;
 	t_vector	forward;
+	t_vector	tmp;
 
+	tmp = tmp_vector(0, 1, 0);
 	forward = c->n_vector;
-	right = cross_product((t_vector){0, 1, 0}, forward);
-	up = cross_product(forward, right);
+	right = cross_product(&tmp, &forward);
+	up = cross_product(&forward, &right);
 	matrix->m[0][0] = right.x;
 	matrix->m[1][0] = right.y;
 	matrix->m[2][0] = right.z;
@@ -46,15 +48,15 @@ void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 	matrix->m[2][2] = forward.z;
 }
 
-t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector v)
+t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v)
 {
 	t_vector	res;
 
-	v.x = (float)(d->width / 2) - v.x;
-	v.y = (float)(d->height / 2) - v.y;
-	//v.z = (float)(d->height / 2) - v.z;
-	res.x = m->m[0][0] * v.x + m->m[0][1] * v.y + m->m[0][2] * v.z;
-	res.y = m->m[1][0] * v.x + m->m[1][1] * v.y + m->m[1][2] * v.z;
-	res.z = m->m[2][0] * v.x + m->m[2][1] * v.y + m->m[2][2] * v.z;
+	v->x = (float)(d->width / 2) - v->x;
+	v->y = (float)(d->height / 2) - v->y;
+	//v.z = (float)(d->height / 2) - v->z;
+	res.x = m->m[0][0] * v->x + m->m[0][1] * v->y + m->m[0][2] * v->z;
+	res.y = m->m[1][0] * v->x + m->m[1][1] * v->y + m->m[1][2] * v->z;
+	res.z = m->m[2][0] * v->x + m->m[2][1] * v->y + m->m[2][2] * v->z;
 	return (res);
 }

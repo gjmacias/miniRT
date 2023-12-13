@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:00 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/23 16:03:19 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:22:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 		exit(EXIT_FAILURE);
 	}
 	arraytodouble(s, vector);
-	if (v_magnitude(*vector) != 1)
+	if (v_magnitude(vector) != 1)
 	{
 		ft_putstr_fd(" > Wrong values: Normal\n", 2);
 		exit(EXIT_FAILURE);
