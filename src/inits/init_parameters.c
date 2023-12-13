@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:00:40 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:44:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_parameters_info(t_data *p)
 	p->planes = NULL;
 	p->spheres = NULL;
 	p->cylinders = NULL;
-	p->render_MIN = 1;
-	p->render_MAX = INT_MAX;
+	p->render_min = 1;
+	p->render_max = INT_MAX;
 }
 
 void	init_canvas(t_data *p, char *str_width, char *str_height)

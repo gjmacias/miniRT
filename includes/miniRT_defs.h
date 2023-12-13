@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:43:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:43:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ typedef struct s_data
 	char		*txt;
 	int			width;
 	int			height;
-	int			render_MIN;
-	int			render_MAX;
+	int			render_min;
+	int			render_max;
 	size_t		line;
 	t_ambiental	ambient_light;
 	t_list		*lights;
