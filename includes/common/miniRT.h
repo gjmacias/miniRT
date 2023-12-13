@@ -20,7 +20,7 @@
 # include <string.h>
 # include <math.h>
 # include "miniRT_defs.h"
-# include "miniRT_keys_linux.h"
+# include "miniRT_keys.h"
 
 // CHECKERS
 void		check_format_dotrt(char *txt);
@@ -94,9 +94,9 @@ int			is_space(int c);
 
 void		my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color);
 
-t_vector	*new_vector(double x, double y, double z);
-t_vector 	change_n_vec(t_vector n_vec, char *s);
-
+t_vector	new_vector(double x, double y, double z);
+t_vector	ptop_vector(t_vector end, t_vector start);
+t_vector	change_angle(t_vector vec, double angle, char axis);
 
 t_vector	normalize_v(t_vector vector);
 t_vector	v_FOV(int x, int y, t_data *d);

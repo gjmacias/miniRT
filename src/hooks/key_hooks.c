@@ -73,25 +73,25 @@ int	key_hook_test(int keycode, t_hook *hook)
 	else if (keycode == UP_K)
 	{
 		hook->parameters->camera.n_vector = \
-			change_n_vec(hook->parameters->camera.n_vector, "UP");
+			change_angle(hook->parameters->camera.n_vector, -5.0, 'x');
 		ft_frame(hook);
 	}
 	else if (keycode == DOWN_K)
 	{
 		hook->parameters->camera.n_vector = \
-			change_n_vec(hook->parameters->camera.n_vector, "DOWN");
+			change_angle(hook->parameters->camera.n_vector, 5.0, 'x');
 		ft_frame(hook);
 	}
 	else if (keycode == LEFT_K)
 	{
 		hook->parameters->camera.n_vector = \
-			change_n_vec(hook->parameters->camera.n_vector, "LEFT");
+			change_angle(hook->parameters->camera.n_vector, 5.0, 'y');
 		ft_frame(hook);
 	}
 	else if (keycode == RIGHT_K)
 	{
 		hook->parameters->camera.n_vector = \
-			change_n_vec(hook->parameters->camera.n_vector, "RIGHT");
+			change_angle(hook->parameters->camera.n_vector, -5.0, 'y');
 		ft_frame(hook);
 	}
 	else if (keycode == PLUS_K && hook->parameters->camera.fov + 5.0 <= 180.0)

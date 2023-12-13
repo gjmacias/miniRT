@@ -15,17 +15,24 @@
 #include "miniRT.h"
 #include <math.h>
 
-t_vector	*new_vector(double x, double y, double z)
+t_vector	new_vector(double x, double y, double z)
 {
-	t_vector	*out;
+	t_vector	result;
 
-	out = ft_calloc(sizeof(t_vector), 1);
-	if (!out)
-		return (NULL);
-	out->x = x;
-	out->y = y;
-	out->z = z;
-	return (out);
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	return (result);
+}
+
+t_vector	ptop_vector(t_vector end, t_vector start)
+{
+	t_vector	result;
+
+	result.x = start.x - end.x;
+	result.y = start.y - end.y;
+	result.z = start.z - end.z;
+	return (result);
 }
 
 t_vector	change_angle(t_vector vec, double angle, char axis) 
@@ -50,19 +57,4 @@ t_vector	change_angle(t_vector vec, double angle, char axis)
 	else
 		return (vec);
     return (result);
-}
-
-t_vector change_n_vec(t_vector n_vec, char *s)
-{
-	if(ft_strncmp(s, "UP", 3) == 0)
-		n_vec = change_angle(n_vec, -5.0, 'x');
-	else if(ft_strncmp(s, "DOWN", 5) == 0)
-		n_vec = change_angle(n_vec, 5.0, 'x');
-	else if(ft_strncmp(s, "LEFT", 5) == 0)
-		n_vec = change_angle(n_vec, 5.0, 'y');
-	else if(ft_strncmp(s, "RIGHT", 6) == 0)
-		n_vec = change_angle(n_vec, -5.0, 'y');
-	n_vec = normalize_v(n_vec);
-	print_vector(n_vec);
-	return (n_vec);
 }
