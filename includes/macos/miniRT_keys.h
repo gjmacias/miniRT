@@ -1,5 +1,5 @@
 
-/*#ifndef MINIRT_KEYS_H
+#ifndef MINIRT_KEYS_H
 # define MINIRT_KEYS_H
 
 # define ESC		53
@@ -17,4 +17,3 @@
 # define SHIFT_K	257
 
 #endif
-*/
