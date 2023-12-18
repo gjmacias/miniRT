@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:31:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:34:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		create_FOV_matrix(t_4Matrix *matrix, double fov);
 t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
 
 //	VECTORS
-t_vector	*new_vector(double x, double y, double z);
+t_vector	new_vector(double x, double y, double z);
 t_vector	tmp_vector(double x, double y, double z);
 
 t_vector	v_addition(t_vector *v1, t_vector *v2);

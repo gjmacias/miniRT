@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:29:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:39:09 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 	printf("FOV: %.2f\n", d->camera.fov);
 	print_matrix(&camera);
 // ENDDEBUG
-	pos[Y] = -1;
-	while (++pos[Y] < d->height)
+	pos[Y] = start - 1;
+	while (++pos[Y] < end)
 	{
 		pos[X] = -1;
 		while (++pos[X] < d->width)

@@ -5,7 +5,7 @@ double	color_percentage(unsigned char x)
 {
 	float	percentage;
 
-	percentage = x / 255;
+	percentage = x / 255.0;
 	return (percentage);
 }
 
@@ -21,8 +21,8 @@ t_color	calc_ambient(t_material *m, t_ambiental a)
 {
 	t_color result;
 
-	result.r = percentage_color(color_percentage(a.color.r) * a.brightness * color_percentage(m->color.r));
-	result.g = percentage_color(color_percentage(a.color.g) * a.brightness * color_percentage(m->color.g));
-	result.b = percentage_color(color_percentage(a.color.b) * a.brightness * color_percentage(m->color.b));
+	result.r = color_percentage(a.color.r) * a.brightness * m->color.r;
+	result.g = color_percentage(a.color.g) * a.brightness * m->color.g;
+	result.b = color_percentage(a.color.b) * a.brightness * m->color.b;
 	return(result);
 }

@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:29:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:51:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	t_intersection	itsc;
 	
 	itsc.dist = -1;
-	itsc.mat = new_material(new_color(127, 178, 255, 0), 0);
+	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
+	color = calc_ambient(&itsc.mat, d->ambient_light);
 	find_itsct(&itsc, ray, d);
 	if (itsc.dist >= 0) // There is itsc
 	{
+		color = itsc.mat.color;
 		// Calculate color with ambient light
-		// color = calc_ambient(&itsc.mat, d->ambient_light);
+		color = calc_ambient(&itsc.mat, d->ambient_light);
+		print_color(color);
 		/*
 		aux = d->lights;
 		while (aux) // Calculate vector between itsc.point and light.center
@@ -75,6 +78,5 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		}
 		*/
 	}
-	color = itsc.mat.color;
 	return (color);
 }
