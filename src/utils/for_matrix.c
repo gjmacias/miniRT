@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   for_matrix.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/18 13:42:42 by gmacias-          #+#    #+#             */
+/*   Updated: 2023/12/18 18:28:51 by ffornes-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 void	init_matrix(t_4Matrix *matrix)
@@ -54,7 +66,6 @@ t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v)
 
 	v->x = (float)(d->width / 2) - v->x;
 	v->y = (float)(d->height / 2) - v->y;
-	//v.z = (float)(d->height / 2) - v->z;
 	res.x = m->m[0][0] * v->x + m->m[0][1] * v->y + m->m[0][2] * v->z;
 	res.y = m->m[1][0] * v->x + m->m[1][1] * v->y + m->m[1][2] * v->z;
 	res.z = m->m[2][0] * v->x + m->m[2][1] * v->y + m->m[2][2] * v->z;

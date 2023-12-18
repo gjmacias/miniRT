@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:05:41 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:31:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <math.h>
 # include "miniRT_defs.h"
+# include "miniRT_keys.h"
 
 // CHECKERS
 void		check_format_dotrt(char *txt);
@@ -48,7 +49,8 @@ void		init_parameters_info(t_data *p);
 //  INPUTS
 t_4Matrix	pos_camera(t_camera *c);
 
-void		render_camera(t_data *d, t_mlx_data *mlx);
+void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
+void		process_camera(t_data *d, t_mlx_data *mlx, int num);
 void		init_canvas(t_data *p, char *str_width, char *str_height);
 
 //  PARSE
@@ -71,6 +73,8 @@ void		input_color(char *s, t_data *p, t_color *color);
 t_color		trace_ray(t_vector *ray, t_data *d);
 
 //	MATRIX
+t_color		calc_ambient(t_material *m, t_ambiental a);
+
 void		init_matrix(t_4Matrix *matrix);
 void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
 void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);
@@ -102,6 +106,9 @@ void		my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color);
 
 void		arraytouchar(char *s, t_color *color);
 void		arraytodouble(char *s, t_vector *vector);
+
+t_vector	ptop_vector(t_vector end, t_vector start);
+t_vector	change_angle(t_vector vec, double angle, char axis);
 
 double		ft_strtod(char *str);
 int			ft_strtouc(char *str);

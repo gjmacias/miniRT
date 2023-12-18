@@ -35,7 +35,7 @@ int	main(int words, char **arguments)
 		//mlx_key_hook(data.vars.win, key_hook, &(data.vars));
 		mlx_key_hook(data.vars.win, key_hook_test, &hook);
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
-		render_camera(&parameters, &data);
+		render_camera(&parameters, &data, 0, parameters.height);
 		mlx_loop(data.vars.mlx);
 	}
 	else

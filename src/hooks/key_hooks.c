@@ -18,7 +18,7 @@
 int	ft_frame(t_hook *hook)
 {
 	mlx_clear_window(hook->data->vars.mlx, hook->data->vars.win);
-	render_camera(hook->parameters, hook->data);
+	render_camera(hook->parameters, hook->data, 0, hook->parameters->height);
 	return (0);
 }
 
@@ -70,6 +70,30 @@ int	key_hook_test(int keycode, t_hook *hook)
 		hook->parameters->camera.center.y = hook->parameters->camera.center.y - 5;
 		ft_frame(hook);
 	}
+	else if (keycode == UP_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_angle(hook->parameters->camera.n_vector, -5.0, 'x');
+		ft_frame(hook);
+	}
+	else if (keycode == DOWN_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_angle(hook->parameters->camera.n_vector, 5.0, 'x');
+		ft_frame(hook);
+	}
+	else if (keycode == LEFT_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_angle(hook->parameters->camera.n_vector, 5.0, 'y');
+		ft_frame(hook);
+	}
+	else if (keycode == RIGHT_K)
+	{
+		hook->parameters->camera.n_vector = \
+			change_angle(hook->parameters->camera.n_vector, -5.0, 'y');
+		ft_frame(hook);
+	}
 	else if (keycode == PLUS_K && hook->parameters->camera.fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera.fov = hook->parameters->camera.fov + 5.0;
@@ -80,5 +104,6 @@ int	key_hook_test(int keycode, t_hook *hook)
 		hook->parameters->camera.fov = hook->parameters->camera.fov - 5.0;
 		ft_frame(hook);
 	}
+	printf("keycode: %i\n", keycode);
 	return (0);
 }

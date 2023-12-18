@@ -33,7 +33,7 @@ SRC			=	miniRT.c \
 				utils/ft_str_to.c utils/intersections.c utils/is_space.c\
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
-				utils/new_color.c utils/new_material.c \
+				utils/new_color.c utils/new_material.c utils/colors.c \
 				tests/print.c tests/print_matrix.c tests/print_vector.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -69,7 +69,13 @@ endif
 #									INLUDES									  #
 ###############################################################################
 
-INCS	=	-I ./includes/ -I ./Libft/include/ -I $(MLX_PATH)/
+INCS	= -I ./includes/common/ -I ./Libft/include/ -I $(MLX_PATH)/
+
+ifeq ($(OS), Linux)
+	INCS	+= -I ./includes/linux/
+else
+	INCS	+= -I ./includes/macos/
+endif
 
 ###############################################################################
 #									COLORS									  #
