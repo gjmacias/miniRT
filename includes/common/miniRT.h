@@ -76,6 +76,8 @@ t_color		trace_ray(t_vector ray, t_data *d);
 void		arraytouchar(char *s, t_color *color);
 void		arraytodouble(char *s, t_vector *vector);
 
+t_color		calc_ambient(t_material *m, t_ambiental a);
+
 void		init_matrix(t_4Matrix *matrix);
 void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
 void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);

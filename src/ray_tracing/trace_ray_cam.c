@@ -47,7 +47,7 @@ static t_intersection	find_itsct(t_vector ray, t_data *d)
 
 t_color	trace_ray(t_vector ray, t_data *d)
 {
-	t_color	color;
+	t_color			color;
 	t_intersection	itsct;
 	
 	color = new_color(0, 0, 0, 0);
