@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:12:47 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:27:32 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_frame(t_hook *hook)
 	return (0);
 }
 
-
 int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESC)
@@ -33,6 +32,40 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
+static void	move_hook(int keycode, t_hook *hook)
+{
+	if (keycode == A)
+		hook->parameters->camera->center->x += 5;
+	else if (keycode == D)
+		hook->parameters->camera->center->x -= 5;
+	else if (keycode == S)
+		hook->parameters->camera->center->z -= 5;
+	else if (keycode == W)
+		hook->parameters->camera->center->z += 5;
+	else if (keycode == SPACE_K)
+		hook->parameters->camera->center->y += 5;
+	else if (keycode == SHIFT_K)
+		hook->parameters->camera->center->y -= 5;
+	ft_frame(hook);
+}
+
+static void	rot_hook(int keycode, t_hook *hook)
+{
+	if (keycode == UP_K)
+		*hook->parameters->camera->n_vector = \
+			change_angle(*hook->parameters->camera->n_vector, -5.0, 'x');
+	else if (keycode == DOWN_K)
+		*hook->parameters->camera->n_vector = \
+			change_angle(*hook->parameters->camera->n_vector, 5.0, 'x');
+	else if (keycode == LEFT_K)
+		*hook->parameters->camera->n_vector = \
+			change_angle(*hook->parameters->camera->n_vector, 5.0, 'y');
+	else if (keycode == RIGHT_K)
+		*hook->parameters->camera->n_vector = \
+			change_angle(*hook->parameters->camera->n_vector, -5.0, 'y');
+	ft_frame(hook);
+}
+
 int	key_hook_test(int keycode, t_hook *hook)
 {
 	if (keycode == ESC)
@@ -40,60 +73,12 @@ int	key_hook_test(int keycode, t_hook *hook)
 		mlx_destroy_window(hook->data->vars.mlx, hook->data->vars.win);
 		exit(0);
 	}
-	else if (keycode == A)
-	{
-		hook->parameters->camera->center->x += 5;
-		ft_frame(hook);
-	}
-	else if (keycode == D)
-	{
-		hook->parameters->camera->center->x -= 5;
-		ft_frame(hook);
-	}
-	else if (keycode == S)
-	{
-		hook->parameters->camera->center->z -= 5;
-		ft_frame(hook);
-	}
-	else if (keycode == W)
-	{
-		hook->parameters->camera->center->z += 5;
-		ft_frame(hook);
-	}
-	else if (keycode == SPACE_K)
-	{
-		hook->parameters->camera->center->y += 5;
-		ft_frame(hook);
-	}
-	else if (keycode == SHIFT_K)
-	{
-		hook->parameters->camera->center->y -= 5;
-		ft_frame(hook);
-	}
-	else if (keycode == UP_K)
-	{
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, -5.0, 'x');
-		ft_frame(hook);
-	}
-	else if (keycode == DOWN_K)
-	{
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, 5.0, 'x');
-		ft_frame(hook);
-	}
-	else if (keycode == LEFT_K)
-	{
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, 5.0, 'y');
-		ft_frame(hook);
-	}
-	else if (keycode == RIGHT_K)
-	{
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, -5.0, 'y');
-		ft_frame(hook);
-	}
+	else if (keycode == W || keycode == A || keycode == S || keycode == D
+		|| keycode == SPACE_K || keycode == SHIFT_K)
+		move_hook(keycode, hook);
+	else if (keycode == UP_K || keycode == DOWN_K || keycode == LEFT_K
+		|| keycode == RIGHT_K)
+		rot_hook(keycode, hook);
 	else if (keycode == PLUS_K && hook->parameters->camera->fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov + 5.0;
