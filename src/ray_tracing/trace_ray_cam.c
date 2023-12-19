@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:04:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:19:41 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 	aux = d->planes;
 	while (aux)
 	{
-		t = rayhit_pl(&d->camera.center, ray, (t_plane *)aux->content);
+		t = rayhit_pl(d->camera.center, ray, (t_plane *)aux->content);
 		if (t > 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
@@ -31,7 +31,7 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 	aux = d->spheres;
 	while (aux)
 	{
-		t = rayhit_sp(&d->camera.center, ray, (t_sphere *)aux->content);
+		t = rayhit_sp(d->camera.center, ray, (t_sphere *)aux->content);
 		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
@@ -43,7 +43,7 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 	/*
 	while (aux)
 	{
-		t = rayhit_cy(&d->camera.center, ray, (t_cylinder *)aux->content);
+		t = rayhit_cy(d->camera.center, ray, (t_cylinder *)aux->content);
 		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;

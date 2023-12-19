@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:05:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:18:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,56 +42,56 @@ int	key_hook_test(int keycode, t_hook *hook)
 	}
 	else if (keycode == A)
 	{
-		hook->parameters->camera.center.x = hook->parameters->camera.center.x + 5;
+		hook->parameters->camera.center->x += 5;
 		ft_frame(hook);
 	}
 	else if (keycode == D)
 	{
-		hook->parameters->camera.center.x = hook->parameters->camera.center.x - 5;
+		hook->parameters->camera.center->x -= 5;
 		ft_frame(hook);
 	}
 	else if (keycode == S)
 	{
-		hook->parameters->camera.center.z = hook->parameters->camera.center.z - 5;
+		hook->parameters->camera.center->z -= 5;
 		ft_frame(hook);
 	}
 	else if (keycode == W)
 	{
-		hook->parameters->camera.center.z = hook->parameters->camera.center.z + 5;
+		hook->parameters->camera.center->z += 5;
 		ft_frame(hook);
 	}
 	else if (keycode == SPACE_K)
 	{
-		hook->parameters->camera.center.y = hook->parameters->camera.center.y + 5;
+		hook->parameters->camera.center->y += 5;
 		ft_frame(hook);
 	}
 	else if (keycode == SHIFT_K)
 	{
-		hook->parameters->camera.center.y = hook->parameters->camera.center.y - 5;
+		hook->parameters->camera.center->y -= 5;
 		ft_frame(hook);
 	}
 	else if (keycode == UP_K)
 	{
-		hook->parameters->camera.n_vector = \
-			change_angle(hook->parameters->camera.n_vector, -5.0, 'x');
+		*hook->parameters->camera.n_vector = \
+			change_angle(*hook->parameters->camera.n_vector, -5.0, 'x');
 		ft_frame(hook);
 	}
 	else if (keycode == DOWN_K)
 	{
-		hook->parameters->camera.n_vector = \
-			change_angle(hook->parameters->camera.n_vector, 5.0, 'x');
+		*hook->parameters->camera.n_vector = \
+			change_angle(*hook->parameters->camera.n_vector, 5.0, 'x');
 		ft_frame(hook);
 	}
 	else if (keycode == LEFT_K)
 	{
-		hook->parameters->camera.n_vector = \
-			change_angle(hook->parameters->camera.n_vector, 5.0, 'y');
+		*hook->parameters->camera.n_vector = \
+			change_angle(*hook->parameters->camera.n_vector, 5.0, 'y');
 		ft_frame(hook);
 	}
 	else if (keycode == RIGHT_K)
 	{
-		hook->parameters->camera.n_vector = \
-			change_angle(hook->parameters->camera.n_vector, -5.0, 'y');
+		*hook->parameters->camera.n_vector = \
+			change_angle(*hook->parameters->camera.n_vector, -5.0, 'y');
 		ft_frame(hook);
 	}
 	else if (keycode == PLUS_K && hook->parameters->camera.fov + 5.0 <= 180.0)

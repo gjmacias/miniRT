@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:10:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:21:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ void	print_data(t_data *d)
 	printf("\n");
 	printf(CRED"Camera\n"CWHITE);
 	printf("\tFOV:\t\t%.2f\n", d->camera.fov);
-	printf("\tPosition:\t[ X %.2f ]\t", d->camera.center.x);
-	printf("[ Y %.2f ]\t", d->camera.center.y);
-	printf("[ Z %.2f ]\n", d->camera.center.z);
-	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera.n_vector.x);
-	printf("[ Y %.2f ]\t", d->camera.n_vector.y);
-	printf("[ Z %.2f ]\n", d->camera.n_vector.z);
+	printf("\tPosition:\t[ X %.2f ]\t", d->camera.center->x);
+	printf("[ Y %.2f ]\t", d->camera.center->y);
+	printf("[ Z %.2f ]\n", d->camera.center->z);
+	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera.n_vector->x);
+	printf("[ Y %.2f ]\t", d->camera.n_vector->y);
+	printf("[ Z %.2f ]\n", d->camera.n_vector->z);
 	printf("\n");
 	printf(CCYAN"Ambiental\n"CWHITE);
 	printf("\tBrightness:\t%.2f\n", d->ambient_light.brightness);

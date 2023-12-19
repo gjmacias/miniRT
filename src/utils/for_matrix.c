@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:42 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:28:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:20:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	init_matrix(t_4Matrix *matrix)
 
 void	create_pos_matrix(t_4Matrix *matrix, t_camera *c)
 {
-	matrix->m[0][3] = c->center.x;
-	matrix->m[1][3] = c->center.y;
-	matrix->m[2][3] = c->center.z;
+	matrix->m[0][3] = c->center->x;
+	matrix->m[1][3] = c->center->y;
+	matrix->m[2][3] = c->center->z;
 }
 
 void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
@@ -46,7 +46,7 @@ void	create_direction_matrix(t_4Matrix *matrix, t_camera *c)
 	t_vector	tmp;
 
 	tmp = tmp_vector(0, 1, 0);
-	forward = c->n_vector;
+	forward = *c->n_vector;
 	right = cross_product(&tmp, &forward);
 	up = cross_product(&forward, &right);
 	matrix->m[0][0] = right.x;

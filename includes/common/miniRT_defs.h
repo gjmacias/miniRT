@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:11:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:13:32 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ typedef struct s_sphere
 typedef struct s_camera
 {
 	double		fov;
-	t_vector	center;
-	t_vector	n_vector;
+	t_vector	*center;
+	t_vector	*n_vector;
 }				t_camera;
 
 //	12 32 32							= 76 bytes
@@ -145,7 +145,7 @@ typedef struct s_cylinder
 	t_vector	n_vector;
 }				t_cylinder;
 
-// 4 4 4 4 8 8 8 8 8 8 12 6 72			= XXX bytes
+// 4 4 4 4 6 8 8 8 8 8 8 12 72			= XXX bytes
 typedef struct s_data
 {
 	int			width;
