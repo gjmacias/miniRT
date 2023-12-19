@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/13 15:35:16 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:29:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
 	double		denom;
 	t_vector	v;
 
-	denom = dot(ray_dir, &plane->n_vector);
+	denom = dot(ray_dir, plane->n_vector);
 	if (denom)
 	{
-		v = v_subtract(&plane->center, ray0);
-		t = dot(&v, &plane->n_vector) / denom;
+		v = v_subtract(plane->center, ray0);
+		t = dot(&v, plane->n_vector) / denom;
 		return (t);
 	}
 	return (0);
@@ -36,7 +36,7 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 	double		discriminant;
 	t_vector	v;
 
-	v = v_subtract(ray0, &sp->center);
+	v = v_subtract(ray0, sp->center);
 	coef[0] = dot(ray_dir, ray_dir);
 	coef[1] = 2.0 * dot(ray_dir, &v);
 	coef[2] = dot(&v, &v) - sp->r_sq;

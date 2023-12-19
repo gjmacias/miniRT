@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:13:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:52:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_intersection
 	t_material	mat;
 }	t_intersection;
 
-//	8 8 8 8								= 32 bytes
+//	8 8 8 								= 24 bytes
 typedef struct s_vector
 {
 	double	x;
@@ -88,13 +88,29 @@ typedef struct s_vector
 	double	z;
 }		t_vector;
 
-//	4 8 32								= 44 bytes
+//	8 8 8								= 24 bytes
+typedef struct s_camera
+{
+	double		fov;
+	t_vector	*center;
+	t_vector	*n_vector;
+}				t_camera;
+
+//	4 8 8								= 20 bytes
 typedef struct s_light
 {
 	t_color		color;
 	double		brightness;
-	t_vector	center;
+	t_vector	*center;
 }				t_light;
+
+//	8 8 12								= 28 bytes
+typedef struct s_plane
+{
+	t_vector	*center;
+	t_vector	*n_vector;
+	t_material	material;
+}				t_plane;
 
 //	4 4 4 8 8 16						= 44 bytes
 typedef struct s_mlx_data
@@ -107,45 +123,29 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 12 32							= 68 bytes
+//	8 8 8 8 12							= 44 bytes
 typedef struct s_sphere
 {
 	double		diameter;
 	double		r;
 	double		r_sq;
+	t_vector	*center;
 	t_material	material;
-	t_vector	center;
 }				t_sphere;
 
-//	8 32 32								= 72 bytes
-typedef struct s_camera
-{
-	double		fov;
-	t_vector	*center;
-	t_vector	*n_vector;
-}				t_camera;
-
-//	12 32 32							= 76 bytes
-typedef struct s_plane
-{
-	t_material	material;
-	t_vector	center;
-	t_vector	n_vector;
-}				t_plane;
-
-//	8 8 8 8 12 32 32 					= 108 bytes
+//	8 8 8 8 8 8 12 						= 60 bytes
 typedef struct s_cylinder
 {
 	double		diameter;
 	double		r;
 	double		r_sq;
 	double		height;
+	t_vector	*center;
+	t_vector	*n_vector;
 	t_material	material;
-	t_vector	center;
-	t_vector	n_vector;
 }				t_cylinder;
 
-// 4 4 4 4 6 8 8 8 8 8 8 12 72			= XXX bytes
+// 4 4 4 4 6 8 8 8 8 8 8 12 24			= 90 bytes
 typedef struct s_data
 {
 	int			width;
