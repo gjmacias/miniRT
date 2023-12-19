@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:34:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:58:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "miniRT_defs.h"
 # include "miniRT_keys.h"
 
+void		free_data(t_data *d);
+void		clean_exit(t_data *d, unsigned char exit_code);
 // CHECKERS
 void		check_format_dotrt(char *txt);
 int			checker_double(char *s, char c);

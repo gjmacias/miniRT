@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:52:17 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:10:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,15 @@ typedef struct s_plane
 	t_material	material;
 }				t_plane;
 
+//	8 8 8 12							= 36 bytes
+typedef struct s_sphere
+{
+	double		diameter;
+	double		r_sq;
+	t_vector	*center;
+	t_material	material;
+}				t_sphere;
+
 //	4 4 4 8 8 16						= 44 bytes
 typedef struct s_mlx_data
 {
@@ -123,21 +132,10 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 12							= 44 bytes
-typedef struct s_sphere
-{
-	double		diameter;
-	double		r;
-	double		r_sq;
-	t_vector	*center;
-	t_material	material;
-}				t_sphere;
-
-//	8 8 8 8 8 8 12 						= 60 bytes
+//	8 8 8 8 8 12 						= 52 bytes
 typedef struct s_cylinder
 {
 	double		diameter;
-	double		r;
 	double		r_sq;
 	double		height;
 	t_vector	*center;
@@ -145,13 +143,11 @@ typedef struct s_cylinder
 	t_material	material;
 }				t_cylinder;
 
-// 4 4 4 4 6 8 8 8 8 8 8 12 24			= 90 bytes
+// 4 4 6 8 8 8 8 8 8 8 12 				= 74 bytes
 typedef struct s_data
 {
 	int			width;
 	int			height;
-	int			render_min;
-	int			render_max;
 	t_info		info;
 	size_t		line;
 	char		*txt;
@@ -159,8 +155,8 @@ typedef struct s_data
 	t_list		*planes;
 	t_list		*spheres;
 	t_list		*cylinders;
+	t_camera	*camera;
 	t_ambiental	ambient_light;
-	t_camera	camera;
 }				t_data;
 
 //	8 8									= 16 bytes
