@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 17:04:50 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:28:28 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	p_ligths(char **arguments, t_data *p)
 	if (new_content == NULL || new_list == NULL)
 		write_error("Fatal error: Malloc failed. Free memory");
 	p->info.lights += 1;
-	new_content->center = NULL;
-//	new_content->center = ft_calloc(1, sizeof(t_vector));
+	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
 		clean_exit(p, 12);
 	input_position(arguments[1], p, new_content->center);
