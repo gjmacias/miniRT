@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 15:53:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:10:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	print_data(t_data *d)
 	t_cylinder	*aux3;
 
 	printf("\nINFO\n");
-	printf("\tCamera:\t\t%li\n", d->info.camera);
-	printf("\tAmbient:\t%li\n", d->info.ambient_light);
-	printf("\tLights:\t\t%li\n", d->info.lights);
-	printf("\tPlanes:\t\t%li\n", d->info.planes);
-	printf("\tSpheres:\t%li\n", d->info.spheres);
-	printf("\tCylinders:\t%li\n", d->info.cylinders);
+	printf("\tCamera:\t\t%i\n", d->info.camera);
+	printf("\tAmbient:\t%i\n", d->info.ambient_light);
+	printf("\tLights:\t\t%i\n", d->info.lights);
+	printf("\tPlanes:\t\t%i\n", d->info.planes);
+	printf("\tSpheres:\t%i\n", d->info.spheres);
+	printf("\tCylinders:\t%i\n", d->info.cylinders);
 	printf("\n");
 	printf(CRED"Camera\n"CWHITE);
 	printf("\tFOV:\t\t%.2f\n", d->camera.fov);

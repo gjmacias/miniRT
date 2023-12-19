@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:30:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:11:26 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ typedef struct s_color
 	unsigned char	b;
 	unsigned char	a;
 }		t_color;
+
+//	1 1 1 1 1 1							= 6 bytes
+typedef struct s_info
+{
+	unsigned char	ambient_light;
+	unsigned char	camera;
+	unsigned char	lights;
+	unsigned char	planes;
+	unsigned char	spheres;
+	unsigned char	cylinders;
+}		t_info;
 
 //	4 8									= 12 bytes
 typedef struct s_material
@@ -96,17 +107,6 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 8 8							= 48 bytes
-typedef struct s_info
-{
-	size_t	ambient_light;
-	size_t	camera;
-	size_t	lights;
-	size_t	planes;
-	size_t	spheres;
-	size_t	cylinders;
-}		t_info;
-
 //	8 8 8 12 32							= 68 bytes
 typedef struct s_sphere
 {
@@ -145,25 +145,25 @@ typedef struct s_cylinder
 	t_vector	n_vector;
 }				t_cylinder;
 
-//	1 4 4 4 4 8 12 16 16 16 16 48 72	= 221 bytes
+// 4 4 4 4 8 8 8 8 8 8 12 6 72			= XXX bytes
 typedef struct s_data
 {
-	char		*txt;
 	int			width;
 	int			height;
 	int			render_min;
 	int			render_max;
+	t_info		info;
 	size_t		line;
-	t_ambiental	ambient_light;
+	char		*txt;
 	t_list		*lights;
 	t_list		*planes;
 	t_list		*spheres;
 	t_list		*cylinders;
-	t_info		info;
+	t_ambiental	ambient_light;
 	t_camera	camera;
 }				t_data;
 
-//	44 221								= 265 bytes
+//	8 8									= 16 bytes
 typedef struct s_hook
 {
 	t_mlx_data	*data;
