@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:51:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:04:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		color = itsc.mat.color;
 		// Calculate color with ambient light
 		color = calc_ambient(&itsc.mat, d->ambient_light);
-		print_color(color);
 		/*
 		aux = d->lights;
 		while (aux) // Calculate vector between itsc.point and light.center

@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:00:30 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:05:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ int	key_hook_test(int keycode, t_hook *hook)
 		hook->parameters->camera.fov = hook->parameters->camera.fov - 5.0;
 		ft_frame(hook);
 	}
-	printf("keycode: %i\n", keycode);
 	return (0);
 }
