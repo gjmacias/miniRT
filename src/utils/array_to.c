@@ -56,5 +56,4 @@ void	arraytodouble(char *s, t_vector *vector)
 	vector->x = y[0];
 	vector->y = y[1];
 	vector->z = y[2];
-	print_vector((*vector));
 }

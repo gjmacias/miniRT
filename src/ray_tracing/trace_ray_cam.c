@@ -60,7 +60,6 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	t_vector	tmp;
 
 	tmp = tmp_vector(ray->x * t, ray->y * t, ray->z * t);
-	print_vector(tmp);
 	return (v_addition(ray_o, &tmp));
 }
 
