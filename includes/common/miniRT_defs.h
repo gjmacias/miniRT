@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:10:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:19:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,6 @@ typedef struct s_vars
 	void	*win;
 }			t_vars;
 
-//	8 12								= 20 bytes
-typedef struct s_intersection
-{
-	double		dist;
-	t_material	mat;
-}	t_intersection;
-
 //	8 8 8 								= 24 bytes
 typedef struct s_vector
 {
@@ -103,6 +96,14 @@ typedef struct s_light
 	double		brightness;
 	t_vector	*center;
 }				t_light;
+
+//	8 8 12								= 28 bytes
+typedef struct s_intersection
+{
+	double		dist;
+	t_material	mat;
+	t_vector	*p;
+}	t_intersection;
 
 //	8 8 12								= 28 bytes
 typedef struct s_plane

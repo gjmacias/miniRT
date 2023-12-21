@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:29:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:12:09 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 {
 	double		coef[3];
 	double		discriminant;
+	double		t[2];
 	t_vector	v;
 
 	v = v_subtract(ray0, sp->center);
@@ -43,8 +44,11 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 	discriminant = pow(coef[1], 2) - 4 * coef[0] * coef[2];
 	if (discriminant < 0)
 		return (-1.0);
-	else
-		return ((-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]));
+	t[0] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
+	t[1] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
+	if (t[0] < t[1])
+		return (t[0]);
+	return (t[1]);
 }
 
 /*
