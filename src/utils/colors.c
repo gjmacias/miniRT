@@ -17,10 +17,12 @@ unsigned char percentage_color(double percentage)
 	return (result);
 }
 
-double	rad_percentage(double rad)
+double	rad_percentage(double ang)
 {
-	double	percentage;
+    double	rad;
+    double	percentage;
 
+	rad = M_PI - ang;
 	if (rad < (M_PI / 2))
 		percentage = rad / (M_PI / 2);
 	else
