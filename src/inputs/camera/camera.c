@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 18:39:09 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:38:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 	t_color		color;
 	t_4Matrix	camera;
 
-	camera = pos_camera(&(d->camera));
+	camera = pos_camera(d->camera);
 // DEBUG Prints
-	printf("FOV: %.2f\n", d->camera.fov);
+	printf("FOV: %.2f\n", d->camera->fov);
 	print_matrix(&camera);
 // ENDDEBUG
 	pos[Y] = start - 1;

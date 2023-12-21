@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:44:15 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:01:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	init_parameters_info(t_data *p)
 	p->planes = NULL;
 	p->spheres = NULL;
 	p->cylinders = NULL;
-	p->render_min = 1;
-	p->render_max = INT_MAX;
+	p->camera = ft_calloc(1, sizeof(t_camera));
+	if (!p->camera)
+		clean_exit(p, 12);
 }
 
 void	init_canvas(t_data *p, char *str_width, char *str_height)

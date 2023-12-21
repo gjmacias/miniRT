@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:52 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 13:42:52 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:15:26 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_vector	v_FOV(int x, int y, t_data *d)
 	int			size;
 	double		work_fov;
 
-	work_fov = 180.0 - d->camera.fov;
+	work_fov = 180.0 - d->camera->fov;
 	size = d->height;
 	if (d->width < size)
 		size = d->width;

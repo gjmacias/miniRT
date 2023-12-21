@@ -6,13 +6,13 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/12/12 11:26:24 by ffornes-         ###   ########.fr        #
+#    Updated: 2023/12/19 16:55:24 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP -fsanitize=thread
+CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 OS		:= $(shell uname)
 
 ###############################################################################
@@ -34,7 +34,8 @@ SRC			=	miniRT.c \
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \
-				tests/print.c tests/print_matrix.c tests/print_vector.c
+				tests/print.c tests/print_matrix.c tests/print_vector.c \
+				utils/free_data.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))

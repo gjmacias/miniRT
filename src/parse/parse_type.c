@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 17:09:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:58:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,15 @@ void	p_camera(char **arguments, t_data *p)
 	if (p->info.camera > 1)
 		write_error3("Error: camera < ", arguments[0],
 			" > is DUPLICATED\n");
-	input_position(arguments[1], p, &(p->camera.center));
-	input_vector(arguments[2], p, &(p->camera.n_vector));
-	input_fov(arguments[3], p, &(p->camera.fov));
+	p->camera->center = ft_calloc(1, sizeof(t_vector));
+	if (!p->camera->center)
+		clean_exit(p, 12);
+	input_position(arguments[1], p, p->camera->center);
+	p->camera->n_vector = ft_calloc(1, sizeof(t_vector));
+	if (!p->camera->n_vector)
+		clean_exit(p, 12);
+	input_vector(arguments[2], p, p->camera->n_vector);
+	input_fov(arguments[3], p, &(p->camera->fov));
 	if (arguments[4])
 		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");

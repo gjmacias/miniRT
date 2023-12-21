@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/17 15:53:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:17:09 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,21 @@ void	print_data(t_data *d)
 	t_cylinder	*aux3;
 
 	printf("\nINFO\n");
-	printf("\tCamera:\t\t%li\n", d->info.camera);
-	printf("\tAmbient:\t%li\n", d->info.ambient_light);
-	printf("\tLights:\t\t%li\n", d->info.lights);
-	printf("\tPlanes:\t\t%li\n", d->info.planes);
-	printf("\tSpheres:\t%li\n", d->info.spheres);
-	printf("\tCylinders:\t%li\n", d->info.cylinders);
+	printf("\tCamera:\t\t%i\n", d->info.camera);
+	printf("\tAmbient:\t%i\n", d->info.ambient_light);
+	printf("\tLights:\t\t%i\n", d->info.lights);
+	printf("\tPlanes:\t\t%i\n", d->info.planes);
+	printf("\tSpheres:\t%i\n", d->info.spheres);
+	printf("\tCylinders:\t%i\n", d->info.cylinders);
 	printf("\n");
 	printf(CRED"Camera\n"CWHITE);
-	printf("\tFOV:\t\t%.2f\n", d->camera.fov);
-	printf("\tPosition:\t[ X %.2f ]\t", d->camera.center.x);
-	printf("[ Y %.2f ]\t", d->camera.center.y);
-	printf("[ Z %.2f ]\n", d->camera.center.z);
-	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera.n_vector.x);
-	printf("[ Y %.2f ]\t", d->camera.n_vector.y);
-	printf("[ Z %.2f ]\n", d->camera.n_vector.z);
+	printf("\tFOV:\t\t%.2f\n", d->camera->fov);
+	printf("\tPosition:\t[ X %.2f ]\t", d->camera->center->x);
+	printf("[ Y %.2f ]\t", d->camera->center->y);
+	printf("[ Z %.2f ]\n", d->camera->center->z);
+	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera->n_vector->x);
+	printf("[ Y %.2f ]\t", d->camera->n_vector->y);
+	printf("[ Z %.2f ]\n", d->camera->n_vector->z);
 	printf("\n");
 	printf(CCYAN"Ambiental\n"CWHITE);
 	printf("\tBrightness:\t%.2f\n", d->ambient_light.brightness);
@@ -87,9 +87,9 @@ void	print_data(t_data *d)
 		printf(CYELLOW"Lights\n"CWHITE);
 		aux = (t_light *)iter[0]->content;
 		printf("\tBrightness:\t%.2f\n", aux->brightness);
-		printf("\tPosition:\t[ X %.2f ]\t", aux->center.x);
-		printf("[ Y %.2f ]\t", aux->center.y);
-		printf("[ Z %.2f ]\n", aux->center.z);
+		printf("\tPosition:\t[ X %.2f ]\t", aux->center->x);
+		printf("[ Y %.2f ]\t", aux->center->y);
+		printf("[ Z %.2f ]\n", aux->center->z);
 		printf("\tColor:\t\t[ R %d ]", aux->color.r);
 		printf("[ G %d ]", aux->color.g);
 		printf("[ B %d ]", aux->color.b);
@@ -102,12 +102,12 @@ void	print_data(t_data *d)
 	{
 		printf(CGREEN"Planes\n"CWHITE);
 		aux1 = (t_plane *)iter[1]->content;
-		printf("\tPosition:\t[ X %.2f ]\t", aux1->center.x);
-		printf("[ Y %.2f ]\t", aux1->center.y);
-		printf("[ Z %.2f ]\n", aux1->center.z);
-		printf("\tNormal:\t\t[ X %.2f ]\t", aux1->n_vector.x);
-		printf("[ Y %.2f ]\t", aux1->n_vector.y);
-		printf("[ Z %.2f ]\n", aux1->n_vector.z);
+		printf("\tPosition:\t[ X %.2f ]\t", aux1->center->x);
+		printf("[ Y %.2f ]\t", aux1->center->y);
+		printf("[ Z %.2f ]\n", aux1->center->z);
+		printf("\tNormal:\t\t[ X %.2f ]\t", aux1->n_vector->x);
+		printf("[ Y %.2f ]\t", aux1->n_vector->y);
+		printf("[ Z %.2f ]\n", aux1->n_vector->z);
 		printf("\tColor:\t\t[ R %d ]", aux1->material.color.r);
 		printf("[ G %d ]", aux1->material.color.g);
 		printf("[ B %d ]", aux1->material.color.b);
@@ -121,9 +121,9 @@ void	print_data(t_data *d)
 		printf(CBLUE"Spheres\n"CWHITE);
 		aux2 = (t_sphere *)iter[2]->content;
 		printf("\tDiameter:\t%.2f\n", aux2->diameter);
-		printf("\tPosition:\t[ X %.2f ]\t", aux2->center.x);
-		printf("[ Y %.2f ]\t", aux2->center.y);
-		printf("[ Z %.2f ]\n", aux2->center.z);
+		printf("\tPosition:\t[ X %.2f ]\t", aux2->center->x);
+		printf("[ Y %.2f ]\t", aux2->center->y);
+		printf("[ Z %.2f ]\n", aux2->center->z);
 		printf("\tColor:\t\t[ R %d ]", aux2->material.color.r);
 		printf("[ G %d ]", aux2->material.color.g);
 		printf("[ B %d ]", aux2->material.color.b);
@@ -139,12 +139,12 @@ void	print_data(t_data *d)
 		aux3 = (t_cylinder *)iter[3]->content;
 		printf("\tDiameter:\t%.2f\n", aux3->diameter);
 		printf("\tHeight:\t\t%.2f\n", aux3->height);
-		printf("\tPosition:\t[ X %.2f ]\t", aux3->center.x);
-		printf("[ Y %.2f ]\t", aux3->center.y);
-		printf("[ Z %.2f ]\n", aux3->center.z);
-		printf("\tNormal:\t\t[ X %.2f ]\t", aux3->n_vector.x);
-		printf("[ Y %.2f ]\t", aux3->n_vector.y);
-		printf("[ Z %.2f ]\n", aux3->n_vector.z);
+		printf("\tPosition:\t[ X %.2f ]\t", aux3->center->x);
+		printf("[ Y %.2f ]\t", aux3->center->y);
+		printf("[ Z %.2f ]\n", aux3->center->z);
+		printf("\tNormal:\t\t[ X %.2f ]\t", aux3->n_vector->x);
+		printf("[ Y %.2f ]\t", aux3->n_vector->y);
+		printf("[ Z %.2f ]\n", aux3->n_vector->z);
 		printf("\tColor:\t\t[ R %d ]", aux3->material.color.r);
 		printf("[ G %d ]", aux3->material.color.g);
 		printf("[ B %d ]", aux3->material.color.b);
