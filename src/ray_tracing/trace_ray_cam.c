@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 18:49:33 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:09:49 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,10 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	itsc.dist = -1;
 	itsc.mat = new_material(new_color(0, 0, 0, 0), 0);
 	itsc.p = NULL;
-	print_vector(*p0);
-	print_vector(*p1);
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d);
-	if (itsc.dist >= 0)
+	if (itsc.dist >= 1)
 		return (0);
 	return (angle_vectors(&dir, r));
 }
@@ -92,17 +90,16 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	itsc.p = ft_calloc(1, sizeof(t_vector));
 	if (!itsc.p)
 		clean_exit(d, 12);
-	itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
+//	itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	find_itsct(&itsc, ray, d);
 	if (itsc.dist >= 0) // There is itsc
 	{
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
-		aux = (t_light *)d->lights;
-		print_color(aux->color);
+		aux = (t_light *)d->lights->content;
 		tmp = light_itscs(itsc.p, aux->center, d, ray);
 		if (tmp)
-			itsc.mat.color = calc_light(&itsc.mat, (t_light *)d->lights, tmp);
+			itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
 	}
 	free(itsc.p);
 	return (itsc.mat.color);

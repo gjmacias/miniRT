@@ -37,7 +37,8 @@ t_color	calc_ambient(t_material *m, t_ambiental a)
 	result.r = color_percentage(a.color.r) * a.brightness * m->color.r;
 	result.g = color_percentage(a.color.g) * a.brightness * m->color.g;
 	result.b = color_percentage(a.color.b) * a.brightness * m->color.b;
-	return(result);
+	result.a = 0;
+	return (result);
 }
 
 t_color	calc_light(t_material *m, t_light *l, double rad)
@@ -60,5 +61,6 @@ t_color	calc_light(t_material *m, t_light *l, double rad)
 		result.b = 255;
 	else
 		result.b = m->color.b + tmp;
+	result.a = 0;
 	return(result);
 }
