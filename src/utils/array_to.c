@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:02:00 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:02:00 by gmacias-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:35:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ void	arraytodouble(char *s, t_vector *vector)
 	vector->x = y[0];
 	vector->y = y[1];
 	vector->z = y[2];
-	print_vector((*vector));
 }

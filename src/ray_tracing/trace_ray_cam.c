@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 17:11:36 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:49:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,50 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	t_vector	tmp;
 
 	tmp = tmp_vector(ray->x * t, ray->y * t, ray->z * t);
-	print_vector(tmp);
 	return (v_addition(ray_o, &tmp));
+}
+
+double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
+{
+	t_intersection	itsc;
+	t_vector		dir;
+
+	itsc.dist = -1;
+	itsc.mat = new_material(new_color(0, 0, 0, 0), 0);
+	itsc.p = NULL;
+	print_vector(*p0);
+	print_vector(*p1);
+	dir = v_subtract(p1, p0);
+	normalize_v(&dir);
+	find_itsct(&itsc, &dir, d);
+	if (itsc.dist >= 0)
+		return (0);
+	return (angle_vectors(&dir, r));
 }
 
 t_color	trace_ray(t_vector *ray, t_data *d)
 {
-	t_color	color;
 	t_intersection	itsc;
+	double			tmp;
+	t_light			*aux;
 
 	itsc.dist = -1;
 	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
 	itsc.p = ft_calloc(1, sizeof(t_vector));
 	if (!itsc.p)
 		clean_exit(d, 12);
-	color = calc_ambient(&itsc.mat, d->ambient_light);
+	itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	find_itsct(&itsc, ray, d);
 	if (itsc.dist >= 0) // There is itsc
 	{
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
-		color = itsc.mat.color;
-		// Calculate color with ambient light
-		color = calc_ambient(&itsc.mat, d->ambient_light);
-		/*
-		aux = d->lights;
-		while (aux) // Calculate vector between itsc.point and light.center
-		{
-			itsc_to_light(color, (t_vector ) itsc.point, (t_vector) itsc.dir, aux);
-			aux = aux->next;	
-		}
-		*/
+		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
+		aux = (t_light *)d->lights;
+		print_color(aux->color);
+		tmp = light_itscs(itsc.p, aux->center, d, ray);
+		if (tmp)
+			itsc.mat.color = calc_light(&itsc.mat, (t_light *)d->lights, tmp);
 	}
 	free(itsc.p);
-	return (color);
+	return (itsc.mat.color);
 }

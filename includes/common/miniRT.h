@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 17:32:44 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:32:04 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ t_vector	v_FOV(int x, int y, t_data *d);
 
 t_color		new_color(int r, int g, int b, int a);
 t_material	new_material(t_color color, double specular);
+
+t_color		calc_light(t_material *m, t_light *l, double rad);
 
 //  TEST
 void		print_matrix(t_4Matrix *m);
