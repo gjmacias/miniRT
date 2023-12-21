@@ -24,8 +24,6 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		t = rayhit_pl(d->camera->center, ray, (t_plane *)aux->content);
 		if (t > 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
-			printf("Plane coords: ");
-			print_vector(*((t_plane *)aux->content)->center);
 			itsc->dist = t;
 			itsc->mat = ((t_plane *)aux->content)->material;
 		}
@@ -38,7 +36,6 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
-			printf("Distance: %.2f\n", t);
 			itsc->mat = ((t_sphere *)aux->content)->material;
 		}
 		aux = aux->next;
@@ -63,12 +60,6 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	t_vector	tmp;
 
 	tmp = tmp_vector(ray->x * t, ray->y * t, ray->z * t);
-	printf("Camera origin: ");
-	print_vector(*ray_o);
-	printf("Ray: ");
-	print_vector(*ray);
-	printf("Distance: %f\n", t);
-	printf("Dir * dist = ");
 	print_vector(tmp);
 	return (v_addition(ray_o, &tmp));
 }
@@ -88,9 +79,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	if (itsc.dist >= 0) // There is itsc
 	{
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
-		printf("Result: ");
-		print_vector(*itsc.p);
-		printf("\n");
 		color = itsc.mat.color;
 		// Calculate color with ambient light
 		color = calc_ambient(&itsc.mat, d->ambient_light);

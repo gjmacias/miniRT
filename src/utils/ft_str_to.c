@@ -10,25 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft.h"
 #include <math.h>
 #include <stdio.h>
 
+
 double	ft_strtod(char *str)
 {
-	long int	n;
-	size_t		i;
-	double		result;
+	double	n;
+	size_t	i;
+	size_t	j;	
+	double	result;
 
-	n = ft_atoi(str);
+	n = (double)ft_atoi(str);
 	i = 0;
 	while (str[i] && str[i] != '.')
 		i++;
 	if (str[i] == '.')
 		i++;
+	j = i;
+	while (str[j] && ft_isdigit(str[j]))
+		j++;
 	result = (double)ft_atoi(&str[i]);
-	result = result / pow(10, ft_strlen(&str[i]));
-	result = n + result;
+	result = result / pow(10, j - i);
+	if (n < 0)
+		result = n - result;
+	else
+		result = n + result;
 	return (result);
 }
 
