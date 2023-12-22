@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/22 17:18:15 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:23:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "miniRT_defs.h"
 #include <math.h>
 
-static double	quadratic_formula(double a, double b, double c);
+static double	quadratic_formula(double a, double b, double c)
 {
 	double	t[2];
 
@@ -64,16 +64,12 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-	double	D;
-	double	V;
-	double	X;
-	double	t;
+	t_vector	x;
+	double		t;
 
-	D = ray_dir;
-	V = cy->n_vector;
-	X = v_subtract(ray0, cy->center);
-	t = quadratic_formula(dot_v(D, D) - pow(dot_v(D, V), 2), \
-		2 * (dot_v(D, X) - dot_v(D, V) * dot_v(X, V)), \
-		dot_v(X, X) - pow(dot_v(X, V), 2) - cy->r_sq);
+	x = v_subtract(ray0, cy->center);
+	t = quadratic_formula(dot(ray_dir, ray_dir) - pow(dot(ray_dir, cy->n_vector), 2), \
+		2 * (dot(ray_dir, &x) - dot(ray_dir, cy->n_vector) * dot(&x, cy->n_vector)), \
+		dot(&x, &x) - pow(dot(&x, cy->n_vector), 2) - cy->r_sq);
 	return (t);
 }

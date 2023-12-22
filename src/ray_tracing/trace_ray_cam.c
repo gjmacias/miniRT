@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 16:45:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:40:53 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d);
-	if (itsc.dist >= 0)
-		return (0);
+//	if (itsc.dist > EPSILON)
+//		return (0);
 	return (angle_vectors(&dir, r));
 }
 
@@ -125,13 +125,15 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	{
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		get_itsc_normal(&itsc);
-		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
+//		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 		if (d->lights)
 		{
 			aux = (t_light *)d->lights->content;
 			tmp = light_itscs(itsc.p, aux->center, d, itsc.normal);
 			if (tmp)
 				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
+	//		else
+	//			itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 		}
 	}
 	else
