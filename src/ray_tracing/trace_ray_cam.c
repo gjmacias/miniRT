@@ -6,14 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 14:58:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:40:53 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
 
-static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
+static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d, t_vector *center)
 {
 	t_list			*aux;
 	double			t;
@@ -21,12 +21,12 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 	aux = d->planes;
 	while (aux)
 	{
-		t = rayhit_pl(d->camera->center, ray, (t_plane *)aux->content);
+		t = rayhit_pl(center, ray, (t_plane *)aux->content);
 		if (t > 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_plane *)aux->content)->material;
-			itsc->address = ((t_plane *)aux->content);
+			itsc->address = (t_plane *)aux->content;
 			itsc->type = 1;
 		}
 		aux = aux->next;
@@ -34,29 +34,29 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 	aux = d->spheres;
 	while (aux)
 	{
-		t = rayhit_sp(d->camera->center, ray, (t_sphere *)aux->content);
+		t = rayhit_sp(center, ray, (t_sphere *)aux->content);
 		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_sphere *)aux->content)->material;
-			itsc->address = ((t_sphere *)aux->content);
+			itsc->address = (t_sphere *)aux->content;
 			itsc->type = 2;
 		}
 		aux = aux->next;
 	}
 	aux = d->cylinders;
-	/*
 	while (aux)
 	{
-		t = rayhit_cy(d->camera->center, ray, (t_cylinder *)aux->content);
+		t = rayhit_cy(center, ray, (t_cylinder *)aux->content);
 		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_cylinder *)aux->content)->material;
+			itsc->address = (t_cylinder *)aux->content;
+			itsc->type = 3;
 		}
 		aux = aux->next;
 	}
-	*/
 }
 
 t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
@@ -77,8 +77,8 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	itsc.p = NULL;
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
-	find_itsct(&itsc, &dir, d);
-	if (itsc.dist >= 1)
+	find_itsct(&itsc, &dir, d, ((t_light *)d->lights->content)->center);
+	if (itsc.type > 0)
 		return (0);
 	return (angle_vectors(&dir, r));
 }
@@ -120,7 +120,7 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		clean_exit(d, 12);
 	}
 	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
-	find_itsct(&itsc, ray, d);
+	find_itsct(&itsc, ray, d, d->camera->center);
 	if (itsc.type > 0) // There is itsc
 	{
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
@@ -130,7 +130,7 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		{
 			aux = (t_light *)d->lights->content;
 			tmp = light_itscs(itsc.p, aux->center, d, itsc.normal);
-			if (tmp)
+			if (itsc.dist > 0 && tmp)
 				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
 		}
 	}
