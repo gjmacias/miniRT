@@ -28,8 +28,6 @@ double	rad_percentage(double ang)
 		rad = (M_PI / 2) - ang;
 		percentage = rad / (M_PI / 2);
 	}
-	else
-		percentage = (ang / 2) / (M_PI / 2);
 	return (percentage);
 }
 
