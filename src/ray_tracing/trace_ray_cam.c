@@ -71,7 +71,6 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 {
 	t_intersection	itsc;
 	t_vector		dir;
-	t_vector		neg_ray;
 
 	itsc.dist = -1;
 	itsc.mat = new_material(new_color(0, 0, 0, 0), 0);
@@ -81,8 +80,7 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	find_itsct(&itsc, &dir, d);
 	if (itsc.dist >= EPSILON)
 		return (0);
-	neg_ray = neg_vector(r);
-	return (angle_vectors(&dir, &neg_ray));
+	return (angle_vectors(&dir, r));
 }
 
 void	get_itsc_normal(t_intersection *itsc)
@@ -125,13 +123,13 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	find_itsct(&itsc, ray, d);
 	if (itsc.type > 0) // There is itsc
 	{
-		get_itsc_p(ray, d->camera->center, itsc.dist);
+		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		get_itsc_normal(&itsc);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 		if (d->lights)
 		{
 			aux = (t_light *)d->lights->content;
-			tmp = light_itscs(itsc.p, aux->center, d, ray);\
+			tmp = light_itscs(itsc.p, aux->center, d, itsc.normal);
 			if (tmp)
 				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
 		}
