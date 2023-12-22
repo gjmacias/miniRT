@@ -12,6 +12,16 @@
 
 #include "miniRT.h"
 
+t_vector	neg_vector(t_vector *v)
+{
+	t_vector	result;
+
+	result.x = -(v->x);
+	result.y = -(v->y);
+	result.z = -(v->z);
+	return (result);
+}
+
 float	angle_vectors(t_vector *a, t_vector *b)
 {
 	float	magnitude1;

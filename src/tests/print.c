@@ -26,6 +26,11 @@ void	printaux(void)
 	printf("paso por aqui\n");
 }
 
+void	printd(double d)
+{
+	printf("Double: %.4f\n", d);
+}
+
 void	printpp(char **arguments)
 {
 	int	i;
