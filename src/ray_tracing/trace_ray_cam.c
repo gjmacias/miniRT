@@ -78,7 +78,7 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d);
-	if (itsc.dist >= 0)
+	if (itsc.dist >= 1)
 		return (0);
 	return (angle_vectors(&dir, r));
 }
