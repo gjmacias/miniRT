@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 14:58:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:45:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_plane *)aux->content)->material;
-			itsc->address = ((t_plane *)aux->content);
+			itsc->address = (t_plane *)aux->content;
 			itsc->type = 1;
 		}
 		aux = aux->next;
@@ -39,13 +39,12 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_sphere *)aux->content)->material;
-			itsc->address = ((t_sphere *)aux->content);
+			itsc->address = (t_sphere *)aux->content;
 			itsc->type = 2;
 		}
 		aux = aux->next;
 	}
 	aux = d->cylinders;
-	/*
 	while (aux)
 	{
 		t = rayhit_cy(d->camera->center, ray, (t_cylinder *)aux->content);
@@ -53,10 +52,11 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_cylinder *)aux->content)->material;
+			itsc->address = (t_cylinder *)aux->content;
+			itsc->type = 3;
 		}
 		aux = aux->next;
 	}
-	*/
 }
 
 t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
