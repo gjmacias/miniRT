@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 14:45:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:58:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 
 void	get_itsc_normal(t_intersection *itsc)
 {
+	t_vector	*v;
+
 	if (itsc->type == PLANE)
 		*itsc->normal = *((t_plane *)itsc->address)->n_vector;
-	else if (itsc->type == SPHERE) // ToDo
+	else if (itsc->type == SPHERE)
 	{
-		*itsc->normal = v_subtract(((t_sphere *)itsc->address)->center, itsc->p);
+		v = ((t_sphere *)itsc->address)->center;
+		*itsc->normal = v_subtract(v, itsc->p);
 		normalize_v(itsc->normal);
-		print_vector(*itsc->normal);
 	}
 	else if (itsc->type == CYLINDER) // ToDo
 	{
@@ -120,7 +122,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		clean_exit(d, 12);
 	}
 	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
-//	itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	find_itsct(&itsc, ray, d);
 	if (itsc.type > 0) // There is itsc
 	{
@@ -135,6 +136,8 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
 		}
 	}
+	else
+		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	free(itsc.p);
 	free(itsc.normal);
 	return (itsc.mat.color);
