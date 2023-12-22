@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 19:09:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:45:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_plane *)aux->content)->material;
+			itsc->address = ((t_plane *)aux->content);
+			itsc->type = 1;
 		}
 		aux = aux->next;
 	}
@@ -37,6 +39,8 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d)
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_sphere *)aux->content)->material;
+			itsc->address = ((t_sphere *)aux->content);
+			itsc->type = 2;
 		}
 		aux = aux->next;
 	}
@@ -81,28 +85,57 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	return (angle_vectors(&dir, &neg_ray));
 }
 
+void	get_itsc_normal(t_intersection *itsc)
+{
+	if (itsc->type == PLANE)
+		*itsc->normal = *((t_plane *)itsc->address)->n_vector;
+	else if (itsc->type == SPHERE) // ToDo
+	{
+		*itsc->normal = v_subtract(((t_sphere *)itsc->address)->center, itsc->p);
+		normalize_v(itsc->normal);
+		print_vector(*itsc->normal);
+	}
+	else if (itsc->type == CYLINDER) // ToDo
+	{
+		printf("XD!");
+	}
+}
+
 t_color	trace_ray(t_vector *ray, t_data *d)
 {
 	t_intersection	itsc;
 	double			tmp;
 	t_light			*aux;
 
+	itsc.type = 0;
+	itsc.address = NULL;
 	itsc.dist = -1;
-	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
 	itsc.p = ft_calloc(1, sizeof(t_vector));
 	if (!itsc.p)
 		clean_exit(d, 12);
+	itsc.normal = ft_calloc(1, sizeof(t_vector));
+	if (!itsc.normal)
+	{
+		free(itsc.p);
+		clean_exit(d, 12);
+	}
+	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
 //	itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	find_itsct(&itsc, ray, d);
-	if (itsc.dist >= 0) // There is itsc
+	if (itsc.type > 0) // There is itsc
 	{
-		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
+		get_itsc_p(ray, d->camera->center, itsc.dist);
+		get_itsc_normal(&itsc);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
-		aux = (t_light *)d->lights->content;
-		tmp = light_itscs(itsc.p, aux->center, d, ray);\
-		if (tmp)
-			itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
+		if (d->lights)
+		{
+			aux = (t_light *)d->lights->content;
+			tmp = light_itscs(itsc.p, aux->center, d, ray);\
+			if (tmp)
+				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
+		}
 	}
 	free(itsc.p);
+	free(itsc.normal);
 	return (itsc.mat.color);
 }

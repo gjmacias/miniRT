@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 16:19:52 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:30:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # define X			0
 # define Y			1
+
+# define PLANE		1
+# define SPHERE		2
+# define CYLINDER	3
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
@@ -97,12 +101,15 @@ typedef struct s_light
 	t_vector	*center;
 }				t_light;
 
-//	8 8 12								= 28 bytes
+// 1 8 8 8 12								= 28 bytes
 typedef struct s_intersection
 {
-	double		dist;
-	t_material	mat;
-	t_vector	*p;
+	unsigned char	type;
+	void			*address;
+	double			dist;
+	t_vector		*p;
+	t_vector		*normal;
+	t_material		mat;
 }	t_intersection;
 
 //	8 8 12								= 28 bytes
