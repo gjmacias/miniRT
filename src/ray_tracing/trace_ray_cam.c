@@ -67,6 +67,7 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 {
 	t_intersection	itsc;
 	t_vector		dir;
+	t_vector		neg_ray;
 
 	itsc.dist = -1;
 	itsc.mat = new_material(new_color(0, 0, 0, 0), 0);
@@ -74,9 +75,10 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d);
-	if (itsc.dist >= 1)
+	if (itsc.dist >= EPSILON)
 		return (0);
-	return (angle_vectors(&dir, r));
+	neg_ray = neg_vector(r);
+	return (angle_vectors(&dir, &neg_ray));
 }
 
 t_color	trace_ray(t_vector *ray, t_data *d)
@@ -97,7 +99,7 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 		aux = (t_light *)d->lights->content;
-		tmp = light_itscs(itsc.p, aux->center, d, ray);
+		tmp = light_itscs(itsc.p, aux->center, d, ray);\
 		if (tmp)
 			itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
 	}

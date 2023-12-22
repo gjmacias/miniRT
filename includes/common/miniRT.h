@@ -51,7 +51,7 @@ void		init_parameters_info(t_data *p);
 //  INPUTS
 t_4Matrix	pos_camera(t_camera *c);
 
-void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
+void		render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
 void		process_camera(t_data *d, t_mlx_data *mlx, int num);
 void		init_canvas(t_data *p, char *str_width, char *str_height);
 
@@ -115,6 +115,7 @@ t_vector	change_angle(t_vector vec, double angle, char axis);
 double		ft_strtod(char *str);
 int			ft_strtouc(char *str);
 
+t_vector	neg_vector(t_vector *v);
 t_vector	v_FOV(int x, int y, t_data *d);
 
 t_color		new_color(int r, int g, int b, int a);
@@ -130,5 +131,7 @@ void		printpp(char **s);
 void		print_data(t_data *d);
 void		print_vector(t_vector vector);
 void		print_color(t_color color);
+void		printd(double d);
+
 
 #endif
