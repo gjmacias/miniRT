@@ -48,7 +48,7 @@ static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d, t_vector 
 	while (aux)
 	{
 		t = rayhit_cy(center, ray, (t_cylinder *)aux->content);
-		if (t >= 0 && ((itsc->dist >= 0 && t < itsc->dist) || itsc->dist < 0))
+		if (t >= EPSILON && ((itsc->dist >= EPSILON && t < itsc->dist) || itsc->dist < 0))
 		{
 			itsc->dist = t;
 			itsc->mat = ((t_cylinder *)aux->content)->material;
@@ -73,9 +73,6 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 	t_vector		dir;
 
 	itsc.dist = -1;
-	itsc.type = 0;
-	itsc.p = NULL;
-	itsc.address = NULL;
 	dir = v_subtract(p1, p0);
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d, p0);
@@ -109,7 +106,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	t_light			*aux;
 
 	itsc.type = 0;
-	itsc.address = NULL;
 	itsc.dist = -1;
 	itsc.p = ft_calloc(1, sizeof(t_vector));
 	if (!itsc.p)
@@ -120,7 +116,7 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		free(itsc.p);
 		clean_exit(d, 12);
 	}
-	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Color is skyblue
+	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Background color
 	find_itsct(&itsc, ray, d, d->camera->center);
 	if (itsc.type > 0) // There is itsc
 	{
