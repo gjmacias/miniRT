@@ -17,12 +17,16 @@
 static double	quadratic_formula(double a, double b, double c)
 {
 	double	t[2];
+	double	discriminant;
 
-	t[0] = (-b + sqrt(pow(b, 2) - 4 * a * c)) / 2 * a;
-	t[1] = (-b - sqrt(pow(b, 2) - 4 * a * c)) / 2 * a;
-	if (t[0] < t[1])
+	discriminant = sqrt(pow(b, 2) - 4 * a * c);
+	t[0] = (-b + discriminant) / 2 * a;
+	t[1] = (-b - discriminant) / 2 * a;
+	if (t[0] > 0 && t[0] < t[1])
 		return (t[0]);
-	return (t[1]);
+	else if (t[1] > 0)
+		return (t[1]);
+	return (0);
 }
 
 double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
@@ -44,34 +48,27 @@ double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
 double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 {
 	double		coef[3];
-	double		discriminant;
-	double		t[2];
 	t_vector	v;
 
 	v = v_subtract(ray0, sp->center);
 	coef[0] = dot(ray_dir, ray_dir);
 	coef[1] = 2.0 * dot(ray_dir, &v);
 	coef[2] = dot(&v, &v) - sp->r_sq;
-	discriminant = pow(coef[1], 2) - 4 * coef[0] * coef[2];
-	if (discriminant < 0)
-		return (-1.0);
-	t[0] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
-	t[1] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
-	if (t[0] > 0 && t[0] < t[1])
-		return (t[0]);
-	else if (t[1] > 0)
-		return (t[1]);
-	return (0);
+	return (quadratic_formula(coef[0], coef[1], coef[2]));
 }
 
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-	t_vector	x;
+	double		coef[3];
+	t_vector	v;
 	double		t;
 
-	x = v_subtract(ray0, cy->center);
-	t = quadratic_formula(dot(ray_dir, ray_dir) - pow(dot(ray_dir, cy->n_vector), 2), \
-		2 * (dot(ray_dir, &x) - dot(ray_dir, cy->n_vector) * dot(&x, cy->n_vector)), \
-		dot(&x, &x) - pow(dot(&x, cy->n_vector), 2) - cy->r_sq);
+	v = v_subtract(ray0, cy->center);
+	coef[0] = dot(ray_dir, ray_dir) - pow(dot(ray_dir, cy->n_vector), 2);
+	coef[1] = 2 * (dot(ray_dir, &v) - dot(ray_dir, cy->n_vector) * dot(&v, cy->n_vector));
+	coef[2] = dot(&v, &v) - pow(dot(&v, cy->n_vector), 2) - cy->r_sq;
+	t = quadratic_formula(coef[0], coef[1], coef[2]);
+	// ToDo: Calculate collision for top & bottom caps from the cylinder
+	// rn it's an infinite cylinder.
 	return (t);
 }
