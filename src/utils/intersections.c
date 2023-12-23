@@ -60,13 +60,16 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
 	double		coef[3];
+	double		dot_p[1];
 	t_vector	v;
 	double		t;
 
 	v = v_subtract(ray0, cy->center);
-	coef[0] = dot(ray_dir, ray_dir) - pow(dot(ray_dir, cy->n_vector), 2);
-	coef[1] = 2 * (dot(ray_dir, &v) - dot(ray_dir, cy->n_vector) * dot(&v, cy->n_vector));
-	coef[2] = dot(&v, &v) - pow(dot(&v, cy->n_vector), 2) - cy->r_sq;
+	dot_p[0] = dot(ray_dir, cy->n_vector);
+	dot_p[1] = dot(&v, cy->n_vector);
+	coef[0] = dot(ray_dir, ray_dir) - pow(dot_p[0], 2);
+	coef[1] = 2 * (dot(ray_dir, &v) - dot_p[0] * dot_p[1]);
+	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
 	t = quadratic_formula(coef[0], coef[1], coef[2]);
 	// ToDo: Calculate collision for top & bottom caps from the cylinder
 	// rn it's an infinite cylinder.
