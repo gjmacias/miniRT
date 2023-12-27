@@ -16,7 +16,7 @@ CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
 OS		:= $(shell uname)
 
 ###############################################################################
-#									SRC								  #
+#									SRC										  #
 ###############################################################################
 
 SRC			=	miniRT.c \
@@ -106,7 +106,7 @@ make_dir:
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@mkdir -p $(dir $@)
 	@echo "$(GRAY)Compiling $< to $@ $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@mv $(basename $@).d $(DPS_DIR)
 
 

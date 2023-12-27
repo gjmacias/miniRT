@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 19:29:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:37:00 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
 {
 	t_intersection	itsc;
 	t_vector		dir;
+	t_vector		magnitude;
 
 	itsc.dist = -1;
 	dir = v_subtract(p1, p0);
+	magnitude = dir;
 	normalize_v(&dir);
 	find_itsct(&itsc, &dir, d, p0);
-	if (itsc.dist > EPSILON)
+	if (itsc.dist > EPSILON && itsc.dist < v_magnitude(&magnitude))
 		return (0);
 	return (angle_vectors(&dir, r));
 }
