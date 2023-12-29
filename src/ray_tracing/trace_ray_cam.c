@@ -67,22 +67,6 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	return (v_addition(ray_o, &tmp));
 }
 
-double	light_itscs(t_vector *p0, t_vector *p1, t_data *d, t_vector *r)
-{
-	t_intersection	itsc;
-	t_vector		dir;
-	t_vector		magnitude;
-
-	itsc.dist = -1;
-	dir = v_subtract(p1, p0);
-	magnitude = dir;
-	normalize_v(&dir);
-	find_itsct(&itsc, &dir, d, p0);
-	if (itsc.dist > EPSILON && itsc.dist < v_magnitude(&magnitude))
-		return (0);
-	return (angle_vectors(&dir, r));
-}
-
 void	get_itsc_normal(t_intersection *itsc)
 {
 	t_vector	*v;
@@ -101,11 +85,41 @@ void	get_itsc_normal(t_intersection *itsc)
 	}
 }
 
+double	light_itscs(t_intersection *itsc_0, t_vector *p1, t_data *d, double ray_n)
+{
+	t_intersection	itsc_1;
+	t_vector		dir;
+	t_vector		magnitude;
+	double			dir_n;
+
+	itsc_1.dist = -1;
+	dir = v_subtract(p1, itsc_0->p);
+	magnitude = dir;
+	normalize_v(&dir);
+	find_itsct(&itsc_1, &dir, d, itsc_0->p);
+	if (itsc_1.dist > EPSILON && itsc_1.dist < v_magnitude(&magnitude))
+		return (0);
+	dir_n = dot(&dir, itsc_0->normal);
+	if (itsc_0->type == PLANE && dir_n)
+	{
+		if (dir_n > (double)0 )
+		{
+			if (ray_n > 0)
+				return (0);
+		}
+		else if (ray_n < (double)0)
+			return (0);
+		else
+			*itsc_0->normal = v_product(itsc_0->normal, -1.0);
+	}
+	return (angle_vectors(&dir, itsc_0->normal));
+}
+
 t_color	trace_ray(t_vector *ray, t_data *d)
 {
 	t_intersection	itsc;
 	double			tmp;
-	t_light			*aux;
+	t_light			*light;
 
 	itsc.type = 0;
 	itsc.dist = -1;
@@ -127,12 +141,12 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 		if (d->lights)
 		{
-			aux = (t_light *)d->lights->content;
-			tmp = light_itscs(itsc.p, aux->center, d, itsc.normal);
+			light = (t_light *)d->lights->content;
+			tmp = light_itscs(&itsc, light->center, d, dot(ray, itsc.normal));
+			if (itsc.type == PLANE)
+				printf("TMP: %f\n", tmp);
 			if (tmp > 0)
-				itsc.mat.color = calc_light(&itsc.mat, aux, tmp);
-//			else
-//				itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
+				itsc.mat.color = calc_light(&itsc.mat, light, tmp);
 		}
 	}
 	else

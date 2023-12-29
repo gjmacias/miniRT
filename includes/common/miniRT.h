@@ -89,7 +89,7 @@ t_vector	tmp_vector(double x, double y, double z);
 
 t_vector	v_addition(t_vector *v1, t_vector *v2);
 t_vector	v_subtract(t_vector *v1, t_vector *v2);
-t_vector	v_product(t_vector *v1, double *n);
+t_vector	v_product(t_vector *v1, double n);
 double		v_magnitude(t_vector *vector);
 void		normalize_v(t_vector *vector);
 double		dot(t_vector *v1, t_vector *v2);

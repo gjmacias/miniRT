@@ -34,13 +34,13 @@ t_vector	v_subtract(t_vector *v1, t_vector *v2)
 	return (result);
 }
 
-t_vector	v_product(t_vector *v1, double *n)
+t_vector	v_product(t_vector *v1, double n)
 {
 	t_vector	result;
 
-	result.x = v1->x * *n;
-	result.y = v1->y * *n;
-	result.z = v1->z * *n;
+	result.x = v1->x * n;
+	result.y = v1->y * n;
+	result.z = v1->z * n;
 	return (result);
 }
 
