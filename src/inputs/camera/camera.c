@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:38:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:02:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 			color = trace_ray(&normal, d);
 			my_mlx_pixel_put(mlx, pos[X], pos[Y], color);
 		}
-		mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 	}
+	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 }
 
 /*void	process_camera(t_data *d, t_mlx_data *mlx, int num)
