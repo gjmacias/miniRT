@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/22 18:21:06 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:33:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static double	quadratic_formula(double a, double b, double c)
 	double	t[2];
 	double	discriminant;
 
-	discriminant = sqrt(pow(b, 2) - 4 * a * c);
+	discriminant = pow(b, 2) - 4 * a * c;
+	if (discriminant < EPSILON)
+		return (0);
+	discriminant = sqrt(discriminant);
 	t[0] = (-b + discriminant) / 2 * a;
 	t[1] = (-b - discriminant) / 2 * a;
 	if (t[0] > 0 && t[0] < t[1])
@@ -60,18 +63,34 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
 	double		coef[3];
-	double		dot_p[1];
+	double		dot_p[2];
 	t_vector	v;
 	double		t;
 
 	v = v_subtract(ray0, cy->center);
+
 	dot_p[0] = dot(ray_dir, cy->n_vector);
 	dot_p[1] = dot(&v, cy->n_vector);
-	coef[0] = dot(ray_dir, ray_dir) - pow(dot_p[0], 2);
+
+	coef[0] = 1.0 - pow(dot_p[0], 2);
 	coef[1] = 2 * (dot(ray_dir, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
+
 	t = quadratic_formula(coef[0], coef[1], coef[2]);
-	// ToDo: Calculate collision for top & bottom caps from the cylinder
-	// rn it's an infinite cylinder.
+
+	if (t > 0)
+	{
+		// Should have cy->height already divided by 2 ?
+		// Must do this with cylinder normal instead of assuming
+		// 		height will be Y.
+		double	max_h = cy->height / 2 + cy->center->y;
+		double	min_h = cy->center->y - cy->height / 2;
+		double	h;
+		h = (ray_dir->y * t) + ray0->y;
+		printf("H: %.2f ", h);
+		if (h != 0 && (h > max_h || h < min_h))
+			return (0);
+		// ToDo: Calculate collision for top & bottom caps from the cylinder
+	}
 	return (t);
 }
