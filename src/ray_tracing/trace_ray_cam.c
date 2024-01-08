@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 19:37:00 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:57:08 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	get_itsc_normal(t_intersection *itsc)
 	}
 	else if (itsc->type == CYLINDER) // ToDo
 	{
-		printf("XD!");
+
 	}
 }
 
@@ -98,16 +98,16 @@ double	light_itscs(t_intersection *itsc_0, t_vector *p1, t_data *d, double ray_n
 	normalize_v(&dir);
 	find_itsct(&itsc_1, &dir, d, itsc_0->p);
 	if (itsc_1.dist > EPSILON && itsc_1.dist < v_magnitude(&magnitude))
-		return (0);
+		return (0.0);
 	dir_n = dot(&dir, itsc_0->normal);
 	if (itsc_0->type == PLANE && dir_n)
 	{
-		if (dir_n > (double)0 )
+		if (dir_n > 0.0 )
 		{
-			if (ray_n > 0)
+			if (ray_n > 0.0)
 				return (0);
 		}
-		else if (ray_n < (double)0)
+		else if (ray_n < 0.0)
 			return (0);
 		else
 			*itsc_0->normal = v_product(itsc_0->normal, -1.0);
@@ -143,8 +143,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		{
 			light = (t_light *)d->lights->content;
 			tmp = light_itscs(&itsc, light->center, d, dot(ray, itsc.normal));
-			if (itsc.type == PLANE)
-				printf("TMP: %f\n", tmp);
 			if (tmp > 0)
 				itsc.mat.color = calc_light(&itsc.mat, light, tmp);
 		}
