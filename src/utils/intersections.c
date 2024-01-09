@@ -43,6 +43,8 @@ double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
 	{
 		v = v_subtract(plane->center, ray0);
 		t = dot(&v, plane->n_vector) / denom;
+		if (t < 0)
+			return (0);
 		return (t);
 	}
 	return (0);
@@ -60,12 +62,45 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 	return (quadratic_formula(coef[0], coef[1], coef[2]));
 }
 
+static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
+{
+	double		t;
+	double		t2;
+	double		denom;
+	t_vector	v;
+	t_vector	vh;
+
+	denom = dot(ray_dir, cy->n_vector);
+	if (!denom)
+		return (0);
+	vh = v_product(cy->n_vector, cy->height / 2);
+	v = v_addition(&vh, cy->center);
+	v = v_subtract(&v, ray0);
+	t = dot(&v, cy->n_vector) / denom;
+	
+	v = v_subtract(cy->center, &vh);
+	v = v_subtract(&v,ray0);
+	t2 = dot(&v, cy->n_vector) / denom;
+	if (t2 && (t2 < t || t < 0))
+		t = t2;
+	if (t > 0)
+	{
+		t_vector	tmp;
+		tmp = tmp_vector(ray_dir->x * t, ray_dir->y * t, ray_dir->z * t);
+		tmp = v_addition(ray0, &tmp);
+		if (pow(tmp.x, 2) + pow(tmp.z, 2) <= cy->r_sq)
+			return (t);
+	}
+	return (0);
+}
+
 double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
 	double		coef[3];
 	double		dot_p[2];
 	t_vector	v;
 	double		t;
+	double		t2;
 
 	v = v_subtract(ray0, cy->center);
 
@@ -87,10 +122,22 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 		double	min_h = cy->center->y - cy->height / 2;
 		double	h;
 		h = (ray_dir->y * t) + ray0->y;
-		printf("H: %.2f ", h);
 		if (h != 0 && (h > max_h || h < min_h))
 			return (0);
-		// ToDo: Calculate collision for top & bottom caps from the cylinder
+		return (t);
 	}
-	return (t);
+	t2 = cy_caps(ray0, ray_dir, cy); 
+	if (t && (t < t2 || t2 < 0))
+	{
+		cy->material.color.r = 0;
+		cy->material.color.b = 255;
+		return (t);
+	}
+	else if (t2 && (t2 < t || t < 0))
+	{
+		cy->material.color.r = 255;
+		cy->material.color.b = 0;
+		return (t2);
+	}
+	return (0);
 }
