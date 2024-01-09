@@ -87,8 +87,7 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	}
 	t_vector	v1;
 	v1 = get_itsc_p(ray_dir, ray0, t);
-	v1 = v_subtract(&v, &v1);
-	if ((pow(v1.x, 2) + pow(v1.z, 2)) <= cy->r_sq)
+	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
 		return (t);
 	return (0);
 }
@@ -115,7 +114,7 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 
 	t = quadratic_formula(coef[0], coef[1], coef[2]);
 
-	if (t > 0)
+	if (t > EPSILON)
 	{
 		// Should have cy->height already divided by 2 ?
 		// Must do this with cylinder normal instead of assuming
