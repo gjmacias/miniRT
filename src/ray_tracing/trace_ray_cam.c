@@ -79,9 +79,21 @@ void	get_itsc_normal(t_intersection *itsc)
 		*itsc->normal = v_subtract(itsc->p, v);
 		normalize_v(itsc->normal);
 	}
-	else if (itsc->type == CYLINDER) // ToDo
+	else if (itsc->type == CYLINDER) // ToDo: Differenciate cap-cylinder hits
 	{
-
+		double		t;
+		t_vector	new_center;
+		t_vector	v1;
+		
+		// This is for the cylinder in general NOT the caps
+		new_center = *((t_cylinder *)itsc->address)->center;
+		new_center.y -= ((t_cylinder *)itsc->address)->height / 2;
+		v1 = v_subtract(itsc->p, &new_center);
+		t = dot(&v1, ((t_cylinder *)itsc->address)->n_vector);
+		v1 = v_product(((t_cylinder *)itsc->address)->n_vector, t);
+		v1 = v_addition(&new_center, &v1);
+		*itsc->normal = v_subtract(itsc->p, &v1);
+		normalize_v(itsc->normal);
 	}
 }
 
