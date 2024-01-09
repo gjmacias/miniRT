@@ -100,7 +100,7 @@ t_vector	cross_product(t_vector *a, t_vector *b);
 double		rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane);
 double		rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp);
 double		rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy);
-
+t_vector	get_itsc_p(t_vector *ray_dir, t_vector *ray0, double t);
 //	UTILS
 int			is_space(int c);
 

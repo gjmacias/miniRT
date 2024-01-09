@@ -64,33 +64,32 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 
 static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-	double		t;
-	double		t2;
-	double		denom;
-	t_vector	v;
-	t_vector	vh;
-
-	denom = dot(ray_dir, cy->n_vector);
-	if (!denom)
-		return (0);
-	vh = v_product(cy->n_vector, cy->height / 2);
-	v = v_addition(&vh, cy->center);
-	v = v_subtract(&v, ray0);
-	t = dot(&v, cy->n_vector) / denom;
+	double	sign;
 	
-	v = v_subtract(cy->center, &vh);
-	v = v_subtract(&v,ray0);
-	t2 = dot(&v, cy->n_vector) / denom;
-	if (t2 && (t2 < t || t < 0))
-		t = t2;
-	if (t > 0)
+	sign = -dot(ray_dir, cy->n_vector);
+	if (sign == 0.0)
+		return (0);
+	sign /= fabs(sign);
+	
+	double		denom;
+	double		t;
+	t_vector	v;
+	denom = dot(ray_dir, cy->n_vector);
+	if (denom)
 	{
-		t_vector	tmp;
-		tmp = tmp_vector(ray_dir->x * t, ray_dir->y * t, ray_dir->z * t);
-		tmp = v_addition(ray0, &tmp);
-		if (pow(tmp.x, 2) + pow(tmp.z, 2) <= cy->r_sq)
-			return (t);
+		v = v_subtract(cy->center, ray0);
+		v.y -= cy->height / 2;
+		if (sign > 0.0)
+			v.y += cy->height;
+		t = dot(&v, cy->n_vector) / denom;
+		if (t < EPSILON)
+			return (0);
 	}
+	t_vector	v1;
+	v1 = get_itsc_p(ray_dir, ray0, t);
+	v1 = v_subtract(&v, &v1);
+	if ((pow(v1.x, 2) + pow(v1.z, 2)) <= cy->r_sq)
+		return (t);
 	return (0);
 }
 
@@ -100,7 +99,10 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	double		dot_p[2];
 	t_vector	v;
 	double		t;
-	double		t2;
+
+	t = cy_caps(ray0, ray_dir, cy);
+	if (t)
+		return (t);
 
 	v = v_subtract(ray0, cy->center);
 
@@ -125,19 +127,6 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 		if (h != 0 && (h > max_h || h < min_h))
 			return (0);
 		return (t);
-	}
-	t2 = cy_caps(ray0, ray_dir, cy); 
-	if (t && (t < t2 || t2 < 0))
-	{
-		cy->material.color.r = 0;
-		cy->material.color.b = 255;
-		return (t);
-	}
-	else if (t2 && (t2 < t || t < 0))
-	{
-		cy->material.color.r = 255;
-		cy->material.color.b = 0;
-		return (t2);
 	}
 	return (0);
 }
