@@ -100,8 +100,17 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	double		t;
 
 	t = cy_caps(ray0, ray_dir, cy);
-	if (t)
+	if (t >= EPSILON)
+	{
+		cy->material.color.r = 255;
+		cy->material.color.b = 0;
 		return (t);
+	}
+	else
+	{
+		cy->material.color.r = 0;
+		cy->material.color.b = 255;
+	}
 
 	v = v_subtract(ray0, cy->center);
 
