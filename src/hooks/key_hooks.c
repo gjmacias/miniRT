@@ -82,11 +82,13 @@ int	key_hook_test(int keycode, t_hook *hook)
 	else if (keycode == PLUS_K && hook->parameters->camera->fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov + 5.0;
+		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	else if (keycode == MINUS_K && hook->parameters->camera->fov - 5.0 >= 0.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov - 5.0;
+		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	return (0);

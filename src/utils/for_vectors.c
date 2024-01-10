@@ -67,13 +67,9 @@ void	normalize_v(t_vector *vector)
 t_vector	calculate_ray_direction(int x, int y, t_data *d)
 {
 	t_vector	result;
-	double		size;
 	double		work_fov;
 
 	work_fov = 180.0 - d->camera->fov;
-	size = d->height;
-	if (d->width < size)
-		size = d->width;
 	result.x = ((2.0 * x) / d->width) - 1.0;
 	result.y = 1.0 - ((2.0 * y) / d->height);
 	result.z = tan((work_fov / 2) * (M_PI / 180));
