@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <sys/wait.h>
 
+/*
 t_4Matrix	pos_camera(t_camera *c)
 {
 	t_4Matrix	matrix;
@@ -50,7 +51,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
 }
 
-/*void	process_camera(t_data *d, t_mlx_data *mlx, int num)
+void	process_camera(t_data *d, t_mlx_data *mlx, int num)
 {
     pid_t	pid;
 	int		i, start, end;
@@ -78,3 +79,23 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 	while (++i < num)
         wait(NULL);
 }*/
+
+void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
+{
+	t_vector	v_fov;
+	t_color		color;
+	t_camera 	= d->camera;
+
+	pos[Y] = start - 1;
+	while (++pos[Y] < end)
+	{
+		pos[X] = -1;
+		while (++pos[X] < d->width)
+		{
+			v_fov = calculate_ray_direction(pos[X], pos[Y], d);
+			color = trace_ray(&v_fov, d);
+			my_mlx_pixel_put(mlx, pos[X], pos[Y], color);
+		}
+	}
+	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);
+}

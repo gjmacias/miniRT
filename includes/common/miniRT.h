@@ -116,7 +116,7 @@ double		ft_strtod(char *str);
 int			ft_strtouc(char *str);
 
 t_vector	neg_vector(t_vector *v);
-t_vector	v_FOV(int x, int y, t_data *d);
+t_vector	calculate_ray_direction(int x, int y, t_data *d);
 
 t_color		new_color(int r, int g, int b, int a);
 t_material	new_material(t_color color, double specular);

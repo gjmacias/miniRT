@@ -64,10 +64,10 @@ void	normalize_v(t_vector *vector)
 	vector->z = vector->z / len;
 }
 
-t_vector	v_FOV(int x, int y, t_data *d)
+t_vector	calculate_ray_direction(int x, int y, t_data *d)
 {
 	t_vector	result;
-	int			size;
+	double		size;
 	double		work_fov;
 
 	work_fov = 180.0 - d->camera->fov;

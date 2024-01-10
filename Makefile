@@ -25,7 +25,7 @@ SRC			=	miniRT.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/init_mlx.c inits/init_parameters.c \
-				inputs/camera/camera.c \
+				camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				ray_tracing/trace_ray_cam.c \

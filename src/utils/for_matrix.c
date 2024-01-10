@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
+/*
 void	init_matrix(t_4Matrix *matrix)
 {
 	int	i;
@@ -71,3 +71,4 @@ t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v)
 	res.z = m->m[2][0] * v->x + m->m[2][1] * v->y + m->m[2][2] * v->z;
 	return (res);
 }
+*/

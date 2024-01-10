@@ -51,7 +51,7 @@ static void	move_hook(int keycode, t_hook *hook)
 
 static void	rot_hook(int keycode, t_hook *hook)
 {
-	if (keycode == UP_K)
+	/*if (keycode == UP_K)
 		*hook->parameters->camera->n_vector = \
 			change_angle(*hook->parameters->camera->n_vector, -5.0, 'x');
 	else if (keycode == DOWN_K)
@@ -63,6 +63,8 @@ static void	rot_hook(int keycode, t_hook *hook)
 	else if (keycode == RIGHT_K)
 		*hook->parameters->camera->n_vector = \
 			change_angle(*hook->parameters->camera->n_vector, -5.0, 'y');
+	*/
+	(void)keycode;
 	ft_frame(hook);
 }
 
