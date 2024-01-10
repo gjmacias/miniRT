@@ -82,9 +82,9 @@ void	process_camera(t_data *d, t_mlx_data *mlx, int num)
 
 void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 {
+	int			pos[2];
 	t_vector	v_fov;
 	t_color		color;
-	t_camera 	= d->camera;
 
 	pos[Y] = start - 1;
 	while (++pos[Y] < end)

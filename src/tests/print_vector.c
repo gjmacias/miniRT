@@ -22,3 +22,8 @@ void	print_color(t_color color)
 {
 	printf("[ R %d ][ G %d ][ B %d ][ A %d ]\n", color.r, color.g, color.b, color.a);
 }
+
+void	print_quaternion(t_quaternion quaternion)
+{
+	printf("[ X %f ][ Y %f ][ Z %f ][ W %f ]\n", quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+}

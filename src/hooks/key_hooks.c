@@ -51,20 +51,18 @@ static void	move_hook(int keycode, t_hook *hook)
 
 static void	rot_hook(int keycode, t_hook *hook)
 {
-	/*if (keycode == UP_K)
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, -5.0, 'x');
+	if (keycode == UP_K)
+		*hook->parameters->camera->q = \
+			multiply_quaternions(*hook->parameters->camera->q, (t_quaternion)rotate_quaternion(-5.0, 'x'));
 	else if (keycode == DOWN_K)
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, 5.0, 'x');
+		*hook->parameters->camera->q = \
+			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(5.0, 'x'));
 	else if (keycode == LEFT_K)
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, 5.0, 'y');
+		*hook->parameters->camera->q = \
+			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(-5.0, 'y'));
 	else if (keycode == RIGHT_K)
-		*hook->parameters->camera->n_vector = \
-			change_angle(*hook->parameters->camera->n_vector, -5.0, 'y');
-	*/
-	(void)keycode;
+		*hook->parameters->camera->q = \
+			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(+5.0, 'y'));
 	ft_frame(hook);
 }
 

@@ -72,3 +72,36 @@ t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v)
 	return (res);
 }
 */
+t_quaternion rotate_quaternion(double angle_degrees, int c)
+{
+	double angle_radians = angle_degrees * (M_PI / 180.0);
+	double half_angle = 0.5 * angle_radians;
+
+	if (c == 'x')
+		return (t_quaternion){sin(half_angle), 0, 0, cos(half_angle)};
+	if (c == 'y')
+		return (t_quaternion){0, sin(half_angle), 0, cos(half_angle)};
+	if (c == 'z')
+		return (t_quaternion){0, 0, sin(half_angle), cos(half_angle)};
+	return (t_quaternion){0, 0, 1, 0};
+}
+
+t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2)
+{
+	t_quaternion	result;
+
+	result.x = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y;
+	result.y = q1.w * q2.y - q1.x * q2.z + q1.y * q2.w + q1.z * q2.x;
+	result.z = q1.w * q2.z + q1.x * q2.y - q1.y * q2.x + q1.z * q2.w;
+	result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
+	return (result);
+}
+
+t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
+{
+	t_quaternion vector_quaternion = {v.x, v.y, v.z, 0};
+	t_quaternion conjugate = {q.x, q.y, q.z, -q.w};
+	t_quaternion rotated = multiply_quaternions(multiply_quaternions(q, vector_quaternion), conjugate);
+
+	return (t_vector){rotated.x, rotated.y, rotated.z};
+}
