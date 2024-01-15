@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/22 14:30:59 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:21:31 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,12 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 8 12 						= 52 bytes
+//	8 8 8 8 8 8 12 						= 60 bytes
 typedef struct s_cylinder
 {
 	double		diameter;
 	double		r_sq;
+	double		half_height;
 	double		height;
 	t_vector	*center;
 	t_vector	*n_vector;
