@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/08 18:33:15 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:28:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
 static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
 	double	sign;
+	double		denom;
+	double		t;
+	t_vector	v;
+	t_vector	v1;
 	
 	sign = -dot(ray_dir, cy->n_vector);
 	if (sign == 0.0)
 		return (0);
 	sign /= fabs(sign);
-	
-	double		denom;
-	double		t;
-	t_vector	v;
 	denom = dot(ray_dir, cy->n_vector);
 	if (denom)
 	{
@@ -85,7 +85,8 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 		if (t < EPSILON)
 			return (0);
 	}
-	t_vector	v1;
+	else
+		return (0);
 	v1 = get_itsc_p(ray_dir, ray0, t);
 	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
 		return (t);
@@ -97,14 +98,13 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	double		coef[3];
 	double		dot_p[2];
 	t_vector	v;
-	double		t;
+	double		t[2];
 
-	t = cy_caps(ray0, ray_dir, cy);
-	if (t >= EPSILON)
+	t[0] = cy_caps(ray0, ray_dir, cy);
+	if (t[0] >= EPSILON)
 	{
 		cy->material.color.r = 255;
 		cy->material.color.b = 0;
-		return (t);
 	}
 	else
 	{
@@ -121,20 +121,24 @@ double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	coef[1] = 2 * (dot(ray_dir, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
 
-	t = quadratic_formula(coef[0], coef[1], coef[2]);
+	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
 
-	if (t > EPSILON)
+	if (t[1] > EPSILON)
 	{
-		// Should have cy->height already divided by 2 ?
-		// Must do this with cylinder normal instead of assuming
-		// 		height will be Y.
-		double	max_h = cy->height / 2 + cy->center->y;
-		double	min_h = cy->center->y - cy->height / 2;
-		double	h;
-		h = (ray_dir->y * t) + ray0->y;
-		if (h != 0 && (h > max_h || h < min_h))
-			return (0);
-		return (t);
+		double		h;
+		t_vector	aux;
+		t_vector	itsc_p;
+
+		itsc_p = get_itsc_p(ray_dir, ray0, t[1]);
+		aux = v_subtract(&itsc_p, cy->center);
+		h = dot(cy->n_vector, &aux);
+		if (fabs(h) <= cy->half_height)
+		{
+			if (t[0] >= EPSILON && t[1] >= EPSILON)
+				if (t[0] < t[1])
+					return (t[0]);
+			return (t[1]);
+		}
 	}
 	return (0);
 }
