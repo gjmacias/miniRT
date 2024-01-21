@@ -35,9 +35,9 @@ int	key_hook(int keycode, t_vars *vars)
 static void	move_hook(int keycode, t_hook *hook)
 {
 	if (keycode == A)
-		hook->parameters->camera->center->x += 5;
-	else if (keycode == D)
 		hook->parameters->camera->center->x -= 5;
+	else if (keycode == D)
+		hook->parameters->camera->center->x += 5;
 	else if (keycode == S)
 		hook->parameters->camera->center->z -= 5;
 	else if (keycode == W)
@@ -59,10 +59,11 @@ static void	rot_hook(int keycode, t_hook *hook)
 			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(5.0, 'x'));
 	else if (keycode == LEFT_K)
 		*hook->parameters->camera->q = \
-			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(-5.0, 'y'));
+			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(5.0, 'y'));
 	else if (keycode == RIGHT_K)
 		*hook->parameters->camera->q = \
-			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(+5.0, 'y'));
+			multiply_quaternions(*hook->parameters->camera->q, rotate_quaternion(-5.0, 'y'));
+	print_quaternion(*hook->parameters->camera->q);
 	ft_frame(hook);
 }
 

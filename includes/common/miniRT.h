@@ -54,6 +54,8 @@ t_4Matrix	pos_camera(t_camera *c);
 void		render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
 void		process_camera(t_data *d, t_mlx_data *mlx, int num);
 void		init_canvas(t_data *p, char *str_width, char *str_height);
+void		init_quaternion(t_vector *v, t_quaternion *q);
+
 
 //  PARSE
 void		parse_txt(t_data *p);
@@ -80,11 +82,13 @@ t_color		calc_ambient(t_material *m, t_ambiental a);
 void		init_matrix(t_4Matrix *matrix);
 void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
 void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);
-void		create_FOV_matrix(t_4Matrix *matrix, double fov);
-t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
-t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q);
-t_quaternion rotate_quaternion(double angle_degrees, int c);
+void			create_FOV_matrix(t_4Matrix *matrix, double fov);
+t_vector 		matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
+t_vector		rotate_vector_by_quaternion(t_vector v, t_quaternion q);
+t_quaternion	rotate_quaternion(double angle_degrees, int c);
 t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2);
+t_quaternion	euler_to_quaternion(double yaw, double pitch, double roll);
+
 
 
 //	VECTORS
@@ -136,6 +140,7 @@ void		print_data(t_data *d);
 void		print_vector(t_vector vector);
 void		print_color(t_color color);
 void		printd(double d);
+void		print_quaternion(t_quaternion quaternion);
 
 
 #endif

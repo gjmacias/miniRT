@@ -41,7 +41,7 @@ void	p_camera(char **arguments, t_data *p)
 	if (!p->camera->q)
 		clean_exit(p, 12);
 	input_vector(arguments[2], p, (t_vector *)p->camera->q);
-	p->camera->q->w = 0;
+	init_quaternion((t_vector *)p->camera->q, p->camera->q);
 	input_fov(arguments[3], p, &(p->camera->fov));
 	if (arguments[4])
 		write_error3int("Error in line: < ", p->line,

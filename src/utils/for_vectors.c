@@ -68,10 +68,12 @@ t_vector	calculate_ray_direction(int x, int y, t_data *d)
 {
 	t_vector	result;
 	double		work_fov;
+	double		aspect_ratio;
 
 	work_fov = 180.0 - d->camera->fov;
-	result.x = ((2.0 * x) / d->width) - 1.0;
-	result.y = 1.0 - ((2.0 * y) / d->height);
+	aspect_ratio = (double)d->width / (double)d->height;
+	result.x = (((2.0 * x) / d->width) - 1.0)* aspect_ratio;
+	result.y = (1.0 - ((2.0 * y) / d->height)) ;
 	result.z = tan((work_fov / 2) * (M_PI / 180));
 	normalize_v(&result);
 	result = rotate_vector_by_quaternion(result, *(d->camera->q));

@@ -83,17 +83,17 @@ t_quaternion rotate_quaternion(double angle_degrees, int c)
 		return (t_quaternion){0, sin(half_angle), 0, cos(half_angle)};
 	if (c == 'z')
 		return (t_quaternion){0, 0, sin(half_angle), cos(half_angle)};
-	return (t_quaternion){0, 0, 1, 0};
+	return (t_quaternion){1, 0, 0, 0};
 }
 
-t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2)
+t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b)
 {
 	t_quaternion	result;
 
-	result.x = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y;
-	result.y = q1.w * q2.y - q1.x * q2.z + q1.y * q2.w + q1.z * q2.x;
-	result.z = q1.w * q2.z + q1.x * q2.y - q1.y * q2.x + q1.z * q2.w;
-	result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
+	result.x = a.x * b.w + a.w * b.x + a.y * b.z - a.z * b.y;
+	result.y = a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z;
+	result.z = a.z * b.w + a.w * b.z + a.x * b.y - a.y * b.x;
+	result.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
 	return (result);
 }
 
@@ -102,6 +102,5 @@ t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
 	t_quaternion vector_quaternion = {v.x, v.y, v.z, 0};
 	t_quaternion conjugate = {q.x, q.y, q.z, -q.w};
 	t_quaternion rotated = multiply_quaternions(multiply_quaternions(q, vector_quaternion), conjugate);
-
 	return (t_vector){rotated.x, rotated.y, rotated.z};
 }

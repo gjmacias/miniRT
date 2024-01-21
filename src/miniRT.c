@@ -29,7 +29,7 @@ int	main(int words, char **arguments)
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
-		print_data(&parameters);
+		//print_data(&parameters);
 		init_mlx(&data, &parameters);
 		hook.data = &data;
 		hook.parameters = &parameters;	
