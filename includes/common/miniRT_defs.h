@@ -99,6 +99,7 @@ typedef struct s_camera
 {
 	double			fov;
 	t_vector		*center;
+	t_vector		*euler;
 	t_quaternion	*q;
 }				t_camera;
 

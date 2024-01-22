@@ -104,3 +104,23 @@ t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
 	t_quaternion rotated = multiply_quaternions(multiply_quaternions(q, vector_quaternion), conjugate);
 	return (t_vector){rotated.x, rotated.y, rotated.z};
 }
+
+t_quaternion euler_to_q(double yaw, double pitch, double roll)
+{
+	t_quaternion	q;
+	double			y[2];
+	double			p[2];
+	double			r[2];
+
+	y[0] = cos(yaw / 2.0);
+	y[1] = sin(yaw / 2.0);
+	p[0] = cos(pitch / 2.0);
+	p[1] = sin(pitch / 2.0);
+	r[0] = cos(roll / 2.0);
+	r[1] = sin(roll / 2.0);
+	q.w = r[0] * y[0] * p[0] + r[1] * y[1] * p[1];
+	q.x = r[0] * y[0] * p[1] - r[1] * y[1] * p[0];
+	q.y = r[0] * y[1] * p[0] + r[1] * y[0] * p[1];
+	q.z = r[1] * y[0] * p[0] - r[0] * y[1] * p[1];
+	return (q);
+}

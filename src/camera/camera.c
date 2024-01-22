@@ -86,6 +86,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 	t_vector	v_fov;
 	t_color		color;
 
+	init_quaternion(d->camera->euler, d->camera->q);
 	pos[Y] = start - 1;
 	while (++pos[Y] < end)
 	{

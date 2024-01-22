@@ -37,11 +37,12 @@ void	p_camera(char **arguments, t_data *p)
 	if (!p->camera->center)
 		clean_exit(p, 12);
 	input_position(arguments[1], p, p->camera->center);
+	p->camera->euler = ft_calloc(1, sizeof(t_vector));
 	p->camera->q = ft_calloc(1, sizeof(t_quaternion));
-	if (!p->camera->q)
+	if (!p->camera->q || !p->camera->euler)
 		clean_exit(p, 12);
-	input_vector(arguments[2], p, (t_vector *)p->camera->q);
-	init_quaternion((t_vector *)p->camera->q, p->camera->q);
+	input_vector(arguments[2], p, p->camera->euler);
+	init_euler(p->camera->euler);
 	input_fov(arguments[3], p, &(p->camera->fov));
 	if (arguments[4])
 		write_error3int("Error in line: < ", p->line,

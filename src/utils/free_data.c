@@ -50,6 +50,8 @@ void	free_data(t_data *d)
 
 	if (d->camera->center)
 		free(d->camera->center);
+	if (d->camera->euler)
+		free(d->camera->euler);
 	if (d->camera->q)
 		free(d->camera->q);
 	free(d->camera);

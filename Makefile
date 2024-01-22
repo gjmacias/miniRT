@@ -12,7 +12,7 @@
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
+CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP -fsanitize=address
 OS		:= $(shell uname)
 
 ###############################################################################

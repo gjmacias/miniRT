@@ -47,15 +47,15 @@ int			finish_execution(void);
 //  INITS
 void		init_mlx(t_mlx_data *d, t_data *p);
 void		init_parameters_info(t_data *p);
+void		init_canvas(t_data *p, char *str_width, char *str_height);
+void		init_quaternion(t_vector *v, t_quaternion *q);
+void		init_euler(t_vector *euler);
 
 //  INPUTS
 t_4Matrix	pos_camera(t_camera *c);
 
 void		render_camera(t_data *d, t_mlx_data *mlx, int start, int end);
 void		process_camera(t_data *d, t_mlx_data *mlx, int num);
-void		init_canvas(t_data *p, char *str_width, char *str_height);
-void		init_quaternion(t_vector *v, t_quaternion *q);
-
 
 //  PARSE
 void		parse_txt(t_data *p);
@@ -87,7 +87,7 @@ t_vector 		matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
 t_vector		rotate_vector_by_quaternion(t_vector v, t_quaternion q);
 t_quaternion	rotate_quaternion(double angle_degrees, int c);
 t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2);
-t_quaternion	euler_to_quaternion(double yaw, double pitch, double roll);
+t_quaternion	euler_to_q(double yaw, double pitch, double roll);
 
 
 
