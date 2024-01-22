@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/15 15:28:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:30:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,51 @@ static double	quadratic_formula(double a, double b, double c)
 	return (0);
 }
 
-double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
+void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_intersection *itsc)
 {
 	double		t;
 	double		denom;
 	t_vector	v;
 
-	denom = dot(ray_dir, plane->n_vector);
+	denom = dot(r, pl->n_vector);
 	if (denom)
 	{
-		v = v_subtract(plane->center, ray0);
-		t = dot(&v, plane->n_vector) / denom;
-		if (t < 0)
-			return (0);
-		return (t);
+		v = v_subtract(pl->center, o);
+		t = dot(&v, pl->n_vector) / denom;
+		if (t < EPSILON)
+			return ;
+		if (itsc->dist < 0 || (itsc->dist >= EPSILON && t < itsc->dist))
+		{
+			itsc->dist = t;
+			itsc->mat = pl->material;
+			itsc->address = pl;
+			itsc->type = PLANE;
+		}
 	}
-	return (0);
+	return ;
 }
 
-double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
+void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_intersection *itsc)
 {
 	double		coef[3];
+	double		t;
 	t_vector	v;
 
-	v = v_subtract(ray0, sp->center);
-	coef[0] = dot(ray_dir, ray_dir);
-	coef[1] = 2.0 * dot(ray_dir, &v);
+	v = v_subtract(o, sp->center);
+	coef[0] = dot(r, r);
+	coef[1] = 2.0 * dot(r, &v);
 	coef[2] = dot(&v, &v) - sp->r_sq;
-	return (quadratic_formula(coef[0], coef[1], coef[2]));
+	t = quadratic_formula(coef[0], coef[1], coef[2]);
+	if (t < EPSILON)
+		return ;
+	if (itsc->dist < 0 || (itsc->dist >= EPSILON && t < itsc->dist))
+	{
+		itsc->dist = t;
+		itsc->mat = sp->material;
+		itsc->address = sp;
+		itsc->type = SPHERE;
+	}
+	return ;
 }
 
 static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
@@ -93,52 +110,64 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	return (0);
 }
 
-double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
+static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 {
-	double		coef[3];
-	double		dot_p[2];
-	t_vector	v;
-	double		t[2];
-
-	t[0] = cy_caps(ray0, ray_dir, cy);
-	if (t[0] >= EPSILON)
-	{
-		cy->material.color.r = 255;
-		cy->material.color.b = 0;
-	}
-	else
-	{
-		cy->material.color.r = 0;
-		cy->material.color.b = 255;
-	}
-
-	v = v_subtract(ray0, cy->center);
-
-	dot_p[0] = dot(ray_dir, cy->n_vector);
-	dot_p[1] = dot(&v, cy->n_vector);
-
-	coef[0] = 1.0 - pow(dot_p[0], 2);
-	coef[1] = 2 * (dot(ray_dir, &v) - dot_p[0] * dot_p[1]);
-	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
-
-	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
-
-	if (t[1] > EPSILON)
-	{
-		double		h;
-		t_vector	aux;
-		t_vector	itsc_p;
-
-		itsc_p = get_itsc_p(ray_dir, ray0, t[1]);
-		aux = v_subtract(&itsc_p, cy->center);
-		h = dot(cy->n_vector, &aux);
-		if (fabs(h) <= cy->half_height)
-		{
-			if (t[0] >= EPSILON && t[1] >= EPSILON)
-				if (t[0] < t[1])
-					return (t[0]);
-			return (t[1]);
-		}
-	}
+	double		h;
+	t_vector	aux;
+	t_vector	itsc_p;
+	
+	itsc_p = get_itsc_p(r, o, t);
+	aux = v_subtract(&itsc_p, cy->center);
+	h = dot(cy->n_vector, &aux);
+	if (fabs(h) <= cy->half_height)
+		return (1);
 	return (0);
+}
+
+t_intersection	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
+{
+	t_intersection	itsc;
+	
+	itsc.dist = -1;
+	if (t[1] < EPSILON || t[0] < t[1])
+	{
+		if (t[0] < EPSILON)
+			return (itsc);
+		itsc.dist = t[0];
+		itsc.type = CAP;
+	}
+	else if (height_check(o, r, cy, t[1]))
+	{
+		itsc.dist = t[1];
+		itsc.type = CYLINDER;
+	}
+	return (itsc);
+}
+
+void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_intersection *itsc)
+{
+	double			coef[3];
+	double			dot_p[2];
+	t_vector		v;
+	double			t[2];
+	t_intersection	aux_itsc;
+
+	t[0] = cy_caps(o, r, cy);
+	v = v_subtract(o, cy->center);
+	dot_p[0] = dot(r, cy->n_vector);
+	dot_p[1] = dot(&v, cy->n_vector);
+	coef[0] = 1.0 - pow(dot_p[0], 2);
+	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
+	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
+	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
+	aux_itsc = set_cy_itsc(o, r, cy, t);
+	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
+		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
+	{
+		itsc->dist = aux_itsc.dist;
+		itsc->mat = aux_itsc.mat;
+		itsc->address = cy;
+		itsc->mat = cy->material;
+	}	
+	return ;
 }

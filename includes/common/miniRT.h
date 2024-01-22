@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/21 18:32:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:57:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,11 @@ float		angle_vectors(t_vector *a, t_vector *b);
 t_vector	cross_product(t_vector *a, t_vector *b);
 
 //	INTERSECTIONS
-double		rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane);
-double		rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp);
-double		rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy);
+void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_intersection *itsc);
+void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_intersection *itsc);
+void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_intersection *itsc);
 t_vector	get_itsc_p(t_vector *ray_dir, t_vector *ray0, double t);
+
 //	UTILS
 int			is_space(int c);
 

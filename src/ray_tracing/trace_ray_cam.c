@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/08 14:57:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:46:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,23 @@
 static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d, t_vector *center)
 {
 	t_list			*aux;
-	double			t;
 
 	aux = d->planes;
 	while (aux)
 	{
-		t = rayhit_pl(center, ray, (t_plane *)aux->content);
-		if (t > EPSILON && ((itsc->dist >= EPSILON && t < itsc->dist) || itsc->dist < 0))
-		{
-			itsc->dist = t;
-			itsc->mat = ((t_plane *)aux->content)->material;
-			itsc->address = (t_plane *)aux->content;
-			itsc->type = 1;
-		}
+		rayhit_pl(center, ray, (t_plane *)aux->content, itsc);
 		aux = aux->next;
 	}
 	aux = d->spheres;
 	while (aux)
 	{
-		t = rayhit_sp(center, ray, (t_sphere *)aux->content);
-		if (t >= EPSILON && ((itsc->dist >= EPSILON && t < itsc->dist) || itsc->dist < 0))
-		{
-			itsc->dist = t;
-			itsc->mat = ((t_sphere *)aux->content)->material;
-			itsc->address = (t_sphere *)aux->content;
-			itsc->type = 2;
-		}
+		rayhit_sp(center, ray, (t_sphere *)aux->content, itsc);
 		aux = aux->next;
 	}
 	aux = d->cylinders;
 	while (aux)
 	{
-		t = rayhit_cy(center, ray, (t_cylinder *)aux->content);
-		if (t >= EPSILON && ((itsc->dist >= EPSILON && t < itsc->dist) || itsc->dist < 0))
-		{
-			itsc->dist = t;
-			itsc->mat = ((t_cylinder *)aux->content)->material;
-			itsc->address = (t_cylinder *)aux->content;
-			itsc->type = 3;
-		}
+		rayhit_cy(center, ray, (t_cylinder *)aux->content, itsc);
 		aux = aux->next;
 	}
 }
@@ -94,6 +72,10 @@ void	get_itsc_normal(t_intersection *itsc)
 		v1 = v_addition(&new_center, &v1);
 		*itsc->normal = v_subtract(itsc->p, &v1);
 		normalize_v(itsc->normal);
+	}
+	else if (itsc->type == CAP)
+	{
+
 	}
 }
 
