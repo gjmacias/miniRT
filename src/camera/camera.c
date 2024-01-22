@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/08 18:02:44 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:59:14 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 
 	init_quaternion(d->camera->euler, d->camera->q);
 	pos[Y] = start - 1;
-	while (++pos[Y] < end)
+	// He tenido que meter end - 1 porque sino petaba siempre
+	while (++pos[Y] < end - 1)
 	{
 		pos[X] = -1;
 		while (++pos[X] < d->width)
