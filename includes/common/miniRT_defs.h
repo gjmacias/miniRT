@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/15 14:21:31 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:07:46 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define PLANE		1
 # define SPHERE		2
 # define CYLINDER	3
+# define CAP		4
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
