@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/22 18:30:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:21:24 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 	double		h;
 	t_vector	aux;
 	t_vector	itsc_p;
-	
+
 	itsc_p = get_itsc_p(r, o, t);
 	aux = v_subtract(&itsc_p, cy->center);
 	h = dot(cy->n_vector, &aux);
@@ -129,10 +129,8 @@ t_intersection	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2]
 	t_intersection	itsc;
 	
 	itsc.dist = -1;
-	if (t[1] < EPSILON || t[0] < t[1])
+	if (t[0] && (t[1] < EPSILON || t[0] < t[1]))
 	{
-		if (t[0] < EPSILON)
-			return (itsc);
 		itsc.dist = t[0];
 		itsc.type = CAP;
 	}
@@ -165,7 +163,7 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_intersection *itsc)
 		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
 	{
 		itsc->dist = aux_itsc.dist;
-		itsc->mat = aux_itsc.mat;
+		itsc->type = aux_itsc.type;
 		itsc->address = cy;
 		itsc->mat = cy->material;
 	}	
