@@ -49,3 +49,49 @@ void	init_canvas(t_data *p, char *str_width, char *str_height)
 	else
 		p->height = height;
 }
+
+// void	init_quaternion(t_vector *v, t_quaternion *q)
+// {
+// 	double	yaw;
+// 	double	pitch;
+
+
+// 	yaw = (acos(v->z) );
+// 	if (v->x >= 0)
+// 		yaw = -yaw;
+// 	if (v->x == 0 && v->z == 0)
+// 		yaw = 0;
+// 	pitch = (asin(v->y) );
+// 	q->x = 1;
+// 	q->y = 0;
+// 	q->z = 0;
+// 	q->w = 0;
+// 	*q = multiply_quaternions(*q, rotate_quaternion(yaw, 'y'));
+// 	*q = multiply_quaternions(*q, rotate_quaternion(-pitch / 2, 'x'));
+// 	*q = multiply_quaternions(*q, rotate_quaternion(-pitch / 2, 'x'));
+// }
+
+void	init_euler(t_vector *euler)
+{
+	t_vector	tmp;
+
+	tmp.x = (acos(euler->z));
+	if (euler->x >= 0)
+		tmp.x = -tmp.x;
+	if (euler->x == 0 && euler->z == 0)
+		tmp.x = 0;
+	tmp.y = -(asin(euler->y));
+	tmp.z = 0;
+	*euler = tmp;
+}
+
+void	init_quaternion(t_vector *e, t_quaternion *q)
+{
+	q->x = 1;
+	q->y = 0;
+	q->z = 0;
+	q->w = 0;
+	print_vector(*e);
+	*q = multiply_quaternions( *q, euler_to_q(e->x, e->y, e->z));
+	print_quaternion(*q);
+}

@@ -6,13 +6,13 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/12/19 16:55:24 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/01/09 15:15:10 by gmacias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
+CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP -fsanitize=address
 OS		:= $(shell uname)
 
 ###############################################################################
@@ -25,7 +25,7 @@ SRC			=	miniRT.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
 				inits/init_mlx.c inits/init_parameters.c \
-				inputs/camera/camera.c \
+				camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				ray_tracing/trace_ray_cam.c \
@@ -106,7 +106,7 @@ make_dir:
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@mkdir -p $(dir $@)
 	@echo "$(GRAY)Compiling $< to $@ $(DEF_COLOR)"
-	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@mv $(basename $@).d $(DPS_DIR)
 
 
@@ -115,12 +115,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 make_mlx:
 	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
 	@make -C $(MLX_PATH) 2> /dev/null
-	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
+	@echo "$(BLUE)Done mlx! $(DEF_COLOR)" && echo ""
 
 make_lib:
 	@echo "$(GREEN)Checking Libft: $(DEF_COLOR)"
 	@$(MAKE) -s -C $(LIB_PATH)
-	@echo "$(BLUE)Done Libft! $(DEF_COLOR)"
+	@echo "$(BLUE)Done Libft! $(DEF_COLOR)" && echo ""
 
 clean_libs:
 	@$(MAKE) clean -s -C $(LIB_PATH)

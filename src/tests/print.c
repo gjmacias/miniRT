@@ -72,9 +72,10 @@ void	print_data(t_data *d)
 	printf("\tPosition:\t[ X %.2f ]\t", d->camera->center->x);
 	printf("[ Y %.2f ]\t", d->camera->center->y);
 	printf("[ Z %.2f ]\n", d->camera->center->z);
-	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera->n_vector->x);
-	printf("[ Y %.2f ]\t", d->camera->n_vector->y);
-	printf("[ Z %.2f ]\n", d->camera->n_vector->z);
+	printf("\tNormal:\t\t[ X %.2f ]\t", d->camera->q->x);
+	printf("[ Y %.2f ]\t", d->camera->q->y);
+	printf("[ Z %.2f ]\n", d->camera->q->z);
+	printf("[ W %.2f ]\n", d->camera->q->w);
 	printf("\n");
 	printf(CCYAN"Ambiental\n"CWHITE);
 	printf("\tBrightness:\t%.2f\n", d->ambient_light.brightness);

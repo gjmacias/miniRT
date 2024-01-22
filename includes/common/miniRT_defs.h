@@ -85,12 +85,22 @@ typedef struct s_vector
 	double	z;
 }		t_vector;
 
+//	8 8 8 								= 24 bytes
+typedef struct s_quaternion
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+}		t_quaternion;
+
 //	8 8 8								= 24 bytes
 typedef struct s_camera
 {
-	double		fov;
-	t_vector	*center;
-	t_vector	*n_vector;
+	double			fov;
+	t_vector		*center;
+	t_vector		*euler;
+	t_quaternion	*q;
 }				t_camera;
 
 //	4 8 8								= 20 bytes
