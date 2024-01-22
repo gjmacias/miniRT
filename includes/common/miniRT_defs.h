@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 18:07:46 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:33:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_intersection
 	t_vector		*p;
 	t_vector		*normal;
 	t_material		mat;
-}	t_intersection;
+}	t_itsc;
 
 //	8 8 12								= 28 bytes
 typedef struct s_plane

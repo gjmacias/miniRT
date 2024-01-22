@@ -6,14 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 18:46:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:40:38 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
 
-static void	find_itsct(t_intersection *itsc, t_vector *ray, t_data *d, t_vector *center)
+static void	find_itsct(t_itsc *itsc, t_vector *ray, t_data *d, t_vector *center)
 {
 	t_list			*aux;
 
@@ -45,7 +45,7 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	return (v_addition(ray_o, &tmp));
 }
 
-void	get_itsc_normal(t_intersection *itsc)
+void	get_itsc_normal(t_itsc *itsc)
 {
 	t_vector	*v;
 
@@ -79,12 +79,12 @@ void	get_itsc_normal(t_intersection *itsc)
 	}
 }
 
-double	light_itscs(t_intersection *itsc_0, t_vector *p1, t_data *d, double ray_n)
+double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
 {
-	t_intersection	itsc_1;
-	t_vector		dir;
-	t_vector		magnitude;
-	double			dir_n;
+	t_itsc		itsc_1;
+	t_vector	dir;
+	t_vector	magnitude;
+	double		dir_n;
 
 	itsc_1.dist = -1;
 	dir = v_subtract(p1, itsc_0->p);
@@ -111,9 +111,9 @@ double	light_itscs(t_intersection *itsc_0, t_vector *p1, t_data *d, double ray_n
 
 t_color	trace_ray(t_vector *ray, t_data *d)
 {
-	t_intersection	itsc;
-	double			tmp;
-	t_light			*light;
+	t_itsc	itsc;
+	double	tmp;
+	t_light	*light;
 
 	itsc.type = 0;
 	itsc.dist = -1;

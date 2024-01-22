@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/22 19:21:24 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:41:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static double	quadratic_formula(double a, double b, double c)
 	return (0);
 }
 
-void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_intersection *itsc)
+void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_itsc *itsc)
 {
 	double		t;
 	double		denom;
@@ -56,7 +56,7 @@ void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_intersection *itsc)
 	return ;
 }
 
-void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_intersection *itsc)
+void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
 {
 	double		coef[3];
 	double		t;
@@ -81,7 +81,7 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_intersection *itsc)
 
 static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 {
-	double	sign;
+	double		sign;
 	double		denom;
 	double		t;
 	t_vector	v;
@@ -124,9 +124,9 @@ static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 	return (0);
 }
 
-t_intersection	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
+t_itsc	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
 {
-	t_intersection	itsc;
+	t_itsc	itsc;
 	
 	itsc.dist = -1;
 	if (t[0] && (t[1] < EPSILON || t[0] < t[1]))
@@ -142,13 +142,13 @@ t_intersection	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2]
 	return (itsc);
 }
 
-void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_intersection *itsc)
+void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
-	double			coef[3];
-	double			dot_p[2];
-	t_vector		v;
-	double			t[2];
-	t_intersection	aux_itsc;
+	double		coef[3];
+	double		dot_p[2];
+	t_vector	v;
+	double		t[2];
+	t_itsc		aux_itsc;
 
 	t[0] = cy_caps(o, r, cy);
 	v = v_subtract(o, cy->center);
