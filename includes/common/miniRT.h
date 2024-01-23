@@ -88,6 +88,7 @@ t_vector		rotate_vector_by_quaternion(t_vector v, t_quaternion q);
 t_quaternion	rotate_quaternion(double angle_degrees, int c);
 t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2);
 t_quaternion	euler_to_q(double yaw, double pitch, double roll);
+void			move_euler(t_camera *c, double ang);
 
 
 
@@ -141,6 +142,7 @@ void		print_vector(t_vector vector);
 void		print_color(t_color color);
 void		printd(double d);
 void		print_quaternion(t_quaternion quaternion);
+void		print_ang(t_vector vector);
 
 
 #endif
