@@ -81,17 +81,15 @@ void	init_euler(t_vector *n_vector)
 		euler.z = atan2(n_vector->x, n_vector->z);
 	else 
 		euler.z = 0;
-	print_vector(euler);
 	*n_vector = euler;
 }
 
 void	init_quaternion(t_vector *e, t_quaternion *q)
 {
-	q->x = 1;
+	q->x = 0;
 	q->y = 0;
 	q->z = 0;
-	q->w = 0;
+	q->w = 1;
 	print_ang(*e);
 	*q = multiply_quaternions(*q, euler_to_q(e->x, e->y, e->z));
-	print_quaternion(*q);
 }

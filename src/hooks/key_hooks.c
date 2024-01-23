@@ -17,6 +17,7 @@
 
 int	ft_frame(t_hook *hook)
 {
+	printf("\n NEW FRAME:\n");
 	mlx_clear_window(hook->data->vars.mlx, hook->data->vars.win);
 	render_camera(hook->parameters, hook->data, 0, hook->parameters->height);
 	return (0);
@@ -63,7 +64,6 @@ static void	move_hook(int keycode, t_hook *hook)
 		hook->parameters->camera->center->y += 5;
 	else if (keycode == SHIFT_K)
 		hook->parameters->camera->center->y -= 5;
-	print_vector(*(hook->parameters->camera->center));
 	ft_frame(hook);
 }
 
@@ -87,19 +87,21 @@ static void	move_hook(int keycode, t_hook *hook)
 
 static void	rot_hook(int keycode, t_hook *hook)
 {
+	double	pi2;
+
+	pi2 = (2 * M_PI);
 	if (keycode == UP_K)
-		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (+5.0 * (M_PI / 180)));
-	else if (keycode == DOWN_K)
 		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (-5.0 * (M_PI / 180)));
+	else if (keycode == DOWN_K)
+		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (+5.0 * (M_PI / 180)));
 	else if (keycode == LEFT_K)
 		hook->parameters->camera->euler->z = (hook->parameters->camera->euler->z + (-5.0 * (M_PI / 180)));
 	else if (keycode == RIGHT_K)
 		hook->parameters->camera->euler->z = (hook->parameters->camera->euler->z + (+5.0 * (M_PI / 180)));
-	if (hook->parameters->camera->euler->y >= M_PI || hook->parameters->camera->euler->y <= -M_PI)
+	if (hook->parameters->camera->euler->y >= pi2 || hook->parameters->camera->euler->y <= -pi2)
 		hook->parameters->camera->euler->y = 0;
-	if (hook->parameters->camera->euler->z >= M_PI || hook->parameters->camera->euler->z <= -M_PI)
+	if (hook->parameters->camera->euler->z >= pi2 || hook->parameters->camera->euler->z <= -pi2)
 		hook->parameters->camera->euler->z = 0;
-	//print_quaternion(*hook->parameters->camera->q);
 	ft_frame(hook);
 }
 

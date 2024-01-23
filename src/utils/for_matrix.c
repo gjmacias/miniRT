@@ -100,11 +100,10 @@ t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b)
 t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
 {
 	t_quaternion vector_quaternion = {v.x, v.y, v.z, 0};
-	// t_quaternion conjugate = {-q.x, -q.y, -q.z, q.w};
-	t_quaternion conjugate = {q.x, q.y, q.z, -q.w};
-	// t_quaternion rotated = multiply_quaternions(q, multiply_quaternions(vector_quaternion, conjugate));
-	t_quaternion rotated = multiply_quaternions(conjugate, multiply_quaternions(vector_quaternion, q));
-
+	t_quaternion conjugate = {-q.x, -q.y, -q.z, q.w};
+	//t_quaternion conjugate = {q.x, q.y, q.z, -q.w};
+	t_quaternion rotated = multiply_quaternions(q, multiply_quaternions(vector_quaternion, conjugate));
+	//t_quaternion rotated = multiply_quaternions(conjugate, multiply_quaternions(vector_quaternion, q));
 	return (t_vector){rotated.x, rotated.y, rotated.z};
 }
 
@@ -135,12 +134,8 @@ void	move_euler(t_camera *c, double ang)
 	double	rads;
 
 	steps = 5;
-	rads = ang * (M_PI / 180);
-	printaux();
+	rads = (ang * (M_PI / 180) + c->euler->z);
 	print_vector(*c->center);
 	c->center->x += steps * sin(rads);
-	printd((rads) * (180 / M_PI));
-	printd(sin(rads));
 	c->center->z += steps * cos(rads);
-	printd(cos(rads));
 }
