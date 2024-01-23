@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/23 17:38:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:56:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static double	quadratic_formula(double a, double b, double c)
 	if (discriminant < EPSILON)
 		return (0);
 	discriminant = sqrt(discriminant);
-	t[0] = (-b + discriminant) / 2 * a;
-	t[1] = (-b - discriminant) / 2 * a;
-	if (t[0] > 0 && t[0] < t[1])
+	t[0] = -b + discriminant / 2 * a;
+	t[1] = -b - discriminant / 2 * a;
+	if (t[0] >= 0 && t[0] < t[1])
 		return (t[0]);
-	else if (t[1] > 0)
+	else if (t[1] >= 0)
 		return (t[1]);
-	return (0);
+	return (-1);
 }
 
 void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_itsc *itsc)
@@ -151,19 +151,25 @@ t_itsc	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
 void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
 	double		coef[3];
-	double		t;
+	double		dot_p[2];
 	t_vector	v;
+	double		t[2];
+	t_itsc		aux_itsc;
 
+	t[0] = cy_caps(o, r, cy);
 	v = v_subtract(o, cy->center);
-	coef[0] = dot(r, r) - pow(dot(r, cy->n_vector), 2);
-	coef[1] = 2 * (dot(r, &v) - (dot(r, cy->n_vector) * dot(&v, cy->n_vector)));
-	coef[2] = dot(&v, &v) - pow(dot(&v, cy->n_vector), 2) - cy->r_sq;
-	t = quadratic_formula(coef[0], coef[1], coef[2]);
-	if (t >= EPSILON && (itsc->dist < 0
-		|| (itsc->dist >= EPSILON && t < itsc->dist)))
+	dot_p[0] = dot(r, cy->n_vector);
+	dot_p[1] = dot(&v, cy->n_vector);
+	coef[0] = 1.0 - pow(dot_p[0], 2);
+	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
+	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
+	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
+	aux_itsc = set_cy_itsc(o, r, cy, t);
+	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
+		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
 	{
-		itsc->dist = t;
-		itsc->type = CYLINDER;
+		itsc->dist = aux_itsc.dist;
+		itsc->type = aux_itsc.type;
 		itsc->address = cy;
 		itsc->mat = cy->material;
 	}
