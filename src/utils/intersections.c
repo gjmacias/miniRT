@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/23 16:08:35 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:50:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,5 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 		itsc->address = cy;
 		itsc->mat = cy->material;
 	}
-	if (itsc->type == CYLINDER || itsc->type == CAP)
-		printf("CYL dist: %.2f\n", itsc->dist);
 	return ;
 }
