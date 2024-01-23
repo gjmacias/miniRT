@@ -75,8 +75,7 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	double		t;
 	t_vector	v;
 	denom = dot(ray_dir, cy->n_vector);
-	if (denom)
-	{
+
 		v = v_subtract(cy->center, ray0);
 		v.y -= cy->height / 2;
 		if (sign > 0.0)
@@ -84,7 +83,7 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 		t = dot(&v, cy->n_vector) / denom;
 		if (t < EPSILON)
 			return (0);
-	}
+	
 	t_vector	v1;
 	v1 = get_itsc_p(ray_dir, ray0, t);
 	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
