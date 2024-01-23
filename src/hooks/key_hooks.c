@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/23 15:15:09 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:44:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int	ft_frame(t_hook *hook)
 {
-	printf("\n NEW FRAME:\n");
 	mlx_clear_window(hook->data->vars.mlx, hook->data->vars.win);
 	render_camera(hook->parameters, hook->data, 0, hook->parameters->height);
 	return (0);
