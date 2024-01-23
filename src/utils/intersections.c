@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/22 19:41:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 13:14:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
 	return ;
 }
 
-static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
+static double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
 {
 	double		sign;
 	double		denom;
@@ -87,24 +87,29 @@ static double	cy_caps(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
 	t_vector	v;
 	t_vector	v1;
 	
-	sign = -dot(ray_dir, cy->n_vector);
+	sign = -dot(r, cy->n_vector);
 	if (sign == 0.0)
 		return (0);
 	sign /= fabs(sign);
-	denom = dot(ray_dir, cy->n_vector);
+	denom = dot(r, cy->n_vector);
 	if (denom)
 	{
-		v = v_subtract(cy->center, ray0);
-		v.y -= cy->height / 2;
+		t_vector	h_vector;
+
+		v = v_subtract(cy->center, o);
+		h_vector = v_product(cy->n_vector, cy->half_height);
+		v = v_subtract(&v, &h_vector);
 		if (sign > 0.0)
-			v.y += cy->height;
+			v = v_addition(&v, &h_vector);
+		else
+			v = v_subtract(&v, &h_vector);
 		t = dot(&v, cy->n_vector) / denom;
 		if (t < EPSILON)
 			return (0);
 	}
 	else
 		return (0);
-	v1 = get_itsc_p(ray_dir, ray0, t);
+	v1 = get_itsc_p(r, o, t);
 	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
 		return (t);
 	return (0);
