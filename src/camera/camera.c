@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 18:59:14 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:50:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_vector	calculate_ray_direction(int x, int y, t_data *d)
 	aspect_ratio = (double)d->width / (double)d->height;
 	result.x = (((2.0 * x) / d->width) - 1.0)* aspect_ratio;
 	result.y = (1.0 - ((2.0 * y) / d->height)) ;
-	result.z = tan((work_fov / 2) * (M_PI / 180));
+	result.z = 1;
 	normalize_v(&result);
 	result = rotate_vector_by_quaternion(result, *(d->camera->q));
 	normalize_v(&result);
@@ -104,8 +104,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 
 	init_quaternion(d->camera->euler, d->camera->q);
 	pos[Y] = start - 1;
-	// He tenido que meter end - 1 porque sino petaba siempre
-	while (++pos[Y] < end - 1)
+	while (++pos[Y] < end)
 	{
 		pos[X] = -1;
 		while (++pos[X] < d->width)
