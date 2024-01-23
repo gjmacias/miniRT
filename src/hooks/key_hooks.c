@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+d/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
@@ -32,20 +32,38 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
+// static void	move_hook(int keycode, t_hook *hook)
+// {
+// 	if (keycode == A)
+// 		hook->parameters->camera->center->x -= 5;
+// 	else if (keycode == D)
+// 		hook->parameters->camera->center->x += 5;
+// 	else if (keycode == S)
+// 		hook->parameters->camera->center->z -= 5;
+// 	else if (keycode == W)
+// 		hook->parameters->camera->center->z += 5;
+// 	else if (keycode == SPACE_K)
+// 		hook->parameters->camera->center->y += 5;
+// 	else if (keycode == SHIFT_K)
+// 		hook->parameters->camera->center->y -= 5;
+// 	ft_frame(hook);
+// }
+
 static void	move_hook(int keycode, t_hook *hook)
 {
 	if (keycode == A)
-		hook->parameters->camera->center->x -= 5;
+		move_euler(hook->parameters->camera, -90.0);
 	else if (keycode == D)
-		hook->parameters->camera->center->x += 5;
+		move_euler(hook->parameters->camera, +90.0);
 	else if (keycode == S)
-		hook->parameters->camera->center->z -= 5;
+		move_euler(hook->parameters->camera, 180.0);
 	else if (keycode == W)
-		hook->parameters->camera->center->z += 5;
+		move_euler(hook->parameters->camera, 0.0);
 	else if (keycode == SPACE_K)
 		hook->parameters->camera->center->y += 5;
 	else if (keycode == SHIFT_K)
 		hook->parameters->camera->center->y -= 5;
+	print_vector(*(hook->parameters->camera->center));
 	ft_frame(hook);
 }
 
@@ -70,18 +88,18 @@ static void	move_hook(int keycode, t_hook *hook)
 static void	rot_hook(int keycode, t_hook *hook)
 {
 	if (keycode == UP_K)
-		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (-5.0 * (M_PI / 180)));
-	else if (keycode == DOWN_K)
 		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (+5.0 * (M_PI / 180)));
+	else if (keycode == DOWN_K)
+		hook->parameters->camera->euler->y = (hook->parameters->camera->euler->y + (-5.0 * (M_PI / 180)));
 	else if (keycode == LEFT_K)
-		hook->parameters->camera->euler->x = (hook->parameters->camera->euler->x + (-5.0 * (M_PI / 180)));
+		hook->parameters->camera->euler->z = (hook->parameters->camera->euler->z + (-5.0 * (M_PI / 180)));
 	else if (keycode == RIGHT_K)
-		hook->parameters->camera->euler->x = (hook->parameters->camera->euler->x + (+5.0 * (M_PI / 180)));
+		hook->parameters->camera->euler->z = (hook->parameters->camera->euler->z + (+5.0 * (M_PI / 180)));
 	if (hook->parameters->camera->euler->y >= M_PI || hook->parameters->camera->euler->y <= -M_PI)
 		hook->parameters->camera->euler->y = 0;
-	if (hook->parameters->camera->euler->x >= M_PI || hook->parameters->camera->euler->x <= -M_PI)
-		hook->parameters->camera->euler->x = 0;
-	print_quaternion(*hook->parameters->camera->q);
+	if (hook->parameters->camera->euler->z >= M_PI || hook->parameters->camera->euler->z <= -M_PI)
+		hook->parameters->camera->euler->z = 0;
+	//print_quaternion(*hook->parameters->camera->q);
 	ft_frame(hook);
 }
 

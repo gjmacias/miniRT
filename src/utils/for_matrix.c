@@ -72,27 +72,27 @@ t_vector 	matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v)
 	return (res);
 }
 */
-t_quaternion rotate_quaternion(double angle_degrees, int c)
-{
-	double angle_radians = angle_degrees * (M_PI / 180.0);
-	double half_angle = 0.5 * angle_radians;
+// t_quaternion rotate_quaternion(double angle_degrees, int c)
+// {
+// 	double angle_radians = angle_degrees * (M_PI / 180.0);
+// 	double half_angle = 0.5 * angle_radians;
 
-	if (c == 'x')
-		return (t_quaternion){sin(half_angle), 0, 0, cos(half_angle)};
-	if (c == 'y')
-		return (t_quaternion){0, sin(half_angle), 0, cos(half_angle)};
-	if (c == 'z')
-		return (t_quaternion){0, 0, sin(half_angle), cos(half_angle)};
-	return (t_quaternion){1, 0, 0, 0};
-}
+// 	if (c == 'x')
+// 		return (t_quaternion){sin(half_angle), 0, 0, cos(half_angle)};
+// 	if (c == 'y')
+// 		return (t_quaternion){0, sin(half_angle), 0, cos(half_angle)};
+// 	if (c == 'z')
+// 		return (t_quaternion){0, 0, sin(half_angle), cos(half_angle)};
+// 	return (t_quaternion){1, 0, 0, 0};
+// }
 
 t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b)
 {
 	t_quaternion	result;
 
-	result.x = a.x * b.w + a.w * b.x + a.y * b.z - a.z * b.y;
-	result.y = a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z;
-	result.z = a.z * b.w + a.w * b.z + a.x * b.y - a.y * b.x;
+	result.x = a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y;
+	result.y = a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x;
+	result.z = a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w;
 	result.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
 	return (result);
 }
@@ -100,27 +100,47 @@ t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b)
 t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
 {
 	t_quaternion vector_quaternion = {v.x, v.y, v.z, 0};
+	// t_quaternion conjugate = {-q.x, -q.y, -q.z, q.w};
 	t_quaternion conjugate = {q.x, q.y, q.z, -q.w};
-	t_quaternion rotated = multiply_quaternions(multiply_quaternions(q, vector_quaternion), conjugate);
+	// t_quaternion rotated = multiply_quaternions(q, multiply_quaternions(vector_quaternion, conjugate));
+	t_quaternion rotated = multiply_quaternions(conjugate, multiply_quaternions(vector_quaternion, q));
+
 	return (t_vector){rotated.x, rotated.y, rotated.z};
 }
 
-t_quaternion euler_to_q(double yaw, double pitch, double roll)
+t_quaternion euler_to_q(double roll, double pitch, double yaw)
 {
 	t_quaternion	q;
 	double			y[2];
 	double			p[2];
 	double			r[2];
 
-	y[0] = cos(yaw / 2.0);
-	y[1] = sin(yaw / 2.0);
-	p[0] = cos(pitch / 2.0);
-	p[1] = sin(pitch / 2.0);
 	r[0] = cos(roll / 2.0);
 	r[1] = sin(roll / 2.0);
+	p[0] = cos(pitch / 2.0);
+	p[1] = sin(pitch / 2.0);
+	y[0] = cos(yaw / 2.0);
+	y[1] = sin(yaw / 2.0);
 	q.w = r[0] * y[0] * p[0] + r[1] * y[1] * p[1];
 	q.x = r[0] * y[0] * p[1] - r[1] * y[1] * p[0];
 	q.y = r[0] * y[1] * p[0] + r[1] * y[0] * p[1];
 	q.z = r[1] * y[0] * p[0] - r[0] * y[1] * p[1];
 	return (q);
+}
+
+
+void	move_euler(t_camera *c, double ang)
+{
+	double	steps;
+	double	rads;
+
+	steps = 5;
+	rads = ang * (M_PI / 180);
+	printaux();
+	print_vector(*c->center);
+	c->center->x += steps * sin(rads);
+	printd((rads) * (180 / M_PI));
+	printd(sin(rads));
+	c->center->z += steps * cos(rads);
+	printd(cos(rads));
 }
