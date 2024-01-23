@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/23 17:56:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:25:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static double	quadratic_formula(double a, double b, double c)
 	if (discriminant < EPSILON)
 		return (0);
 	discriminant = sqrt(discriminant);
-	t[0] = -b + discriminant / 2 * a;
-	t[1] = -b - discriminant / 2 * a;
+	t[0] = (-b + discriminant) / (2 * a);
+	t[1] = (-b - discriminant) / (2 * a);
 	if (t[0] >= 0 && t[0] < t[1])
 		return (t[0]);
 	else if (t[1] >= 0)
@@ -82,38 +82,36 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
 double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
 {
 	double		sign;
-	double		denom;
-	double		t;
-	t_vector	v;
-	t_vector	v1;
-	
+	t_vector	new_center;
+
+	(void)o;
 	sign = -dot(r, cy->n_vector);
 	if (sign == 0.0)
 		return (0);
 	sign /= fabs(sign);
-	denom = dot(r, cy->n_vector);
-	if (denom)
-	{
-		t_vector	h_vector;
-
-		v = v_subtract(cy->center, o);
-		h_vector = v_product(cy->n_vector, cy->half_height);
-		v = v_subtract(&v, &h_vector);
-		if (sign > 0.0)
-			v = v_addition(&v, &h_vector);
-		else
-			v = v_subtract(&v, &h_vector);
-		t = dot(&v, cy->n_vector) / denom;
-		if (t < EPSILON)
-			return (0);
-	}
+	new_center = v_product(cy->n_vector, cy->half_height);
+	if (sign > 0)
+		new_center = v_addition(cy->center, &new_center);
 	else
-		return (0);
-	v1 = get_itsc_p(r, o, t);
-	if (dot(&v1, &v1) <= cy->r_sq)
-		return (t);
-//	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
-	return (0);
+		new_center = v_subtract(cy->center, &new_center);
+
+	t_plane		plane;
+	t_itsc		itsc;
+
+	plane.center = &new_center;
+	plane.n_vector = cy->n_vector;
+	itsc.dist = -1;
+	rayhit_pl(o, r, &plane, &itsc);
+
+	if (itsc.dist < 0)
+		return (0);	
+	t_vector	p;
+	double		t;
+
+	p = get_itsc_p(r, o, itsc.dist);
+	p = v_subtract(&new_center, &p);
+	t = pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2);
+	return (t <= cy->r_sq);
 }
 
 static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
