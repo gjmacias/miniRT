@@ -111,7 +111,7 @@ void	render_camera(t_data *d, t_mlx_data *mlx, int start, int end)
 		{
 			v_fov = calculate_ray_direction(pos[X], pos[Y], d);
 			color = trace_ray(&v_fov, d);
-			my_mlx_pixel_put(mlx, pos[X], pos[Y], color);
+			my_mlx_pixel_put(mlx, pos[X],pos[Y], color);
 		}
 	}
 	mlx_put_image_to_window(mlx->vars.mlx, mlx->vars.win, mlx->img, 0, 0);

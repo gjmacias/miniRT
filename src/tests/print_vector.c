@@ -21,7 +21,7 @@ void	print_vector(t_vector vector)
 
 void	print_ang(t_vector vector)
 {
-	printf("[ X %f ][ Y %f ][ Z %f ]\n", vector.x * (180 / M_PI), vector.y * (180 / M_PI), vector.z * (180 / M_PI));
+	printf("ANGLE:[ X %f ][ Y %f ][ Z %f ]\n", vector.x * (180 / M_PI), vector.y * (180 / M_PI), vector.z * (180 / M_PI));
 }
 
 void	print_color(t_color color)

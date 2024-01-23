@@ -86,7 +86,7 @@ void			create_FOV_matrix(t_4Matrix *matrix, double fov);
 t_vector 		matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
 t_vector		rotate_vector_by_quaternion(t_vector v, t_quaternion q);
 t_quaternion	rotate_quaternion(double angle_degrees, int c);
-t_quaternion	multiply_quaternions(t_quaternion q1, t_quaternion q2);
+t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b);
 t_quaternion	euler_to_q(double yaw, double pitch, double roll);
 void			move_euler(t_camera *c, double ang);
 
