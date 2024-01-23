@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/23 16:50:27 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:38:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
 	return ;
 }
 
-static double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
+double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
 {
 	double		sign;
 	double		denom;
@@ -151,25 +151,19 @@ t_itsc	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
 void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
 	double		coef[3];
-	double		dot_p[2];
+	double		t;
 	t_vector	v;
-	double		t[2];
-	t_itsc		aux_itsc;
 
-	t[0] = cy_caps(o, r, cy);
 	v = v_subtract(o, cy->center);
-	dot_p[0] = dot(r, cy->n_vector);
-	dot_p[1] = dot(&v, cy->n_vector);
-	coef[0] = 1.0 - pow(dot_p[0], 2);
-	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
-	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
-	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
-	aux_itsc = set_cy_itsc(o, r, cy, t);
-	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
-		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
+	coef[0] = dot(r, r) - pow(dot(r, cy->n_vector), 2);
+	coef[1] = 2 * (dot(r, &v) - (dot(r, cy->n_vector) * dot(&v, cy->n_vector)));
+	coef[2] = dot(&v, &v) - pow(dot(&v, cy->n_vector), 2) - cy->r_sq;
+	t = quadratic_formula(coef[0], coef[1], coef[2]);
+	if (t >= EPSILON && (itsc->dist < 0
+		|| (itsc->dist >= EPSILON && t < itsc->dist)))
 	{
-		itsc->dist = aux_itsc.dist;
-		itsc->type = aux_itsc.type;
+		itsc->dist = t;
+		itsc->type = CYLINDER;
 		itsc->address = cy;
 		itsc->mat = cy->material;
 	}
