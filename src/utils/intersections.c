@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/01/23 13:14:59 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:06:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ static double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
 	else
 		return (0);
 	v1 = get_itsc_p(r, o, t);
-	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
+	if (dot(&v1, &v1) <= cy->r_sq)
 		return (t);
+//	if ((pow(v1.x - v.x, 2) + pow(v1.z - v.z, 2)) <= cy->r_sq)
 	return (0);
 }
 
@@ -171,6 +172,8 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 		itsc->type = aux_itsc.type;
 		itsc->address = cy;
 		itsc->mat = cy->material;
-	}	
+	}
+	if (itsc->type == CYLINDER || itsc->type == CAP)
+		printf("CYL dist: %.2f\n", itsc->dist);
 	return ;
 }
