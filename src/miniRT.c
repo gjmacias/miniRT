@@ -29,10 +29,10 @@ int	main(int words, char **arguments)
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
-		//print_data(&parameters);
+		print_data(&parameters);
 		init_mlx(&data, &parameters);
 		hook.data = &data;
-		hook.parameters = &parameters;	
+		hook.parameters = &parameters;
 		//mlx_key_hook(data.vars.win, key_hook, &(data.vars));
 		mlx_key_hook(data.vars.win, key_hook_test, &hook);
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
