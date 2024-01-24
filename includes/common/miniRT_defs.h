@@ -19,7 +19,8 @@
 # define PLANE		1
 # define SPHERE		2
 # define CYLINDER	3
-# define CAP		4
+# define TOP_CAP	4
+# define BOT_CAP	5
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
@@ -151,7 +152,7 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 8 8 12 						= 60 bytes
+//	8 8 8 8 8 8 8 12 						= 6rbytes
 typedef struct s_cylinder
 {
 	double		diameter;
@@ -159,7 +160,10 @@ typedef struct s_cylinder
 	double		half_height;
 	double		height;
 	t_vector	*center;
+	t_vector	*top_center;
+	t_vector	*bot_center;
 	t_vector	*n_vector;
+	t_vector	*i_n_vector;
 	t_material	material;
 }				t_cylinder;
 
