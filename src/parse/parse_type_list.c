@@ -103,19 +103,39 @@ void	p_cylinder(char **arguments, t_data *p)
 	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
 		clean_exit(p, 12);
-	input_position(arguments[1], p, new_content->center);
+	new_content->top_center = ft_calloc(1, sizeof(t_vector));
+	if (!new_content->top_center)
+		clean_exit(p, 12);
+	new_content->bot_center = ft_calloc(1, sizeof(t_vector));
+	if (!new_content->bot_center)
+		clean_exit(p, 12);
 	new_content->n_vector = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->n_vector)
 		clean_exit(p, 12);
+	new_content->i_n_vector = ft_calloc(1, sizeof(t_vector));
+	if (!new_content->i_n_vector)
+		clean_exit(p, 12);
+
+	input_position(arguments[1], p, new_content->center);
 	input_vector(arguments[2], p, new_content->n_vector);
 	input_diameter(arguments[3], p, &(new_content->diameter));
 	input_height(arguments[4], p, &(new_content->height));
 	input_color(arguments[5], p, &(new_content->material.color));
-	new_content->r_sq = pow((new_content->diameter / 2), 2);
-	new_content->half_height = new_content->height / 2;
 	if (arguments[6])
 		write_error3int("Error in line: < ", p->line,
 			" > too many arguments\n");
+
+	new_content->r_sq = pow((new_content->diameter / 2), 2);
+	new_content->half_height = new_content->height / 2;
+
+	*new_content->top_center = v_product(new_content->n_vector, new_content->half_height);
+	*new_content->bot_center = *new_content->top_center;
+
+	*new_content->top_center = v_addition(new_content->center, new_content->top_center);
+	*new_content->bot_center = v_subtract(new_content->center, new_content->bot_center);
+
+	*new_content->i_n_vector = v_product(new_content->n_vector, -1);
+
 	new_list->content = (void *)new_content;
 	new_list->next = p->cylinders;
 	p->cylinders = new_list;
