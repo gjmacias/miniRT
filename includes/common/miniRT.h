@@ -135,6 +135,7 @@ t_material	new_material(t_color color, double specular);
 
 t_color		calc_light(t_material *m, t_light *l, double rad);
 
+double		quadratic_formula(double a, double b, double c);
 //  TEST
 void		print_matrix(t_4Matrix *m);
 

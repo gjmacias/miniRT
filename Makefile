@@ -24,18 +24,20 @@ SRC			=	miniRT.c \
 				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
-				inits/inits.c \
+				inits/inits.c inits/init_itsc.c \
 				camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				ray_tracing/trace_ray_cam.c \
+				intersections/rayhit_plane.c intersections/rayhit_sphere.c \
+				intersections/rayhit_cylinder.c \
 				utils/array_to.c utils/for_quaternions.c utils/for_vectors.c \
-				utils/ft_str_to.c utils/intersections.c utils/is_space.c\
+				utils/ft_str_to.c utils/is_space.c\
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \
 				tests/print.c tests/print_matrix.c tests/print_vector.c \
-				utils/free_data.c utils/init_itsc.c
+				utils/free_data.c utils/quadratic_formula.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
