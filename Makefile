@@ -38,15 +38,15 @@ SRC			=	miniRT.c \
 				utils/free_data.c utils/init_itsc.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
-DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
+DEPS    =   $(addprefix $(DPS_DIR), $(notdir $(SRC:.c=.d)))
 
 ###############################################################################
 #									DIR_PATH								  #
 ###############################################################################
 
 SRC_DIR	=	src/
-OBJ_DIR	=	obj/
-DPS_DIR	=	dps/
+OBJ_DIR	=	.obj/
+DPS_DIR	=	.dps/
 
 ###############################################################################
 #									LIBRARIES								  #
@@ -97,11 +97,12 @@ LIGHT_GREEN	= \033[1;92m
 #									RULES									  #
 ###############################################################################
 
-all: make_dir make_mlx make_lib $(NAME)
+all: make_mlx make_lib make_dir $(NAME)
 	@echo "$(CYAN)$(NAME) ready to use:$(DEF_COLOR)"
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
+	@echo "$(GREEN)Compiling OBJECTS:$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@mkdir -p $(dir $@)
@@ -134,7 +135,7 @@ fclean_libs:
 #					--------	RULES PROGRAM	--------							  #
 
 $(NAME): $(LIB) $(MLX) $(OBJ)
-	@echo "$(GREEN)Compiling $(NAME)$(DEF_COLOR)"
+	@echo "$(MAGENTA)Compiling $(NAME)$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(LIB_FLAGS) $(MLX) $(MLX_FLAGS)
 	@echo "$(BLUE)Created $(NAME) executable $(DEF_COLOR)" && echo ""
 
@@ -155,4 +156,4 @@ re: fclean all
 ###############################################################################
 
 -include $(DEPS)
-.PHONY: all make_dir clean fclean re
+.PHONY: all make_dir clean fclean re make_mlx make_lib make_dir
