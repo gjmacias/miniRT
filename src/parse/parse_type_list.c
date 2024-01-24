@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/15 14:36:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:25:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	p_ligths(char **arguments, t_data *p)
 	new_list = malloc(sizeof(t_list));
 	new_content = malloc(sizeof(t_light));
 	if (new_content == NULL || new_list == NULL)
-		write_error("Fatal error: Malloc failed. Free memory");
+		clean_exit(p, 12);
 	p->info.lights += 1;
 	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
@@ -46,7 +46,7 @@ void	p_plane(char **arguments, t_data *p)
 	new_list = malloc(sizeof(t_list));
 	new_content = malloc(sizeof(t_plane));
 	if (new_content == NULL || new_list == NULL)
-		write_error("Fatal error: Malloc failed. Free memory");
+		clean_exit(p, 12);
 	p->info.planes += 1;
 	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
@@ -73,7 +73,7 @@ void	p_sphere(char **arguments, t_data *p)
 	new_list = malloc(sizeof(t_list));
 	new_content = malloc(sizeof(t_sphere));
 	if (new_content == NULL || new_list == NULL)
-		write_error("Fatal error: Malloc failed. Free memory");
+		clean_exit(p, 12);
 	p->info.spheres += 1;
 	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
@@ -98,7 +98,7 @@ void	p_cylinder(char **arguments, t_data *p)
 	new_list = malloc(sizeof(t_list));
 	new_content = malloc(sizeof(t_cylinder));
 	if (new_content == NULL || new_list == NULL)
-		write_error("Fatal error: Malloc failed. Free memory");
+		clean_exit(p, 12);
 	p->info.cylinders += 1;
 	new_content->center = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->center)
