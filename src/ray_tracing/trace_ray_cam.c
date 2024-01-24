@@ -63,9 +63,7 @@ void	get_itsc_normal(t_itsc *itsc)
 		t_vector	new_center;
 		t_vector	v1;
 		
-		// This is for the cylinder in general NOT the caps
 		new_center = *((t_cylinder *)itsc->address)->center;
-
 		v1 = v_subtract(itsc->p, &new_center);
 		t = dot(&v1, ((t_cylinder *)itsc->address)->n_vector);
 		v1 = v_product(((t_cylinder *)itsc->address)->n_vector, t);
@@ -74,9 +72,9 @@ void	get_itsc_normal(t_itsc *itsc)
 		normalize_v(itsc->normal);
 	}
 	else if (itsc->type == TOP_CAP)
-		*itsc->normal = *((t_cylinder *)itsc->address)->i_n_vector;
-	else if (itsc->type == BOT_CAP)
 		*itsc->normal = *((t_cylinder *)itsc->address)->n_vector;
+	else if (itsc->type == BOT_CAP)
+		*itsc->normal = *((t_cylinder *)itsc->address)->i_n_vector;
 }
 
 double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
@@ -94,16 +92,13 @@ double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
 	if (itsc_1.dist > EPSILON && itsc_1.dist < v_magnitude(&magnitude))
 		return (-1.0);
 	dir_n = dot(&dir, itsc_0->normal);
-	if ((itsc_0->type == PLANE) && dir_n)
+	if ((itsc_0->type == PLANE || itsc_0->type == TOP_CAP || itsc_0->type == BOT_CAP) && dir_n)
 	{
-		if (dir_n > 0.0 )
-		{
-			if (ray_n > 0.0)
-				return (-1.0);
-		}
-		else if (ray_n < 0.0)
+		if (dir_n > 0.0 && ray_n > 0.0)
 			return (-1.0);
-		else
+		else if (dir_n <= 0.0 && ray_n < 0.0)
+			return (-1.0);
+		else if (dir_n == 0)
 			*itsc_0->normal = v_product(itsc_0->normal, -1.0);
 	}
 	return (angle_vectors(&dir, itsc_0->normal));
@@ -130,6 +125,10 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	find_itsct(&itsc, ray, d, d->camera->center);
 	if (itsc.type > 0 && itsc.type < 6) // There is itsc
 	{
+		if (itsc.type == BOT_CAP)
+			printf("FOUND BOT CAP\n");
+		else if (itsc.type == TOP_CAP)
+			printf("FOUND TOP CAP\n");
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		get_itsc_normal(&itsc);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
