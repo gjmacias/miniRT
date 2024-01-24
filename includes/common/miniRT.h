@@ -111,6 +111,8 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc);
 void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc);
 t_vector	get_itsc_p(t_vector *ray_dir, t_vector *ray0, double t);
 
+void	init_itsc(t_itsc *itsc);
+
 //	UTILS
 int			is_space(int c);
 

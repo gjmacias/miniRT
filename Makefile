@@ -35,7 +35,7 @@ SRC			=	miniRT.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \
 				tests/print.c tests/print_matrix.c tests/print_vector.c \
-				utils/free_data.c
+				utils/free_data.c utils/init_itsc.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
