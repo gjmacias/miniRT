@@ -92,17 +92,16 @@ double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	if (sign == 0.0)
 		return (0);
 	sign /= fabs(sign);
-	if (sign > 0)
+		plane.n_vector = cy->n_vector;
+	if (sign > 0.0)
 	{
 		new_center = *cy->top_center;
-		plane.n_vector = cy->n_vector;
-		itsc->type = TOP_CAP;
+		itsc->type = BOT_CAP;
 	}
-	else
+	else 
 	{
 		new_center = *cy->bot_center;
-		plane.n_vector = cy->i_n_vector;
-		itsc->type = BOT_CAP;
+		itsc->type = TOP_CAP;
 	}
 	plane.center = &new_center;
 	aux.dist = -1;
@@ -146,21 +145,34 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
 	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
-
-	if (t[0] && (t[1] < EPSILON || t[0] < t[1]))
+	if (t[0] && (t[1] < 0 || t[0] < t[1]))
 		aux_itsc.dist = t[0];
 	else if (height_check(o, r, cy, t[1]))
 	{
 		aux_itsc.dist = t[1];
 		aux_itsc.type = CYLINDER;
 	}
-	else
-		return ;
 	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
 		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
 	{
-		itsc->dist = aux_itsc.dist;
 		itsc->type = aux_itsc.type;
+	
+		if (itsc->type == BOT_CAP || itsc->type == TOP_CAP)
+		{
+			t_vector	v;
+			t_vector	center;
+			double		denom;
+
+			denom = dot(r, cy->n_vector);
+			if (aux_itsc.type == TOP_CAP)
+				center = *cy->bot_center;
+			else if (aux_itsc.type == BOT_CAP)
+				center = *cy->top_center;
+			v = v_subtract(&center, o);
+			itsc->dist = dot(&v, cy->n_vector) / denom;
+		}
+		else
+			itsc->dist = aux_itsc.dist;
 		itsc->address = cy;
 		itsc->mat = cy->material;
 	}

@@ -74,9 +74,9 @@ void	get_itsc_normal(t_itsc *itsc)
 		normalize_v(itsc->normal);
 	}
 	else if (itsc->type == TOP_CAP)
-		*itsc->normal = *((t_cylinder *)itsc->address)->n_vector;
-	else if (itsc->type == BOT_CAP)
 		*itsc->normal = *((t_cylinder *)itsc->address)->i_n_vector;
+	else if (itsc->type == BOT_CAP)
+		*itsc->normal = *((t_cylinder *)itsc->address)->n_vector;
 }
 
 double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
@@ -94,7 +94,7 @@ double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
 	if (itsc_1.dist > EPSILON && itsc_1.dist < v_magnitude(&magnitude))
 		return (-1.0);
 	dir_n = dot(&dir, itsc_0->normal);
-	if ((itsc_0->type == PLANE || itsc_0->type == TOP_CAP || itsc_0->type == BOT_CAP) && dir_n)
+	if ((itsc_0->type == PLANE) && dir_n)
 	{
 		if (dir_n > 0.0 )
 		{
