@@ -79,36 +79,37 @@ void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
 	return ;
 }
 
-double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy)
+double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
+	t_plane		plane;
 	double		sign;
 	t_vector	new_center;
+	t_itsc		aux;
+	t_vector	p;
+	double		t;
 
-	(void)o;
 	sign = -dot(r, cy->n_vector);
 	if (sign == 0.0)
 		return (0);
 	sign /= fabs(sign);
-	new_center = v_product(cy->n_vector, cy->half_height);
 	if (sign > 0)
-		new_center = v_addition(cy->center, &new_center);
+	{
+		new_center = *cy->top_center;
+		plane.n_vector = cy->n_vector;
+		itsc->type = TOP_CAP;
+	}
 	else
-		new_center = v_subtract(cy->center, &new_center);
-
-	t_plane		plane;
-	t_itsc		itsc;
-
+	{
+		new_center = *cy->bot_center;
+		plane.n_vector = cy->i_n_vector;
+		itsc->type = BOT_CAP;
+	}
 	plane.center = &new_center;
-	plane.n_vector = cy->n_vector;
-	itsc.dist = -1;
-	rayhit_pl(o, r, &plane, &itsc);
-
-	if (itsc.dist < 0)
+	aux.dist = -1;
+	rayhit_pl(o, r, &plane, &aux);
+	if (aux.dist < 0)
 		return (0);	
-	t_vector	p;
-	double		t;
-
-	p = get_itsc_p(r, o, itsc.dist);
+	p = get_itsc_p(r, o, aux.dist);
 	p = v_subtract(&new_center, &p);
 	t = pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2);
 	return (t <= cy->r_sq);
@@ -128,24 +129,6 @@ static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 	return (0);
 }
 
-t_itsc	set_cy_itsc(t_vector *o, t_vector *r, t_cylinder *cy, double t[2])
-{
-	t_itsc	itsc;
-	
-	itsc.dist = -1;
-	if (t[0] && (t[1] < EPSILON || t[0] < t[1]))
-	{
-		itsc.dist = t[0];
-		itsc.type = CAP;
-	}
-	else if (height_check(o, r, cy, t[1]))
-	{
-		itsc.dist = t[1];
-		itsc.type = CYLINDER;
-	}
-	return (itsc);
-}
-
 void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
 	double		coef[3];
@@ -153,8 +136,9 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	t_vector	v;
 	double		t[2];
 	t_itsc		aux_itsc;
-
-	t[0] = cy_caps(o, r, cy);
+	
+	init_itsc(&aux_itsc);
+	t[0] = cy_caps(o, r, cy, &aux_itsc);
 	v = v_subtract(o, cy->center);
 	dot_p[0] = dot(r, cy->n_vector);
 	dot_p[1] = dot(&v, cy->n_vector);
@@ -162,7 +146,16 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
 	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
-	aux_itsc = set_cy_itsc(o, r, cy, t);
+
+	if (t[0] && (t[1] < EPSILON || t[0] < t[1]))
+		aux_itsc.dist = t[0];
+	else if (height_check(o, r, cy, t[1]))
+	{
+		aux_itsc.dist = t[1];
+		aux_itsc.type = CYLINDER;
+	}
+	else
+		return ;
 	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
 		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
 	{
