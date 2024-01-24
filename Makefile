@@ -6,17 +6,17 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2023/12/19 16:55:24 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/01/09 15:15:10 by gmacias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=thread
+CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP -fsanitize=address
 OS		:= $(shell uname)
 
 ###############################################################################
-#									SRC								  #
+#									SRC										  #
 ###############################################################################
 
 SRC			=	miniRT.c \
@@ -24,29 +24,29 @@ SRC			=	miniRT.c \
 				error/write_error.c \
 				exit/exit.c \
 				hooks/key_hooks.c hooks/exit_hooks.c \
-				inits/init_mlx.c inits/init_parameters.c \
-				inputs/camera/camera.c \
+				inits/inits.c \
+				camera/camera.c \
 				parse/parse_txt.c parse/parse_type.c parse/parse_type_list.c \
 				parse/parse_inputs.c parse/parse_inputs2.c \
 				ray_tracing/trace_ray_cam.c \
-				utils/array_to.c utils/for_matrix.c utils/for_vectors.c \
+				utils/array_to.c utils/for_quaternions.c utils/for_vectors.c \
 				utils/ft_str_to.c utils/intersections.c utils/is_space.c\
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \
 				tests/print.c tests/print_matrix.c tests/print_vector.c \
-				utils/free_data.c
+				utils/free_data.c utils/init_itsc.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
-DEPS	=	$(addprefix $(DPS_DIR), $(SRC:.c=.d))
+DEPS    =   $(addprefix $(DPS_DIR), $(notdir $(SRC:.c=.d)))
 
 ###############################################################################
 #									DIR_PATH								  #
 ###############################################################################
 
 SRC_DIR	=	src/
-OBJ_DIR	=	obj/
-DPS_DIR	=	dps/
+OBJ_DIR	=	.obj/
+DPS_DIR	=	.dps/
 
 ###############################################################################
 #									LIBRARIES								  #
@@ -97,11 +97,12 @@ LIGHT_GREEN	= \033[1;92m
 #									RULES									  #
 ###############################################################################
 
-all: make_dir make_mlx make_lib $(NAME)
+all: make_mlx make_lib make_dir $(NAME)
 	@echo "$(CYAN)$(NAME) ready to use:$(DEF_COLOR)"
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
+	@echo "$(GREEN)Compiling OBJECTS:$(DEF_COLOR)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 	@mkdir -p $(dir $@)
@@ -115,12 +116,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 make_mlx:
 	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
 	@make -C $(MLX_PATH) 2> /dev/null
-	@echo "$(BLUE)Done mlx! $(DEF_COLOR)"
+	@echo "$(BLUE)Done mlx! $(DEF_COLOR)" && echo ""
 
 make_lib:
 	@echo "$(GREEN)Checking Libft: $(DEF_COLOR)"
 	@$(MAKE) -s -C $(LIB_PATH)
-	@echo "$(BLUE)Done Libft! $(DEF_COLOR)"
+	@echo "$(BLUE)Done Libft! $(DEF_COLOR)" && echo ""
 
 clean_libs:
 	@$(MAKE) clean -s -C $(LIB_PATH)
@@ -134,7 +135,7 @@ fclean_libs:
 #					--------	RULES PROGRAM	--------							  #
 
 $(NAME): $(LIB) $(MLX) $(OBJ)
-	@echo "$(GREEN)Compiling $(NAME)$(DEF_COLOR)"
+	@echo "$(MAGENTA)Compiling $(NAME)$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(LIB_FLAGS) $(MLX) $(MLX_FLAGS)
 	@echo "$(BLUE)Created $(NAME) executable $(DEF_COLOR)" && echo ""
 
@@ -155,4 +156,4 @@ re: fclean all
 ###############################################################################
 
 -include $(DEPS)
-.PHONY: all make_dir clean fclean re
+.PHONY: all make_dir clean fclean re make_mlx make_lib make_dir

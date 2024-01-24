@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:59:16 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/13 15:17:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:45:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ t_vector	v_subtract(t_vector *v1, t_vector *v2)
 	return (result);
 }
 
-t_vector	v_product(t_vector *v1, double *n)
+t_vector	v_product(t_vector *v1, double n)
 {
 	t_vector	result;
 
-	result.x = v1->x * *n;
-	result.y = v1->y * *n;
-	result.z = v1->z * *n;
+	result.x = v1->x * n;
+	result.y = v1->y * n;
+	result.z = v1->z * n;
 	return (result);
 }
 

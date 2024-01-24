@@ -9,7 +9,7 @@ double	color_percentage(unsigned char x)
 	return (percentage);
 }
 
-unsigned char percentage_color(double percentage)
+unsigned char	percentage_color(double percentage)
 {
 	unsigned char	result;
 
@@ -19,25 +19,27 @@ unsigned char percentage_color(double percentage)
 
 double	rad_percentage(double ang)
 {
-    double	rad;
-    double	percentage;
+	double	percentage;
+	double	rad;
 
-	rad = M_PI - ang;
-	if (rad < (M_PI / 2))
+	percentage = 0.0;
+	if (ang < (M_PI / 2))
+	{
+		rad = (M_PI / 2) - ang;
 		percentage = rad / (M_PI / 2);
-	else
-		percentage = 1.0;
+	}
 	return (percentage);
 }
 
 t_color	calc_ambient(t_material *m, t_ambiental a)
 {
-	t_color result;
+	t_color	result;
 
 	result.r = color_percentage(a.color.r) * a.brightness * m->color.r;
 	result.g = color_percentage(a.color.g) * a.brightness * m->color.g;
 	result.b = color_percentage(a.color.b) * a.brightness * m->color.b;
-	return(result);
+	result.a = 0;
+	return (result);
 }
 
 t_color	calc_light(t_material *m, t_light *l, double rad)
@@ -60,5 +62,6 @@ t_color	calc_light(t_material *m, t_light *l, double rad)
 		result.b = 255;
 	else
 		result.b = m->color.b + tmp;
-	return(result);
+	result.a = 0;
+	return (result);
 }

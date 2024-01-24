@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:29:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:25:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,167 @@
 #include "miniRT_defs.h"
 #include <math.h>
 
-double	rayhit_pl(t_vector *ray0, t_vector *ray_dir, t_plane *plane)
+static double	quadratic_formula(double a, double b, double c)
+{
+	double	t[2];
+	double	discriminant;
+
+	discriminant = pow(b, 2) - 4 * a * c;
+	if (discriminant < EPSILON)
+		return (0);
+	discriminant = sqrt(discriminant);
+	t[0] = (-b + discriminant) / (2 * a);
+	t[1] = (-b - discriminant) / (2 * a);
+	if (t[0] >= 0 && t[0] < t[1])
+		return (t[0]);
+	else if (t[1] >= 0)
+		return (t[1]);
+	return (-1);
+}
+
+void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_itsc *itsc)
 {
 	double		t;
 	double		denom;
 	t_vector	v;
 
-	denom = dot(ray_dir, plane->n_vector);
+	denom = dot(r, pl->n_vector);
 	if (denom)
 	{
-		v = v_subtract(plane->center, ray0);
-		t = dot(&v, plane->n_vector) / denom;
-		return (t);
+		v = v_subtract(pl->center, o);
+		t = dot(&v, pl->n_vector) / denom;
+		if (t < EPSILON)
+			return ;
+		if (itsc->dist < 0 || (itsc->dist >= EPSILON && t < itsc->dist))
+		{
+			itsc->dist = t;
+			itsc->mat = pl->material;
+			itsc->address = pl;
+			itsc->type = PLANE;
+		}
 	}
+	return ;
+}
+
+void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc)
+{
+	double		coef[3];
+	double		t;
+	t_vector	v;
+
+	v = v_subtract(o, sp->center);
+	coef[0] = dot(r, r);
+	coef[1] = 2.0 * dot(r, &v);
+	coef[2] = dot(&v, &v) - sp->r_sq;
+	t = quadratic_formula(coef[0], coef[1], coef[2]);
+	if (t < EPSILON)
+		return ;
+	if (itsc->dist < 0 || (itsc->dist >= EPSILON && t < itsc->dist))
+	{
+		itsc->dist = t;
+		itsc->mat = sp->material;
+		itsc->address = sp;
+		itsc->type = SPHERE;
+	}
+	return ;
+}
+
+double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
+{
+	t_plane		plane;
+	double		sign;
+	t_vector	new_center;
+	t_itsc		aux;
+	t_vector	p;
+	double		t;
+
+	sign = -dot(r, cy->n_vector);
+	if (sign == 0.0)
+		return (0);
+	sign /= fabs(sign);
+		plane.n_vector = cy->n_vector;
+	if (sign > 0.0)
+	{
+		new_center = *cy->top_center;
+		itsc->type = BOT_CAP;
+	}
+	else 
+	{
+		new_center = *cy->bot_center;
+		itsc->type = TOP_CAP;
+	}
+	plane.center = &new_center;
+	aux.dist = -1;
+	rayhit_pl(o, r, &plane, &aux);
+	if (aux.dist < 0)
+		return (0);	
+	p = get_itsc_p(r, o, aux.dist);
+	p = v_subtract(&new_center, &p);
+	t = pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2);
+	return (t <= cy->r_sq);
+}
+
+static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
+{
+	double		h;
+	t_vector	aux;
+	t_vector	itsc_p;
+
+	itsc_p = get_itsc_p(r, o, t);
+	aux = v_subtract(&itsc_p, cy->center);
+	h = dot(cy->n_vector, &aux);
+	if (fabs(h) <= cy->half_height)
+		return (1);
 	return (0);
 }
 
-double	rayhit_sp(t_vector *ray0, t_vector *ray_dir, t_sphere *sp)
+void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
 	double		coef[3];
-	double		discriminant;
+	double		dot_p[2];
 	t_vector	v;
+	double		t[2];
+	t_itsc		aux_itsc;
+	
+	init_itsc(&aux_itsc);
+	t[0] = cy_caps(o, r, cy, &aux_itsc);
+	v = v_subtract(o, cy->center);
+	dot_p[0] = dot(r, cy->n_vector);
+	dot_p[1] = dot(&v, cy->n_vector);
+	coef[0] = 1.0 - pow(dot_p[0], 2);
+	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
+	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
+	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
+	if (t[0] && (t[1] < 0 || t[0] < t[1]))
+		aux_itsc.dist = t[0];
+	else if (height_check(o, r, cy, t[1]))
+	{
+		aux_itsc.dist = t[1];
+		aux_itsc.type = CYLINDER;
+	}
+	if (aux_itsc.dist >= EPSILON && (itsc->dist < 0 
+		|| (itsc->dist >= EPSILON && aux_itsc.dist < itsc->dist)))
+	{
+		itsc->type = aux_itsc.type;
+	
+		if (itsc->type == BOT_CAP || itsc->type == TOP_CAP)
+		{
+			t_vector	v;
+			t_vector	center;
+			double		denom;
 
-	v = v_subtract(ray0, sp->center);
-	coef[0] = dot(ray_dir, ray_dir);
-	coef[1] = 2.0 * dot(ray_dir, &v);
-	coef[2] = dot(&v, &v) - sp->r_sq;
-	discriminant = pow(coef[1], 2) - 4 * coef[0] * coef[2];
-	if (discriminant < 0)
-		return (-1.0);
-	else
-		return ((-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]));
+			denom = dot(r, cy->n_vector);
+			if (aux_itsc.type == TOP_CAP)
+				center = *cy->bot_center;
+			else if (aux_itsc.type == BOT_CAP)
+				center = *cy->top_center;
+			v = v_subtract(&center, o);
+			itsc->dist = dot(&v, cy->n_vector) / denom;
+		}
+		else
+			itsc->dist = aux_itsc.dist;
+		itsc->address = cy;
+		itsc->mat = cy->material;
+	}
+	return ;
 }
-
-/*
-double	rayhit_cy(t_vector *ray0, t_vector *ray_dir, t_cylinder *cy)
-{
-	A = ray0;
-	b = ray_dir;
-
-	P(t) =	A + tb;
-			p0 + vt;
-
-	((ray0->x + ray_dir->x * t) * (ray0->x + ray_dir->x * t)) + ((ray0->z + ray_dir->z * t) * (ray0->z + ray_dir->z * t)) = cy->r_sq;
-	pow(ray0->x, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + pow(ray0->z, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
-	pow(ray0->x, 2) + pow(ray0->z, 2) + 2.0 * (ray0->x * ray_dir->x * t) + pow(ray_dir->x * t, 2) + 2.0 * (ray0->z * ray_dir->z * t) + pow(ray_dir->z * t, 2) = cy->r_sq;
-}
-*/

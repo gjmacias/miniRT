@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:10:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:33:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # define X			0
 # define Y			1
+
+# define PLANE		1
+# define SPHERE		2
+# define CYLINDER	3
+# define TOP_CAP	4
+# define BOT_CAP	5
 
 # define BLACK 		0x00000000
 # define RED		0x00FF0000
@@ -73,13 +79,6 @@ typedef struct s_vars
 	void	*win;
 }			t_vars;
 
-//	8 12								= 20 bytes
-typedef struct s_intersection
-{
-	double		dist;
-	t_material	mat;
-}	t_intersection;
-
 //	8 8 8 								= 24 bytes
 typedef struct s_vector
 {
@@ -88,12 +87,22 @@ typedef struct s_vector
 	double	z;
 }		t_vector;
 
+//	8 8 8 								= 24 bytes
+typedef struct s_quaternion
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+}		t_quaternion;
+
 //	8 8 8								= 24 bytes
 typedef struct s_camera
 {
-	double		fov;
-	t_vector	*center;
-	t_vector	*n_vector;
+	double			fov;
+	t_vector		*center;
+	t_vector		*euler;
+	t_quaternion	*q;
 }				t_camera;
 
 //	4 8 8								= 20 bytes
@@ -103,6 +112,17 @@ typedef struct s_light
 	double		brightness;
 	t_vector	*center;
 }				t_light;
+
+// 1 8 8 8 12								= 28 bytes
+typedef struct s_intersection
+{
+	unsigned char	type;
+	void			*address;
+	double			dist;
+	t_vector		*p;
+	t_vector		*normal;
+	t_material		mat;
+}	t_itsc;
 
 //	8 8 12								= 28 bytes
 typedef struct s_plane
@@ -132,14 +152,18 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 8 12 						= 52 bytes
+//	8 8 8 8 8 8 8 12 						= 6rbytes
 typedef struct s_cylinder
 {
 	double		diameter;
 	double		r_sq;
+	double		half_height;
 	double		height;
 	t_vector	*center;
+	t_vector	*top_center;
+	t_vector	*bot_center;
 	t_vector	*n_vector;
+	t_vector	*i_n_vector;
 	t_material	material;
 }				t_cylinder;
 

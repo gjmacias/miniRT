@@ -10,10 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "miniRT.h"
 #include "miniRT_defs.h"
 #include "libft.h"
 #include <limits.h>
+
+void	init_mlx(t_mlx_data *d, t_data *p)
+{
+	d->vars.mlx = mlx_init();
+	d->vars.win = mlx_new_window(d->vars.mlx, p->width, p->height, "miniRT");
+	d->img = mlx_new_image(d->vars.mlx, p->width, p->height);
+	d->addr = mlx_get_data_addr(d->img, &d->bpps, &d->l_len, &d->endian);
+	mlx_put_image_to_window(d->vars.mlx, d->vars.win, d->img, 0, 0);
+}
 
 void	init_parameters_info(t_data *p)
 {
@@ -48,4 +58,27 @@ void	init_canvas(t_data *p, char *str_width, char *str_height)
 		p->height = 1080;
 	else
 		p->height = height;
+}
+
+void	init_euler(t_vector *n_vector)
+{
+	t_vector	euler;
+
+	euler.x = 0;
+	euler.y = asin(n_vector->y);
+	if (fabs(n_vector->y) < 0.9999)
+		euler.z = atan2(n_vector->x, n_vector->z);
+	else
+		euler.z = 0;
+	*n_vector = euler;
+}
+
+void	init_quaternion(t_vector *e, t_quaternion *q)
+{
+	q->x = 0;
+	q->y = 0;
+	q->z = 0;
+	q->w = 1;
+	print_ang(*e);
+	*q = multiply_quaternions(*q, euler_to_q(e->x, e->y, e->z));
 }

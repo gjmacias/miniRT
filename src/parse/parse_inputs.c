@@ -70,7 +70,8 @@ void	input_vector(char *s, t_data *p, t_vector *vector)
 	arraytodouble(s, vector);
 	if (v_magnitude(vector) != 1)
 	{
-		ft_putstr_fd(" > Wrong values: Normal\n", 2);
+		write_error3("Error in line: < ", line_num,
+			" > Wrong values: Normal\n");
 		exit(EXIT_FAILURE);
 	}
 	free(line_num);

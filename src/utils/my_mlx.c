@@ -12,7 +12,7 @@
 
 #include "miniRT_defs.h"
 
-int rgba_to_hex(t_color color)
+int	rgba_to_hex(t_color color)
 {
 	int	hex_color;
 
@@ -20,7 +20,6 @@ int rgba_to_hex(t_color color)
 		| ((int)color.g << 8) | (int)color.b;
 	return (hex_color);
 }
-
 
 void	my_mlx_pixel_put(t_mlx_data *data, int x, int y, t_color color)
 {

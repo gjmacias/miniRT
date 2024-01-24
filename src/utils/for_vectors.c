@@ -12,6 +12,16 @@
 
 #include "miniRT.h"
 
+t_vector	neg_vector(t_vector *v)
+{
+	t_vector	result;
+
+	result.x = -(v->x);
+	result.y = -(v->y);
+	result.z = -(v->z);
+	return (result);
+}
+
 float	angle_vectors(t_vector *a, t_vector *b)
 {
 	float	magnitude1;
@@ -52,20 +62,4 @@ void	normalize_v(t_vector *vector)
 	vector->x = vector->x / len;
 	vector->y = vector->y / len;
 	vector->z = vector->z / len;
-}
-
-t_vector	v_FOV(int x, int y, t_data *d)
-{
-	t_vector	result;
-	int			size;
-	double		work_fov;
-
-	work_fov = 180.0 - d->camera->fov;
-	size = d->height;
-	if (d->width < size)
-		size = d->width;
-	result.x = (double)x;
-	result.y = (double)y;
-	result.z = size * tan((work_fov / 2) * (M_PI / 180));
-	return (result);
 }
