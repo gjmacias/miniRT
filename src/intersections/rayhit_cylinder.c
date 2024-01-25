@@ -25,7 +25,7 @@ double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 
 	sign = -dot(r, cy->n_vector);
 	if (sign == 0.0)
-		return (0);
+		return (-1);
 	sign /= fabs(sign);
 		plane.n_vector = cy->n_vector;
 	if (sign > 0.0)
@@ -42,7 +42,7 @@ double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	aux.dist = -1;
 	rayhit_pl(o, r, &plane, &aux);
 	if (aux.dist < 0)
-		return (0);	
+		return (-1);	
 	p = get_itsc_p(r, o, aux.dist);
 	p = v_subtract(&new_center, &p);
 	t = pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2);
@@ -63,26 +63,38 @@ static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 	return (0);
 }
 
-void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
+static double	main_itsc(t_vector *o, t_vector *r, t_cylinder *cy)
 {
 	double		coef[3];
 	double		dot_p[2];
 	t_vector	v;
-	double		t[2];
-	t_itsc		aux_itsc;
-	
-	init_itsc(&aux_itsc);
-	t[0] = cy_caps(o, r, cy, &aux_itsc);
+
 	v = v_subtract(o, cy->center);
 	dot_p[0] = dot(r, cy->n_vector);
 	dot_p[1] = dot(&v, cy->n_vector);
 	coef[0] = 1.0 - pow(dot_p[0], 2);
 	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;
-	t[1] = quadratic_formula(coef[0], coef[1], coef[2]);
-	if (t[0] && (t[1] < 0 || t[0] < t[1]))
+	return (quadratic_formula(coef[0], coef[1], coef[2]));
+}
+
+void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
+{
+	double		t[2];
+	t_itsc		aux_itsc;
+	t_itsc		cap_itsc;
+	
+	init_itsc(&aux_itsc);
+	init_itsc(&cap_itsc);
+	t[0] = cy_caps(o, r, cy, &cap_itsc);
+	t[0] = sqrt(t[0]);
+	t[1] = main_itsc(o, r, cy);
+	if (t[0] >= EPSILON && (t[0] <= t[1] || t[1] < 0))
+	{
+		aux_itsc.type = cap_itsc.type;
 		aux_itsc.dist = t[0];
-	else if (height_check(o, r, cy, t[1]))
+	}
+	else if (height_check(o, r, cy, t[1]) && t[1] >= EPSILON)
 	{
 		aux_itsc.dist = t[1];
 		aux_itsc.type = CYLINDER;
