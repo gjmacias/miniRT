@@ -15,7 +15,7 @@
 
 static void	find_itsct(t_itsc *itsc, t_vector *ray, t_data *d, t_vector *center)
 {
-	t_list			*aux;
+	t_list	*aux;
 
 	aux = d->planes;
 	while (aux)
@@ -84,15 +84,15 @@ double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
 	t_vector	magnitude;
 	double		dir_n;
 
-	itsc_1.dist = -1;
+	init_itsc(&itsc_1);
 	dir = v_subtract(p1, itsc_0->p);
 	magnitude = dir;
 	normalize_v(&dir);
 	find_itsct(&itsc_1, &dir, d, itsc_0->p);
-	if (itsc_1.dist > EPSILON && itsc_1.dist < v_magnitude(&magnitude))
-		return (-1.0);
+	if (itsc_1.dist > 0 && itsc_1.dist < v_magnitude(&magnitude))
+		return (-1);
 	dir_n = dot(&dir, itsc_0->normal);
-	if ((itsc_0->type == PLANE || itsc_0->type == TOP_CAP || itsc_0->type == BOT_CAP) && dir_n)
+	if (itsc_0->type == PLANE && dir_n)
 	{
 		if (dir_n > 0.0 && ray_n > 0.0)
 			return (-1.0);
@@ -125,10 +125,6 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 	find_itsct(&itsc, ray, d, d->camera->center);
 	if (itsc.type > 0 && itsc.type < 6) // There is itsc
 	{
-		if (itsc.type == BOT_CAP)
-			printf("FOUND BOT CAP\n");
-		else if (itsc.type == TOP_CAP)
-			printf("FOUND TOP CAP\n");
 		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
 		get_itsc_normal(&itsc);
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
