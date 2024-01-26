@@ -16,12 +16,11 @@
 
 double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 {
-	t_plane		plane;
-	double		sign;
-	t_vector	new_center;
-	t_itsc		aux;
-	t_vector	p;
-	double		t;
+	t_plane			plane;
+	double			sign;
+	t_vector		new_center;
+	t_vector		p;
+	unsigned char	type;
 
 	sign = -dot(r, cy->n_vector);
 	if (sign == 0.0)
@@ -31,22 +30,21 @@ double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	if (sign > 0.0)
 	{
 		new_center = *cy->top_center;
-		itsc->type = TOP_CAP;
+		type = TOP_CAP;
 	}
 	else 
 	{
 		new_center = *cy->bot_center;
-		itsc->type = BOT_CAP;
+		type = BOT_CAP;
 	}
 	plane.center = &new_center;
-	aux.dist = -1;
-	rayhit_pl(o, r, &plane, &aux);
-	if (aux.dist < 0)
-		return (-1);	
-	p = get_itsc_p(r, o, aux.dist);
+	rayhit_pl(o, r, &plane, itsc);
+	if (itsc->dist < 0)
+		return (-1);
+	itsc->type = type;
+	p = get_itsc_p(r, o, itsc->dist);
 	p = v_subtract(&new_center, &p);
-	t = pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2);
-	return (t <= cy->r_sq);
+	return ((pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2)) <= cy->r_sq);
 }
 
 static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
@@ -87,12 +85,11 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	init_itsc(&aux_itsc);
 	init_itsc(&cap_itsc);
 	t[0] = cy_caps(o, r, cy, &cap_itsc);
-	t[0] = sqrt(t[0]);
 	t[1] = main_itsc(o, r, cy);
-	if (t[0] >= EPSILON && (t[0] <= t[1] || t[1] < 0))
+	if (t[0] >= EPSILON && (t[0] <= t[1] || t[1] < EPSILON))
 	{
 		aux_itsc.type = cap_itsc.type;
-		aux_itsc.dist = t[0];
+		aux_itsc.dist = cap_itsc.dist;
 	}
 	else if (height_check(o, r, cy, t[1]) && t[1] >= EPSILON)
 	{
@@ -104,19 +101,7 @@ void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc)
 	{
 		itsc->type = aux_itsc.type;
 		if (itsc->type == BOT_CAP || itsc->type == TOP_CAP)
-		{
-			t_vector	v;
-			t_vector	center;
-			double		denom;
-
-			denom = dot(r, cy->n_vector);
-			if (aux_itsc.type == TOP_CAP)
-				center = *cy->top_center;
-			else if (aux_itsc.type == BOT_CAP)
-				center = *cy->bot_center;
-			v = v_subtract(&center, o);
-			itsc->dist = dot(&v, cy->n_vector) / denom;
-		}
+			itsc->dist = cap_itsc.dist;
 		else
 			itsc->dist = aux_itsc.dist;
 		itsc->address = cy;
