@@ -77,30 +77,31 @@ void	get_itsc_normal(t_itsc *itsc)
 		*itsc->normal = *((t_cylinder *)itsc->address)->i_n_vector;
 }
 
-double	light_itscs(t_itsc *itsc_0, t_vector *p1, t_data *d, double ray_n)
+double	light_itscs(t_itsc *itsc_0, t_vector *o, t_data *d, double ray_n)
 {
 	t_itsc		itsc_1;
 	t_vector	dir;
-	t_vector	magnitude;
 	double		dir_n;
+	double		magnitude;
 
 	init_itsc(&itsc_1);
-	dir = v_subtract(p1, itsc_0->p);
-	magnitude = dir;
+	dir = v_subtract(itsc_0->p, o);
+	magnitude = v_magnitude(&dir);
 	normalize_v(&dir);
-	find_itsct(&itsc_1, &dir, d, itsc_0->p);
-	if (itsc_1.dist > 0 && itsc_1.dist < v_magnitude(&magnitude))
+	find_itsct(&itsc_1, &dir, d, o);
+	if (itsc_1.dist >= 0 && itsc_1.dist + EPSILON < magnitude)
 		return (-1);
 	dir_n = dot(&dir, itsc_0->normal);
 	if (itsc_0->type == PLANE && dir_n)
 	{
-		if (dir_n > 0.0 && ray_n > 0.0)
+		if (dir_n < 0.0 && ray_n >= 0.0)
 			return (-1.0);
-		else if (dir_n <= 0.0 && ray_n < 0.0)
+		else if (dir_n >= 0.0 && ray_n < 0.0)
 			return (-1.0);
 		else if (dir_n == 0)
 			*itsc_0->normal = v_product(itsc_0->normal, -1.0);
 	}
+	dir = v_product(&dir, -1);
 	return (angle_vectors(&dir, itsc_0->normal));
 }
 
