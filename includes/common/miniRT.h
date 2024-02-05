@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 19:35:14 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:40:51 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b);
 t_quaternion	euler_to_q(double yaw, double pitch, double roll);
 void			move_euler(t_camera *c, double ang);
 
-
-
 //	VECTORS
 t_vector	new_vector(double x, double y, double z);
 t_vector	tmp_vector(double x, double y, double z);
@@ -109,6 +107,7 @@ t_vector	cross_product(t_vector *a, t_vector *b);
 void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_itsc *itsc);
 void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc);
 void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc);
+double	cy_caps(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc);
 t_vector	get_itsc_p(t_vector *ray_dir, t_vector *ray0, double t);
 
 void	init_itsc(t_itsc *itsc);

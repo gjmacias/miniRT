@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/15 14:36:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:32:42 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,24 @@ void	p_sphere(char **arguments, t_data *p)
 	p->spheres = new_list;
 }
 
+static void	parse_cy(char **arguments, t_cylinder *new, t_data *p)
+{
+	input_position(arguments[1], p, new->center);
+	input_vector(arguments[2], p, new->n_vector);
+	input_diameter(arguments[3], p, &(new->diameter));
+	input_height(arguments[4], p, &(new->height));
+	input_color(arguments[5], p, &(new->material.color));
+	if (arguments[6])
+		write_error3int("Error in line: < ", p->line," > too many arguments\n");
+	new->r_sq = pow((new->diameter / 2), 2);
+	new->half_height = new->height / 2;
+	*new->top_center = v_product(new->n_vector, new->half_height);
+	*new->bot_center = *new->top_center;
+	*new->top_center = v_addition(new->center, new->top_center);
+	*new->bot_center = v_subtract(new->center, new->bot_center);
+	*new->i_n_vector = v_product(new->n_vector, -1);
+}
+
 void	p_cylinder(char **arguments, t_data *p)
 {
 	t_list		*new_list;
@@ -115,27 +133,7 @@ void	p_cylinder(char **arguments, t_data *p)
 	new_content->i_n_vector = ft_calloc(1, sizeof(t_vector));
 	if (!new_content->i_n_vector)
 		clean_exit(p, 12);
-
-	input_position(arguments[1], p, new_content->center);
-	input_vector(arguments[2], p, new_content->n_vector);
-	input_diameter(arguments[3], p, &(new_content->diameter));
-	input_height(arguments[4], p, &(new_content->height));
-	input_color(arguments[5], p, &(new_content->material.color));
-	if (arguments[6])
-		write_error3int("Error in line: < ", p->line,
-			" > too many arguments\n");
-
-	new_content->r_sq = pow((new_content->diameter / 2), 2);
-	new_content->half_height = new_content->height / 2;
-
-	*new_content->top_center = v_product(new_content->n_vector, new_content->half_height);
-	*new_content->bot_center = *new_content->top_center;
-
-	*new_content->top_center = v_addition(new_content->center, new_content->top_center);
-	*new_content->bot_center = v_subtract(new_content->center, new_content->bot_center);
-
-	*new_content->i_n_vector = v_product(new_content->n_vector, -1);
-
+	parse_cy(arguments, new_content, p);
 	new_list->content = (void *)new_content;
 	new_list->next = p->cylinders;
 	p->cylinders = new_list;

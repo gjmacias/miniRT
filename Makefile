@@ -6,13 +6,13 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2024/01/09 15:15:10 by gmacias-         ###   ########.fr        #
+#    Updated: 2024/02/05 14:21:43 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP -fsanitize=address
+CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=address
 OS		:= $(shell uname)
 
 ###############################################################################
@@ -31,8 +31,9 @@ SRC			=	miniRT.c \
 				ray_tracing/trace_ray_cam.c \
 				intersections/rayhit_plane.c intersections/rayhit_sphere.c \
 				intersections/rayhit_cylinder.c \
+				intersections/rayhit_cylinder_cap.c \
 				utils/array_to.c utils/for_quaternions.c utils/for_vectors.c \
-				utils/ft_str_to.c utils/is_space.c\
+				utils/ft_str_to.c utils/is_space.c \
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \

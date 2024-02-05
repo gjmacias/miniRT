@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:33:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/23 16:09:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:53:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(int words, char **arguments)
 		init_mlx(&data, &parameters);
 		hook.data = &data;
 		hook.parameters = &parameters;
-		//mlx_key_hook(data.vars.win, key_hook, &(data.vars));
 		mlx_key_hook(data.vars.win, key_hook_test, &hook);
 		mlx_hook(data.vars.win, 17, 0, finish_execution, &(data.vars));
 		render_camera(&parameters, &data, 0, parameters.height);

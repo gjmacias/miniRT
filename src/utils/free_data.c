@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:41:24 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/19 17:05:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:32:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "libft_bonus.h"
 #include "miniRT_defs.h"
 #include <stdlib.h>
+
+static void	free_cylinder(t_cylinder *cy)
+{
+	if (cy->center)
+		free(cy->center);
+}
 
 static void	free_geo(t_data *d, t_list *aux)
 {
@@ -37,7 +43,7 @@ static void	free_geo(t_data *d, t_list *aux)
 	aux = d->cylinders;
 	while (aux)
 	{
-		free(((t_cylinder *)aux->content)->center);
+		free_cylinder(aux->content);
 		aux = aux->next;
 	}
 	if (d->cylinders)
