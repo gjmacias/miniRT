@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:42 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 13:20:19 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:05:37 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b)
 
 t_vector	rotate_vector_by_quaternion(t_vector v, t_quaternion q)
 {
-	t_quaternion	vector_quaternion = {v.x, v.y, v.z, 0};
-	t_quaternion	conjugate = {-q.x, -q.y, -q.z, q.w};
-	t_quaternion	rotated = multiply_quaternions(q, multiply_quaternions(vector_quaternion, conjugate));
-	return (t_vector){rotated.x, rotated.y, rotated.z};
+	t_quaternion	vq;
+	t_quaternion	conjugate;
+	t_quaternion	rotated;
+	t_vector		out;
+
+	vq = (t_quaternion){v.x, v.y, v.z, 0};
+	conjugate = (t_quaternion){-q.x, -q.y, -q.z, q.w};
+	rotated = multiply_quaternions(q, multiply_quaternions(vq, conjugate));
+	out = (t_vector){rotated.x, rotated.y, rotated.z};
+	return (out);
 }
 
 t_quaternion	euler_to_q(double roll, double pitch, double yaw)

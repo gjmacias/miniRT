@@ -6,11 +6,13 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 13:20:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:24:42 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "intersections.h"
+#include "vectors.h"
 #include "libft.h"
 
 static void	find_itsct(t_itsc *itsc, t_vector *ray, t_data *d, t_vector *center)
@@ -45,38 +47,6 @@ t_vector	get_itsc_p(t_vector *ray, t_vector *ray_o, double t)
 	return (v_addition(ray_o, &tmp));
 }
 
-void	get_itsc_normal(t_itsc *itsc)
-{
-	t_vector	*v;
-
-	if (itsc->type == PLANE)
-		*itsc->normal = *((t_plane *)itsc->address)->n_vector;
-	else if (itsc->type == SPHERE)
-	{
-		v = ((t_sphere *)itsc->address)->center;
-		*itsc->normal = v_subtract(itsc->p, v);
-		normalize_v(itsc->normal);
-	}
-	else if (itsc->type == CYLINDER)
-	{
-		double		t;
-		t_vector	new_center;
-		t_vector	v1;
-		
-		new_center = *((t_cylinder *)itsc->address)->center;
-		v1 = v_subtract(itsc->p, &new_center);
-		t = dot(&v1, ((t_cylinder *)itsc->address)->n_vector);
-		v1 = v_product(((t_cylinder *)itsc->address)->n_vector, t);
-		v1 = v_addition(&new_center, &v1);
-		*itsc->normal = v_subtract(itsc->p, &v1);
-		normalize_v(itsc->normal);
-	}
-	else if (itsc->type == TOP_CAP)
-		*itsc->normal = *((t_cylinder *)itsc->address)->n_vector;
-	else if (itsc->type == BOT_CAP)
-		*itsc->normal = *((t_cylinder *)itsc->address)->i_n_vector;
-}
-
 double	light_itscs(t_itsc *itsc_0, t_vector *o, t_data *d, double ray_n)
 {
 	t_itsc		itsc_1;
@@ -105,11 +75,26 @@ double	light_itscs(t_itsc *itsc_0, t_vector *o, t_data *d, double ray_n)
 	return (angle_vectors(&dir, itsc_0->normal));
 }
 
+static void	light_calcs(t_itsc *itsc, t_vector *ray, t_data *d)
+{
+	t_light	*light;
+	double	tmp;
+
+	*itsc->p = get_itsc_p(ray, d->camera->center, itsc->dist);
+	get_itsc_normal(itsc);
+	itsc->mat.color = calc_ambient(&itsc->mat, d->ambient_light);
+	if (d->lights)
+	{
+		light = (t_light *)d->lights->content;
+		tmp = light_itscs(itsc, &light->center, d, dot(ray, itsc->normal));
+		if (tmp >= 0)
+			itsc->mat.color = calc_light(&itsc->mat, light, tmp);
+	}
+}
+
 t_color	trace_ray(t_vector *ray, t_data *d)
 {
 	t_itsc	itsc;
-	double	tmp;
-	t_light	*light;
 
 	itsc.type = 0;
 	itsc.dist = -1;
@@ -122,21 +107,10 @@ t_color	trace_ray(t_vector *ray, t_data *d)
 		free(itsc.p);
 		clean_exit(d, 12);
 	}
-	itsc.mat = new_material(new_color(127, 178, 255, 0), 0); // Background color
+	itsc.mat = new_material(new_color(127, 178, 255, 0), 0);
 	find_itsct(&itsc, ray, d, d->camera->center);
-	if (itsc.type > 0 && itsc.type < 6) // There is itsc
-	{
-		*itsc.p = get_itsc_p(ray, d->camera->center, itsc.dist);
-		get_itsc_normal(&itsc);
-		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
-		if (d->lights)
-		{
-			light = (t_light *)d->lights->content;
-			tmp = light_itscs(&itsc, light->center, d, dot(ray, itsc.normal));
-			if (tmp >= 0)
-				itsc.mat.color = calc_light(&itsc.mat, light, tmp);
-		}
-	}
+	if (itsc.type > 0 && itsc.type < 6)
+		light_calcs(&itsc, ray, d);
 	else
 		itsc.mat.color = calc_ambient(&itsc.mat, d->ambient_light);
 	free(itsc.p);

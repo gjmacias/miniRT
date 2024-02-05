@@ -6,13 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:00 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/13 15:22:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:24:25 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include "vectors.h"
 
 void	input_brightness(char *s, t_data *p, double *bright)
 {

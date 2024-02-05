@@ -6,11 +6,13 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:11 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/23 16:50:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:23:35 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "matrix.h"
+#include "vectors.h"
 #include "mlx.h"
 #include <limits.h>
 #include <sys/wait.h>

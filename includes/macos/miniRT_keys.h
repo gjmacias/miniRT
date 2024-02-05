@@ -6,10 +6,9 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:44:19 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 13:44:19 by gmacias-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:13:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINIRT_KEYS_H
 # define MINIRT_KEYS_H

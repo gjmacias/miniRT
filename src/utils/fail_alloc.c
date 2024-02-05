@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   fail_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 18:29:46 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:12:51 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/02/05 18:48:35 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/02/05 18:48:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-
-#endif
+void	fail_check(void *content, t_data *p)
+{
+	if (!content)
+		clean_exit(p, 12);
+}

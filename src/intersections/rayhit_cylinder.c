@@ -6,12 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:52:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/02/05 13:51:55 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:25:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include "intersections.h"
+#include "vectors.h"
 #include <math.h>
 
 static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
@@ -21,8 +23,8 @@ static int	height_check(t_vector *o, t_vector *r, t_cylinder *cy, double t)
 	t_vector	itsc_p;
 
 	itsc_p = get_itsc_p(r, o, t);
-	aux = v_subtract(&itsc_p, cy->center);
-	h = dot(cy->n_vector, &aux);
+	aux = v_subtract(&itsc_p, &cy->center);
+	h = dot(&cy->n_vector, &aux);
 	if (fabs(h) <= cy->half_height)
 		return (1);
 	return (0);
@@ -34,9 +36,9 @@ static double	main_itsc(t_vector *o, t_vector *r, t_cylinder *cy)
 	double		dot_p[2];
 	t_vector	v;
 
-	v = v_subtract(o, cy->center);
-	dot_p[0] = dot(r, cy->n_vector);
-	dot_p[1] = dot(&v, cy->n_vector);
+	v = v_subtract(o, &cy->center);
+	dot_p[0] = dot(r, &cy->n_vector);
+	dot_p[1] = dot(&v, &cy->n_vector);
 	coef[0] = 1.0 - pow(dot_p[0], 2);
 	coef[1] = 2 * (dot(r, &v) - dot_p[0] * dot_p[1]);
 	coef[2] = dot(&v, &v) - pow(dot_p[1], 2) - cy->r_sq;

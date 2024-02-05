@@ -6,13 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/23 18:44:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:19:25 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "miniRT_defs.h"
 #include "miniRT.h"
+#include "miniRT_defs.h"
+#include "matrix.h"
 #include <stdlib.h>
 
 int	ft_frame(t_hook *hook)

@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:01:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:58:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:58:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	parse_type(char **arguments, t_data *p)
 		else if (ft_strncmp("C", arguments[0], 2) == 0)
 			p_camera(arguments, p);
 		else if (ft_strncmp("L", arguments[0], 2) == 0)
-			p_ligths(arguments, p);
+			p_lights(arguments, p);
 		else
 			parse_type_error(arguments, p);
 	}

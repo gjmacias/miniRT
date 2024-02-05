@@ -6,13 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 17:01:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:19:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "miniRT.h"
 #include "miniRT_defs.h"
+#include "matrix.h"
 #include "libft.h"
 #include <limits.h>
 

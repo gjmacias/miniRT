@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2024/02/05 14:21:43 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/02/05 18:56:53 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC			=	miniRT.c \
 				intersections/rayhit_plane.c intersections/rayhit_sphere.c \
 				intersections/rayhit_cylinder.c \
 				intersections/rayhit_cylinder_cap.c \
+				intersections/get_normal.c \
 				utils/array_to.c utils/for_quaternions.c utils/for_vectors.c \
 				utils/ft_str_to.c utils/is_space.c \
 				utils/my_mlx.c utils/new_vector.c \
