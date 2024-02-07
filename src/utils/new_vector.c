@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:05:00 by ffornes-          #+#    #+#             */
-/*   Updated: 2023/12/21 17:32:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:09:05 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,29 @@ t_vector	ptop_vector(t_vector end, t_vector start)
 	return (result);
 }
 
-t_vector	change_angle(t_vector vec, double angle, char axis) 
+t_vector	change_angle(t_vector vec, double angle, char axis)
 {
-    double rad = angle * (M_PI / 180);
-    double cosA = cos(rad);
-    double sinA = sin(rad);
-    t_vector result;
+	double		rad;
+	double		cos_a;
+	double		sin_a;
+	t_vector	result;
 
-    if (axis == 'x')
+	rad = angle * (M_PI / 180);
+	cos_a = cos(rad);
+	sin_a = sin(rad);
+	if (axis == 'x')
 	{
-        result.x = vec.x;
-        result.y = vec.y * cosA - vec.z * sinA;
-        result.z = vec.y * sinA + vec.z * cosA;
-    } 
+		result.x = vec.x;
+		result.y = vec.y * cos_a - vec.z * sin_a;
+		result.z = vec.y * sin_a + vec.z * cos_a;
+	}
 	else if (axis == 'y')
 	{
-        result.x = vec.x * cosA + vec.z * sinA;
-        result.y = vec.y;
-        result.z = -vec.x * sinA + vec.z * cosA;
-    }
+		result.x = vec.x * cos_a + vec.z * sin_a;
+		result.y = vec.y;
+		result.z = -vec.x * sin_a + vec.z * cos_a;
+	}
 	else
 		return (vec);
-    return (result);
+	return (result);
 }

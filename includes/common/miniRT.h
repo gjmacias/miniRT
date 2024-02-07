@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:26:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 19:35:14 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:23:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 void		free_data(t_data *d);
 void		clean_exit(t_data *d, unsigned char exit_code);
+void		fail_check(void *content, t_data *p);
 // CHECKERS
 void		check_format_dotrt(char *txt);
 int			checker_double(char *s, char c);
@@ -50,6 +51,8 @@ void		init_parameters_info(t_data *p);
 void		init_canvas(t_data *p, char *str_width, char *str_height);
 void		init_quaternion(t_vector *v, t_quaternion *q);
 void		init_euler(t_vector *euler);
+void		init_matrix(t_4Matrix *matrix);
+void		init_itsc(t_itsc *itsc);
 
 //  INPUTS
 t_4Matrix	pos_camera(t_camera *c);
@@ -60,7 +63,7 @@ void		process_camera(t_data *d, t_mlx_data *mlx, int num);
 //  PARSE
 void		parse_txt(t_data *p);
 void		parse_type(char **arguments, t_data *p);
-void		p_ligths(char **arguments, t_data *p);
+void		p_lights(char **arguments, t_data *p);
 void		p_plane(char **arguments, t_data *p);
 void		p_sphere(char **arguments, t_data *p);
 void		p_cylinder(char **arguments, t_data *p);
@@ -75,43 +78,7 @@ void		input_color(char *s, t_data *p, t_color *color);
 
 //	RAY TRACING
 t_color		trace_ray(t_vector *ray, t_data *d);
-
-//	MATRIX
 t_color		calc_ambient(t_material *m, t_ambiental a);
-
-void		init_matrix(t_4Matrix *matrix);
-void		create_pos_matrix(t_4Matrix *matrix, t_camera *c);
-void		create_direction_matrix(t_4Matrix *matrix, t_camera *c);
-void			create_FOV_matrix(t_4Matrix *matrix, double fov);
-t_vector 		matrix_FOV(t_4Matrix *m, t_data *d, t_vector *v);
-t_vector		rotate_vector_by_quaternion(t_vector v, t_quaternion q);
-t_quaternion	rotate_quaternion(double angle_degrees, int c);
-t_quaternion	multiply_quaternions(t_quaternion a, t_quaternion b);
-t_quaternion	euler_to_q(double yaw, double pitch, double roll);
-void			move_euler(t_camera *c, double ang);
-
-
-
-//	VECTORS
-t_vector	new_vector(double x, double y, double z);
-t_vector	tmp_vector(double x, double y, double z);
-
-t_vector	v_addition(t_vector *v1, t_vector *v2);
-t_vector	v_subtract(t_vector *v1, t_vector *v2);
-t_vector	v_product(t_vector *v1, double n);
-double		v_magnitude(t_vector *vector);
-void		normalize_v(t_vector *vector);
-double		dot(t_vector *v1, t_vector *v2);
-float		angle_vectors(t_vector *a, t_vector *b);
-t_vector	cross_product(t_vector *a, t_vector *b);
-
-//	INTERSECTIONS
-void	rayhit_pl(t_vector *o, t_vector *r, t_plane *pl, t_itsc *itsc);
-void	rayhit_sp(t_vector *o, t_vector *r, t_sphere *sp, t_itsc *itsc);
-void	rayhit_cy(t_vector *o, t_vector *r, t_cylinder *cy, t_itsc *itsc);
-t_vector	get_itsc_p(t_vector *ray_dir, t_vector *ray0, double t);
-
-void	init_itsc(t_itsc *itsc);
 
 //	UTILS
 int			is_space(int c);
@@ -135,6 +102,7 @@ t_material	new_material(t_color color, double specular);
 
 t_color		calc_light(t_material *m, t_light *l, double rad);
 
+double		quadratic_formula(double a, double b, double c);
 //  TEST
 void		print_matrix(t_4Matrix *m);
 
@@ -146,6 +114,5 @@ void		print_color(t_color color);
 void		printd(double d);
 void		print_quaternion(t_quaternion quaternion);
 void		print_ang(t_vector vector);
-
 
 #endif

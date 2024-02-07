@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:53:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/22 19:33:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:56:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_4Matrix
 	float	m[4][4];
 }	t_4Matrix;
 
-//	1 1 1 1								= 4 bytes
 typedef struct s_color
 {
 	unsigned char	r;
@@ -47,7 +46,6 @@ typedef struct s_color
 	unsigned char	a;
 }		t_color;
 
-//	1 1 1 1 1 1							= 6 bytes
 typedef struct s_info
 {
 	unsigned char	ambient_light;
@@ -58,28 +56,24 @@ typedef struct s_info
 	unsigned char	cylinders;
 }		t_info;
 
-//	4 8									= 12 bytes
 typedef struct s_material
 {
 	t_color		color;
 	double		specular;
 }			t_material;
 
-//	4 8									= 12 bytes
 typedef struct s_ambiental
 {
 	t_color		color;
 	double		brightness;
 }				t_ambiental;
 
-//	8 8									= 16 bytes
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
 }			t_vars;
 
-//	8 8 8 								= 24 bytes
 typedef struct s_vector
 {
 	double	x;
@@ -87,7 +81,6 @@ typedef struct s_vector
 	double	z;
 }		t_vector;
 
-//	8 8 8 								= 24 bytes
 typedef struct s_quaternion
 {
 	double	x;
@@ -96,7 +89,6 @@ typedef struct s_quaternion
 	double	w;
 }		t_quaternion;
 
-//	8 8 8								= 24 bytes
 typedef struct s_camera
 {
 	double			fov;
@@ -105,15 +97,13 @@ typedef struct s_camera
 	t_quaternion	*q;
 }				t_camera;
 
-//	4 8 8								= 20 bytes
 typedef struct s_light
 {
 	t_color		color;
 	double		brightness;
-	t_vector	*center;
+	t_vector	center;
 }				t_light;
 
-// 1 8 8 8 12								= 28 bytes
 typedef struct s_intersection
 {
 	unsigned char	type;
@@ -124,24 +114,21 @@ typedef struct s_intersection
 	t_material		mat;
 }	t_itsc;
 
-//	8 8 12								= 28 bytes
 typedef struct s_plane
 {
-	t_vector	*center;
-	t_vector	*n_vector;
+	t_vector	center;
+	t_vector	n_vector;
 	t_material	material;
 }				t_plane;
 
-//	8 8 8 12							= 36 bytes
 typedef struct s_sphere
 {
 	double		diameter;
 	double		r_sq;
-	t_vector	*center;
+	t_vector	center;
 	t_material	material;
 }				t_sphere;
 
-//	4 4 4 8 8 16						= 44 bytes
 typedef struct s_mlx_data
 {
 	int		bpps;
@@ -152,22 +139,20 @@ typedef struct s_mlx_data
 	t_vars	vars;
 }			t_mlx_data;
 
-//	8 8 8 8 8 8 8 12 						= 6rbytes
 typedef struct s_cylinder
 {
 	double		diameter;
 	double		r_sq;
 	double		half_height;
 	double		height;
-	t_vector	*center;
-	t_vector	*top_center;
-	t_vector	*bot_center;
-	t_vector	*n_vector;
-	t_vector	*i_n_vector;
+	t_vector	center;
+	t_vector	top_center;
+	t_vector	bot_center;
+	t_vector	n_vector;
+	t_vector	i_n_vector;
 	t_material	material;
 }				t_cylinder;
 
-// 4 4 6 8 8 8 8 8 8 8 12 				= 74 bytes
 typedef struct s_data
 {
 	int			width;
@@ -183,7 +168,6 @@ typedef struct s_data
 	t_ambiental	ambient_light;
 }				t_data;
 
-//	8 8									= 16 bytes
 typedef struct s_hook
 {
 	t_mlx_data	*data;

@@ -6,13 +6,14 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/01/23 18:44:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:59:28 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "miniRT_defs.h"
 #include "miniRT.h"
+#include "miniRT_defs.h"
+#include "matrix.h"
 #include <stdlib.h>
 
 int	ft_frame(t_hook *hook)
@@ -91,13 +92,11 @@ int	key_hook_test(int keycode, t_hook *hook)
 	else if (keycode == PLUS_K && hook->parameters->camera->fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov + 5.0;
-		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	else if (keycode == MINUS_K && hook->parameters->camera->fov - 5.0 >= 0.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov - 5.0;
-		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	return (0);

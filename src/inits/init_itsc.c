@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   init_itsc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 18:29:46 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:12:51 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/02/05 13:35:34 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/02/05 13:35:36 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "miniRT_defs.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-
-#endif
+void	init_itsc(t_itsc *itsc)
+{
+	itsc->type = 0;
+	itsc->address = NULL;
+	itsc->dist = -1;
+	itsc->p = NULL;
+	itsc->normal = NULL;
+}

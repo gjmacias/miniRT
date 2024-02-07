@@ -6,11 +6,13 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:52 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/19 16:15:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:26:35 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "miniRT_defs.h"
+#include "vectors.h"
 
 t_vector	neg_vector(t_vector *v)
 {

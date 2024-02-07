@@ -1,32 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_matrix.c                                     :+:      :+:    :+:   */
+/*   fail_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 13:42:31 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/12/18 13:42:31 by gmacias-         ###   ########.fr       */
+/*   Created: 2024/02/05 18:48:35 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/02/05 18:48:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_defs.h"
-#include <stdio.h>
-
-void	print_matrix(t_4Matrix *m)
+void	fail_check(void *content, t_data *p)
 {
-	int	i;
-	int	j;
-
-	i = -1;
-	printf("MATRIX:\n");
-	while (++i != 4)
-	{
-		j = -1;
-		while (++j != 4)
-		{
-			printf("[ %.4f ]\t", m->m[i][j]);
-		}
-		printf("\n");
-	}
+	if (!content)
+		clean_exit(p, 12);
 }
