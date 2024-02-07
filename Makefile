@@ -6,13 +6,13 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2024/02/05 18:56:53 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/02/07 17:00:48 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	miniRT
 CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -MMD -MP #-fsanitize=address
+CFLAGS	=	-O3 -g -Wall -Wextra -Werror -MMD -MP #-fsanitize=address
 OS		:= $(shell uname)
 
 ###############################################################################
@@ -38,7 +38,6 @@ SRC			=	miniRT.c \
 				utils/my_mlx.c utils/new_vector.c \
 				utils/vector_operations.c \
 				utils/new_color.c utils/new_material.c utils/colors.c \
-				tests/print.c tests/print_matrix.c tests/print_vector.c \
 				utils/free_data.c utils/quadratic_formula.c
 
 OBJ		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))

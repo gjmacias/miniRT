@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:19:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:59:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ void	init_quaternion(t_vector *e, t_quaternion *q)
 	q->y = 0;
 	q->z = 0;
 	q->w = 1;
-	print_ang(*e);
 	*q = multiply_quaternions(*q, euler_to_q(e->x, e->y, e->z));
 }

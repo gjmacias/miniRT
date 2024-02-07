@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:33:50 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 13:53:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:59:00 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int words, char **arguments)
 		parameters.txt = arguments[1];
 		check_format_dotrt(parameters.txt);
 		parse_txt(&parameters);
-		print_data(&parameters);
 		init_mlx(&data, &parameters);
 		hook.data = &data;
 		hook.parameters = &parameters;

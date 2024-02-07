@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:42 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:05:37 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:00:12 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	move_euler(t_camera *c, double ang)
 
 	steps = 5;
 	rads = (ang * (M_PI / 180) + c->euler->z);
-	print_vector(*c->center);
 	c->center->x += steps * sin(rads);
 	c->center->z += steps * cos(rads);
 }

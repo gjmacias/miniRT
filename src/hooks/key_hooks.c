@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:30 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:19:25 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:59:28 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,11 @@ int	key_hook_test(int keycode, t_hook *hook)
 	else if (keycode == PLUS_K && hook->parameters->camera->fov + 5.0 <= 180.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov + 5.0;
-		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	else if (keycode == MINUS_K && hook->parameters->camera->fov - 5.0 >= 0.0)
 	{
 		hook->parameters->camera->fov = hook->parameters->camera->fov - 5.0;
-		printd(hook->parameters->camera->fov);
 		ft_frame(hook);
 	}
 	return (0);
