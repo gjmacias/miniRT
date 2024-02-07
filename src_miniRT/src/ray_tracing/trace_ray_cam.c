@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:42:21 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/05 19:24:42 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:04:40 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ double	light_itscs(t_itsc *itsc_0, t_vector *o, t_data *d, double ray_n)
 			return (-1.0);
 		else if (dir_n >= 0.0 && ray_n < 0.0)
 			return (-1.0);
-		else if (dir_n == 0)
+		else if (dir_n == 0 || (dir_n > 0.0 && ray_n >= 0.0))
 			*itsc_0->normal = v_product(itsc_0->normal, -1.0);
 	}
 	dir = v_product(&dir, -1);
