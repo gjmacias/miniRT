@@ -47,24 +47,25 @@ DEPS    =   $(addprefix $(DPS_DIR), $(notdir $(SRC:.c=.d)))
 #									DIR_PATH								  #
 ###############################################################################
 
-SRC_DIR	=	src/
-OBJ_DIR	=	.obj/
-DPS_DIR	=	.dps/
+PATH_DIR	=	src_miniRT/
+SRC_DIR		=	$(PATH_DIR)src/
+OBJ_DIR		=	$(PATH_DIR).obj/
+DPS_DIR		=	$(PATH_DIR).dps/
 
 ###############################################################################
 #									LIBRARIES								  #
 ###############################################################################
 
-LIB_PATH	=	./Libft
+LIB_PATH	=	$(PATH_DIR)Libft
 LIB			=	$(LIB_PATH)/libft.a
 LIB_FLAGS	=	-L$(LIB_PATH) -lft
 
 ifeq ($(OS), Linux)
-	MLX_PATH	= ./mlx-linux
+	MLX_PATH	= $(PATH_DIR)mlx-linux
 	MLX			= $(MLX_PATH)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx -lXext -lX11 -lz -lm
 else
-	MLX_PATH	= ./mlx
+	MLX_PATH	= $(PATH_DIR)mlx
 	MLX			= $(MLX_PATH)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
 endif
@@ -73,12 +74,12 @@ endif
 #									INLUDES									  #
 ###############################################################################
 
-INCS	= -I ./includes/common/ -I ./Libft/include/ -I $(MLX_PATH)/
+INCS	= -I $(PATH_DIR)includes/common/ -I $(PATH_DIR)Libft/include/ -I $(MLX_PATH)/
 
 ifeq ($(OS), Linux)
-	INCS	+= -I ./includes/linux/
+	INCS	+= -I $(PATH_DIR)includes/linux/
 else
-	INCS	+= -I ./includes/macos/
+	INCS	+= -I $(PATH_DIR)includes/macos/
 endif
 
 ###############################################################################
@@ -101,7 +102,7 @@ LIGHT_GREEN	= \033[1;92m
 ###############################################################################
 
 all: make_mlx make_lib make_dir $(NAME)
-	@echo "$(CYAN)$(NAME) ready to use:$(DEF_COLOR)"
+	@echo "" && echo "$(YELLOW)$(NAME) ready to use:$(DEF_COLOR)"
 
 make_dir:
 	@mkdir -p $(OBJ_DIR) $(DPS_DIR)
@@ -137,10 +138,10 @@ fclean_libs:
 
 #					--------	RULES PROGRAM	--------							  #
 
-$(NAME): $(LIB) $(MLX) $(OBJ)
+$(NAME): Makefile $(LIB) $(MLX) $(OBJ)
 	@echo "$(MAGENTA)Compiling $(NAME)$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) $(INCS) $(OBJ) -o $(NAME) $(LIB) $(LIB_FLAGS) $(MLX) $(MLX_FLAGS)
-	@echo "$(BLUE)Created $(NAME) executable $(DEF_COLOR)" && echo ""
+	@echo "$(BLUE)Created $(NAME) executable $(DEF_COLOR)"
 
 clean:	clean_libs
 	@echo "$(RED)Removing ON $(NAME), $(LIB_PATH) and $(MLX_PATH): objects and dependencies... $(DEF_COLOR)"
@@ -159,4 +160,4 @@ re: fclean all
 ###############################################################################
 
 -include $(DEPS)
-.PHONY: all make_dir clean fclean re make_mlx make_lib make_dir
+.PHONY: all  clean fclean re make_dir make_mlx make_lib make_dir clean_libs fclean_libs
