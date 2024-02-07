@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:00:40 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/02/07 16:59:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:51:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_euler(t_vector *n_vector)
 	t_vector	euler;
 
 	euler.x = 0;
-	euler.y = asin(n_vector->y);
+	euler.y = -asin(n_vector->y);
 	if (fabs(n_vector->y) < 0.9999)
 		euler.z = atan2(n_vector->x, n_vector->z);
 	else
