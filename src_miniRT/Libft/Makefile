@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/24 19:51:17 by ffornes-          #+#    #+#              #
-#    Updated: 2023/09/27 16:14:24 by laugarci         ###   ########.fr        #
+#    Updated: 2024/02/07 17:24:58 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ DEPS = $(DEPS_LIBFT) $(DEPS_GNL)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -MMD
 RM = rm -f
-AR = ar rc
+AR = ar rcs
 
 INCLUDE = -I include/
 
@@ -81,7 +81,7 @@ INCLUDE = -I include/
 
 all: 		$(NAME)
 
-$(NAME):	$(OBJS_LIBFT_DIR) $(OBJS_GNL_DIR) $(OBJS)
+$(NAME):	Makefile $(OBJS_LIBFT_DIR) $(OBJS_GNL_DIR) $(OBJS)
 			$(AR) $@ $(OBJS)
 
 $(OBJS_LIBFT_DIR):		

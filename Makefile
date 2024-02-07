@@ -6,7 +6,7 @@
 #    By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:26:30 by gmacias-          #+#    #+#              #
-#    Updated: 2024/02/07 17:00:48 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/02/07 17:22:54 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,13 +118,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | make_dir
 #						--------	MAKE LIBRARIES	--------							  #
 
 make_mlx:
-	@echo "$(GREEN)Checking mlx: $(DEF_COLOR)"
+	@echo "$(GREEN)Checking mlx: $(GRAY)"
 	@make -C $(MLX_PATH) 2> /dev/null
 	@echo "$(BLUE)Done mlx! $(DEF_COLOR)" && echo ""
 
 make_lib:
-	@echo "$(GREEN)Checking Libft: $(DEF_COLOR)"
-	@$(MAKE) -s -C $(LIB_PATH)
+	@echo "$(GREEN)Checking Libft: $(GRAY)"
+	@$(MAKE) -C $(LIB_PATH)
 	@echo "$(BLUE)Done Libft! $(DEF_COLOR)" && echo ""
 
 clean_libs:
