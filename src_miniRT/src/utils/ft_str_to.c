@@ -6,7 +6,7 @@
 /*   By: gmacias- <gmacias-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:02:10 by gmacias-          #+#    #+#             */
-/*   Updated: 2023/11/13 13:02:10 by gmacias-         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:40:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ double	ft_strtod(char *str)
 
 	n = (double)ft_atoi(str);
 	i = 0;
-	while (str[i] && str[i] != '.')
+	while (str[i] && str[i] != '.' && str[i] != ',')
 		i++;
 	if (str[i] == '.')
 		i++;
+	if (str[i] == ',')
+		return (n);
 	j = i;
 	while (str[j] && ft_isdigit(str[j]))
 		j++;
