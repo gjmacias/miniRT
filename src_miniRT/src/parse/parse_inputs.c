@@ -42,7 +42,6 @@ void	input_position(char *s, t_data *p, t_vector *center)
 	if (!s || checker_array_double(s))
 	{
 		ft_putstr_fd("Error in line: < ", 2);
-		write(2, line_num, ft_strlen(line_num));
 		if (s)
 			ft_putstr_fd(" > Bad parameter: Vector position\n", 2);
 		else

@@ -63,7 +63,7 @@ LIB_FLAGS	=	-L$(LIB_PATH) -lft
 ifeq ($(OS), Linux)
 	MLX_PATH	= $(PATH_DIR)mlx-linux
 	MLX			= $(MLX_PATH)/libmlx.a
-	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx -lXext -lX11 -lz -lm
+	MLX_FLAGS	= -L$(MLX_PATH) -L/usr/lib -lmlx -lXext -lX11 -lm
 else
 	MLX_PATH	= $(PATH_DIR)mlx
 	MLX			= $(MLX_PATH)/libmlx.a
