@@ -47,6 +47,12 @@ Continúa leyendo para obtener más detalles sobre cómo configurar y utilizar *
    - [Rotar la Cámara](#rotar-la-cámara)
    - [Ajustar el Campo de Visión (FOV)](#ajustar-el-campo-de-visión-fov)
 7. [Soporte](#soporte)
+   - [Configuración de Teclas](#configuración-de-teclas)
+   - [Gestión de Bibliotecas](#gestión-de-bibliotecas)
+8. [Demostración](#demostración)
+   - [Configuración Inicial y Carga de Escena](#configuración-inicial-y-carga-de-escena)
+   - [Interacción con la Cámara y Renderizado en Tiempo Real](#interacción-con-la-cámara-y-renderizado-en-tiempo-real)
+
 
 ## Mapa de elementos
 
@@ -308,18 +314,25 @@ Este enfoque asegura que el proyecto no solo sea portable entre diferentes siste
 
 Para ilustrar cómo funciona el proyecto en la práctica, hemos preparado una serie de videos que muestran diferentes aspectos y funcionalidades del programa en acción. Estos videos cubren:
 
-1. **Configuración Inicial y Carga de Escena**:
+### 1. Configuración Inicial y Carga de Escena:
 
-| ![Color](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Color.mp4) | ![Movement](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Movement.mp4) | ![Resolution](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Resolution.mp4) |
+https://github.com/user-attachments/assets/89b007eb-3e49-41ad-89d9-835514ac6dc6
 
-2. **Interacción con la Cámara y Renderizado en Tiempo Real**:
+https://github.com/user-attachments/assets/fb7f2ec8-c4a1-47b0-9e77-1ca5f31f2020
 
-| ![Show1](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show1.mp4) | ![Show2](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show2.mp4) |
+https://github.com/user-attachments/assets/0e1a1be8-d323-4326-9ba2-bf296c1388ef
+
+### 2. Interacción con la Cámara y Renderizado en Tiempo Real:
+
+*Los videos estan x4 a una resolución de 800x400*
+
+https://github.com/user-attachments/assets/9629deba-5ecb-416a-9783-d53e36cde98f
+
+https://github.com/user-attachments/assets/c93468b0-f2a6-4bb9-a3c6-c064a3bea923
 
 Estos clips te proporcionarán una visión clara de cómo utilizar el programa y lo que puedes esperar en términos de rendimiento y visualización.
 
-
-## Cómo Contribuir
+# Cómo Contribuir
 
 Si deseas contribuir al proyecto:
 
