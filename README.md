@@ -1,5 +1,7 @@
 # MiniRT - ffornes- && gmacias-
 
+[You can read the README in English by clicking HERE](https://github.com/gjmacias/miniRT/blob/master/README-en.md)
+
 ## Introducción
 
 **miniRT** es un proyecto que te introduce al fascinante mundo del raytracing. Con este proyecto, aprenderás a renderizar imágenes generadas por ordenador utilizando técnicas básicas de raytracing. ¡Descubre cómo se crean imágenes realistas desde cero!
