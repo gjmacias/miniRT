@@ -1,6 +1,27 @@
 # MiniRT - ffornes- && gmacias-
 
-miniRT es un proyecto para aprender sobre Raytracing, donde renderizamos imágenes generadas por ordenador usando fórmulas matemáticas. Aquí te explicamos cómo empezar con el proyecto y qué necesitas saber.
+**miniRT** es un proyecto que te introduce al fascinante mundo del raytracing. Con este proyecto, aprenderás a renderizar imágenes generadas por ordenador utilizando técnicas básicas de raytracing. ¡Descubre cómo se crean imágenes realistas desde cero!
+
+## Imágenes de Ejemplo
+
+Aquí tienes algunas imágenes renderizadas con **miniRT**:
+
+![Renderizado Ejemplo 1](https://example.com/imagen1.jpg)
+*Descripción de la imagen 1.*
+
+![Renderizado Ejemplo 2](https://example.com/imagen2.jpg)
+*Descripción de la imagen 2.*
+
+¡Estas imágenes muestran lo que puedes lograr con el proyecto y te dan una idea de cómo se verán los resultados finales!
+
+## ¿Qué es miniRT?
+
+**miniRT** es un proyecto de raytracing que te permite:
+- **Renderizar Imágenes 3D:** Crea imágenes generadas por ordenador utilizando técnicas básicas de raytracing.
+- **Entender Conceptos Clave:** Aprende sobre la cámara, las luces, y las figuras geométricas como círculos, planos y cilindros.
+- **Aplicar Fórmulas Matemáticas:** Implementa fórmulas para la intersección de rayos con diferentes objetos.
+
+Continúa leyendo para obtener más detalles sobre cómo configurar y utilizar **miniRT**, incluyendo cómo definir el mapa, las fórmulas de intersección, y cómo controlar la cámara y el teclado.
 
 ## Mapa de elementos
 
