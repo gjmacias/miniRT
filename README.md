@@ -197,11 +197,6 @@ Esto da lugar a una imagen más realista, ajustando el brillo y el color según 
 
 ![Cálculo de Sombra](https://github.com/gjmacias/miniRT/blob/master/README-images/CalculoSombra.PNG)
 
-
-Entendido. A continuación, te proporciono una explicación clara y accesible de la estructura de datos y de la cámara para tu README. Esto te permitirá entender cómo se organizan los datos y qué información se almacena en cada estructura sin necesidad de añadir directamente el código al README.
-
----
-
 ## Estructura de Datos y Cámara
 
 En el proyecto, usamos varias estructuras de datos para manejar la información de la escena y la configuración de la cámara. Aquí te explicamos cómo se organizan:
