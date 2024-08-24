@@ -25,12 +25,6 @@ Aquí tienes algunas imágenes renderizadas con **miniRT**:
 
 Continúa leyendo para obtener más detalles sobre cómo configurar y utilizar **miniRT**, incluyendo cómo definir el mapa, las fórmulas de intersección, y cómo controlar la cámara y el teclado.
 
-Claro, aquí tienes un índice detallado para tu README, que te permitirá navegar fácilmente por las distintas secciones del documento:
-
----
-
-# miniRT - README
-
 ## Índice
 
 1. [Introducción](#introducción)
@@ -55,10 +49,6 @@ Claro, aquí tienes un índice detallado para tu README, que te permitirá naveg
    - [Rotar la Cámara](#rotar-la-cámara)
    - [Ajustar el Campo de Visión (FOV)](#ajustar-el-campo-de-visión-fov)
 7. [Soporte](#soporte)
-
----
-
-Este índice te ayudará a organizar tu README y facilitará la navegación por las secciones del documento. Puedes ajustar las secciones y los enlaces según sea necesario para que coincidan con el contenido de tu README.
 
 ## Mapa de elementos
 
