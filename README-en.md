@@ -197,8 +197,6 @@ This results in a more realistic image, adjusting brightness and color based on 
 
 ![Shadow Calculation](https://github.com/gjmacias/miniRT/blob/master/README-images/CalculoSombra.PNG)
 
----
-
 ## Data Structure and Camera
 
 In the project, we use several data structures to manage scene information and camera configuration. Here’s how they are organized:
