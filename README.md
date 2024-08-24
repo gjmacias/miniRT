@@ -1,8 +1,10 @@
 # MiniRT - ffornes- && gmacias-
 
+## Introducción
+
 **miniRT** es un proyecto que te introduce al fascinante mundo del raytracing. Con este proyecto, aprenderás a renderizar imágenes generadas por ordenador utilizando técnicas básicas de raytracing. ¡Descubre cómo se crean imágenes realistas desde cero!
 
-## Imágenes de Ejemplo
+### Imágenes de Ejemplo
 
 Aquí tienes algunas imágenes renderizadas con **miniRT**:
 
@@ -14,7 +16,7 @@ Aquí tienes algunas imágenes renderizadas con **miniRT**:
 
 ¡Estas imágenes muestran lo que puedes lograr con el proyecto y te dan una idea de cómo se verán los resultados finales!
 
-## ¿Qué es miniRT?
+### ¿Qué es miniRT?
 
 **miniRT** es un proyecto de raytracing que te permite:
 - **Renderizar Imágenes 3D:** Crea imágenes generadas por ordenador utilizando técnicas básicas de raytracing.
@@ -22,6 +24,41 @@ Aquí tienes algunas imágenes renderizadas con **miniRT**:
 - **Aplicar Fórmulas Matemáticas:** Implementa fórmulas para la intersección de rayos con diferentes objetos.
 
 Continúa leyendo para obtener más detalles sobre cómo configurar y utilizar **miniRT**, incluyendo cómo definir el mapa, las fórmulas de intersección, y cómo controlar la cámara y el teclado.
+
+Claro, aquí tienes un índice detallado para tu README, que te permitirá navegar fácilmente por las distintas secciones del documento:
+
+---
+
+# miniRT - README
+
+## Índice
+
+1. [Introducción](#introducción)
+2. [Mapa de Elementos](#mapa-de-elementos)
+   - [Ejemplo de Mapa](#ejemplo-de-mapa)
+   - [Detalles de los Elementos](#detalles-de-los-elementos)
+3. [Fórmulas](#fórmulas)
+   - [Esfera en 3D](#esfera-en-3d)
+   - [Plano](#plano)
+   - [Cilindro](#cilindro)
+4. [Intersección de Rayos](#intersección-de-rayos)
+   - [Rayo y Esfera](#rayo-y-esfera)
+   - [Rayo y Plano](#rayo-y-plano)
+   - [Rayo y Cilindro](#rayo-y-cilindro)
+   - [Sombreado](#sombreado)
+5. [Estructura de Datos y Cámara](#estructura-de-datos-y-cámara)
+   - [Estructura General (t_info y t_data)](#estructura-general-t_info-y-t_data)
+   - [Estructura de la Cámara (t_camera)](#estructura-de-la-cámara-t_camera)
+6. [Teclado](#teclado)
+   - [Salir del Programa](#salir-del-programa)
+   - [Mover la Cámara](#mover-la-cámara)
+   - [Rotar la Cámara](#rotar-la-cámara)
+   - [Ajustar el Campo de Visión (FOV)](#ajustar-el-campo-de-visión-fov)
+7. [Soporte](#soporte)
+
+---
+
+Este índice te ayudará a organizar tu README y facilitará la navegación por las secciones del documento. Puedes ajustar las secciones y los enlaces según sea necesario para que coincidan con el contenido de tu README.
 
 ## Mapa de elementos
 
