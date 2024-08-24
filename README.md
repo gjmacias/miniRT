@@ -310,11 +310,11 @@ Para ilustrar cómo funciona el proyecto en la práctica, hemos preparado una se
 
 1. **Configuración Inicial y Carga de Escena**:
 
-| ![Colors](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show3.mov) | ![Move](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show4.mov) | ![Resolution](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show5.mov) |
+| ![Color](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Color.mp4) | ![Movement](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Movement.mp4) | ![Resolution](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Resolution.mp4) |
 
 2. **Interacción con la Cámara y Renderizado en Tiempo Real**:
 
-| ![Colors](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/show1.mov) | ![Move](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show2.mov) |
+| ![Show1](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show1.mp4) | ![Show2](https://github.com/gjmacias/miniRT/blob/master/README-images/videos/Show2.mp4) |
 
 Estos clips te proporcionarán una visión clara de cómo utilizar el programa y lo que puedes esperar en términos de rendimiento y visualización.
 
